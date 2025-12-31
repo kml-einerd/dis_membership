@@ -1,17 +1,15 @@
 import { NavigationProvider, useNavigation } from './navigation/NavigationContext';
-import { AppShell } from './components/AppShell';
-import { AppBottomTabBarV2 } from './components/AppBottomTabBarV2';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { useEffect } from 'react';
 
-// Screens - V4 premium refactored versions
+// Screens - V5 premium refactored versions
 import OnboardingV2 from './screens/OnboardingV2';
-import HomeV4 from './screens/HomeV4';
-import Explore from './screens/Explore';
-import Library from './screens/Library';
+import HomeV5 from './screens/HomeV5';
+import ExploreV2 from './screens/ExploreV2';
+import LibraryV2 from './screens/LibraryV2';
 import CourseDetail from './screens/CourseDetail';
-import StoreV2 from './StoreV2';
-import Profile from './Profile';
+import StoreV3 from './StoreV3';
+import ProfileV2 from './ProfileV2';
 import EditProfile from './EditProfile';
 import Settings from './Settings';
 import VideoLesson from './VideoLesson';
@@ -72,31 +70,23 @@ function AppContent() {
     };
   }, []);
 
-  const showTabBar = [
-    'home',
-    'explore',
-    'library',
-    'store',
-    'profile',
-  ].includes(currentRoute);
-
   // Render the current route
   const renderScreen = () => {
     switch (currentRoute) {
       case 'onboarding':
         return <OnboardingV2 />;
       case 'home':
-        return <HomeV4 />;
+        return <HomeV5 />;
       case 'explore':
-        return <Explore />;
+        return <ExploreV2 />;
       case 'library':
-        return <Library />;
+        return <LibraryV2 />;
       case 'course-detail':
         return <CourseDetail />;
       case 'store':
-        return <StoreV2 />;
+        return <StoreV3 />;
       case 'profile':
-        return <Profile />;
+        return <ProfileV2 />;
       case 'edit-profile':
         return <EditProfile />;
       case 'settings':
@@ -114,16 +104,11 @@ function AppContent() {
       case 'sales-article':
         return <SalesArticleScreen />;
       default:
-        return <Home />;
+        return <HomeV5 />;
     }
   };
 
-  return (
-    <AppShell showTabBar={showTabBar}>
-      {renderScreen()}
-      {showTabBar && <AppBottomTabBarV2 />}
-    </AppShell>
-  );
+  return renderScreen();
 }
 
 export default function App() {
