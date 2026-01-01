@@ -1,5 +1,20 @@
 
   # Premium Membership App Home
+  Atualizar IDE online
+  
+  **Baixar:** 
+  
+  ```
+  ./baixar.sh
+  ```
+
+  **Subir:**
+  ```
+  ./subir.sh
+  ```
+
+
+  # Premium Membership App Home
 
   This is a code bundle for Premium Membership App Home. The original project is available at https://www.figma.com/design/9cE7iJczhOwSSzNeJlwQ9l/Premium-Membership-App-Home.
 

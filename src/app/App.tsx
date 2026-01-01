@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 // Screens - V5 premium refactored versions
 import OnboardingV2 from './screens/OnboardingV2';
 import HomeV5 from './screens/HomeV5';
+import VeloxDashboardV6 from './screens/VeloxDashboardV6';
 import ExploreV2 from './screens/ExploreV2';
 import LibraryV2 from './screens/LibraryV2';
 import CourseDetailV2 from './screens/CourseDetailV2';
@@ -78,7 +79,7 @@ function AppContent() {
       case 'onboarding':
         return <OnboardingV2 />;
       case 'home':
-        return <HomeV5 />;
+        return <VeloxDashboardV6 />;
       case 'explore':
         return <ExploreV2 />;
       case 'library':
@@ -106,7 +107,7 @@ function AppContent() {
       case 'sales-article':
         return <SalesArticleScreen />;
       default:
-        return <HomeV5 />;
+        return <VeloxDashboardV6 />;
     }
   };
 
