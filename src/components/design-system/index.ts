@@ -15,6 +15,18 @@ export { ContinueWatchingCard } from './ContinueWatchingCard';
 export { ArticleCard } from './ArticleCard';
 export { ContentCard } from './ContentCard';
 
+// Conversion Cards (7 Styles)
+export {
+  VIPLockCard,
+  FlashOfferCard,
+  ComboBundleCard,
+  DiscountTagCard,
+  BlurTeaserCard,
+  UnlockCTACard,
+  SocialProofCard,
+  CountdownWidget,
+} from './ConversionCards';
+
 // Dashboard Components
 export { HeroCarousel } from './HeroCarousel';
 export { StatsWidget } from './StatsWidget';

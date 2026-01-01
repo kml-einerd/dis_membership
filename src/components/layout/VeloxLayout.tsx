@@ -32,9 +32,9 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { id: 'home', icon: Home, label: 'Dashboard' },
-  { id: 'explore', icon: Compass, label: 'Aprender' },
+  { id: 'explore', icon: Compass, label: 'Explorar' },
   { id: 'library', icon: Library, label: 'Biblioteca' },
-  { id: 'store', icon: ShoppingBag, label: 'Extensões' },
+  { id: 'store', icon: ShoppingBag, label: 'Loja' },
 ];
 
 export function VeloxLayout({ children, rightSidebar, showNavigation = true }: VeloxLayoutProps) {
