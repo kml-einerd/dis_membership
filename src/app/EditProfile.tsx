@@ -43,42 +43,50 @@ export default function EditProfile() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--app-bg)] pb-24">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-24 relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--accent-primary-soft)] opacity-10 blur-[120px] pointer-events-none" />
+
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 mb-4">
+      <div className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-[var(--app-bg)]/60 backdrop-blur-xl border-b border-[var(--glass-border)]">
         <button
           onClick={handleBackClick}
-          className="w-9 h-9 rounded-full bg-[var(--app-surface-hover)] hover:bg-[var(--app-surface)] transition-colors flex items-center justify-center"
+          className="w-10 h-10 rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-all flex items-center justify-center group active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4 text-[var(--app-text-secondary)]" />
+          <ArrowLeft className="w-5 h-5 text-[var(--text-primary)] group-hover:-translate-x-0.5 transition-transform" />
         </button>
-        <h1 className="text-[var(--app-text-primary)] text-lg font-medium">Editar perfil</h1>
-        <div className="w-9" /> {/* Spacer */}
+        <h1 className="text-[var(--text-primary)] text-sm font-bold uppercase tracking-[0.2em]">Editar perfil</h1>
+        <div className="w-10" /> {/* Spacer */}
       </div>
 
-      <div className="px-6">
+      <div className="px-6 relative z-10 pt-8 max-w-2xl mx-auto">
         {/* Avatar Upload */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="relative mb-3">
-            <ImageWithFallback
-              src="https://images.unsplash.com/photo-1683815251677-8df20f826622?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMHBlcnNvbnxlbnwxfHx8fDE3NjcwNDY4Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="Avatar"
-              className="w-24 h-24 rounded-full object-cover"
-            />
-            <button className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[var(--app-accent)] hover:bg-[var(--app-accent-hover)] flex items-center justify-center transition-colors border-2 border-[var(--app-bg)]">
-              <Upload className="w-3.5 h-3.5 text-white" />
+        <div className="flex flex-col items-center mb-10">
+          <div className="relative mb-4 group">
+            <div className="w-32 h-32 rounded-3xl overflow-hidden ring-4 ring-[var(--glass-border)] shadow-2xl relative">
+              <ImageWithFallback
+                src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=400"
+                alt="Avatar"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <Upload className="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <button className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] flex items-center justify-center transition-all border-4 border-[var(--app-bg)] shadow-lg active:scale-90">
+              <Upload className="w-4 h-4 text-black font-bold" />
             </button>
           </div>
-          <button className="text-[var(--app-accent)] text-sm font-medium hover:text-[var(--app-accent-hover)] transition-colors">
-            Alterar foto
+          <button className="text-[var(--accent-primary)] text-xs font-bold uppercase tracking-widest hover:text-[var(--accent-primary-hover)] transition-colors">
+            Alterar foto de perfil
           </button>
         </div>
 
         {/* Form Fields */}
-        <div className="space-y-4 mb-6">
+        <div className="space-y-6 mb-10">
           {/* Name */}
           <div>
-            <label className="block text-[var(--app-text-tertiary)] text-xs mb-2">Nome completo</label>
+            <label className="block text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest mb-2.5 ml-1">Nome completo</label>
             <input
               type="text"
               value={name}
@@ -86,44 +94,47 @@ export default function EditProfile() {
                 setName(e.target.value);
                 handleInputChange();
               }}
-              className="w-full px-4 py-3 bg-[var(--app-surface-hover)] border border-[var(--app-border)] rounded-[var(--app-radius-md)] text-[var(--app-text-primary)] text-sm placeholder-[var(--app-text-muted)] focus:outline-none focus:border-[var(--app-accent)]/50 transition-colors"
+              className="w-full px-5 py-4 bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-2xl text-[var(--text-primary)] text-sm placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary-border)] transition-all shadow-inner"
               placeholder="Seu nome"
             />
           </div>
 
           {/* Username */}
           <div>
-            <label className="block text-[var(--app-text-tertiary)] text-xs mb-2">
-              Nome de usuário <span className="text-[var(--app-text-muted)]">(opcional)</span>
+            <label className="block text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest mb-2.5 ml-1">
+              Nome de usuário <span className="text-[var(--text-subtle)] lowercase font-medium">(opcional)</span>
             </label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-                handleInputChange();
-              }}
-              className="w-full px-4 py-3 bg-[var(--app-surface-hover)] border border-[var(--app-border)] rounded-[var(--app-radius-md)] text-[var(--app-text-primary)] text-sm placeholder-[var(--app-text-muted)] focus:outline-none focus:border-[var(--app-accent)]/50 transition-colors"
-              placeholder="@seuusuario"
-            />
+            <div className="relative">
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--text-subtle)] font-medium">@</span>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  handleInputChange();
+                }}
+                className="w-full pl-10 pr-5 py-4 bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-2xl text-[var(--text-primary)] text-sm placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary-border)] transition-all shadow-inner"
+                placeholder="seuusuario"
+              />
+            </div>
           </div>
 
           {/* Email (readonly) */}
           <div>
-            <label className="block text-[var(--app-text-tertiary)] text-xs mb-2">
-              Email <span className="text-[var(--app-text-muted)]">(verificado)</span>
+            <label className="block text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest mb-2.5 ml-1">
+              Email <span className="text-[var(--accent-primary)] lowercase font-medium">(verificado)</span>
             </label>
             <div className="relative">
               <input
                 type="email"
                 value="ana.silva@email.com"
                 readOnly
-                className="w-full px-4 py-3 bg-[var(--app-surface)] border border-[var(--app-border-subtle)] rounded-[var(--app-radius-md)] text-[var(--app-text-muted)] text-sm cursor-not-allowed"
+                className="w-full px-5 py-4 bg-white/[0.02] border border-white/5 rounded-2xl text-[var(--text-muted)] text-sm cursor-not-allowed opacity-60"
               />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                <div className="flex items-center gap-1 px-2 py-0.5 bg-[var(--app-accent-soft)] rounded-md">
-                  <Check className="w-2.5 h-2.5 text-[var(--app-accent)]" />
-                  <span className="text-[10px] text-[var(--app-accent)] font-medium">Verificado</span>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[var(--accent-primary-soft)] rounded-full border border-[var(--accent-primary-border)]">
+                  <Check className="w-3 h-3 text-[var(--accent-primary)]" />
+                  <span className="text-[9px] text-[var(--accent-primary)] font-black uppercase tracking-tighter">Validado</span>
                 </div>
               </div>
             </div>
@@ -131,9 +142,7 @@ export default function EditProfile() {
 
           {/* Phone */}
           <div>
-            <label className="block text-[var(--app-text-tertiary)] text-xs mb-2">
-              Telefone <span className="text-[var(--app-text-muted)]">(opcional)</span>
-            </label>
+            <label className="block text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest mb-2.5 ml-1">Telefone</label>
             <input
               type="tel"
               value={phone}
@@ -141,35 +150,35 @@ export default function EditProfile() {
                 setPhone(e.target.value);
                 handleInputChange();
               }}
-              className="w-full px-4 py-3 bg-[var(--app-surface-hover)] border border-[var(--app-border)] rounded-[var(--app-radius-md)] text-[var(--app-text-primary)] text-sm placeholder-[var(--app-text-muted)] focus:outline-none focus:border-[var(--app-accent)]/50 transition-colors"
+              className="w-full px-5 py-4 bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-2xl text-[var(--text-primary)] text-sm placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary-border)] transition-all shadow-inner"
               placeholder="+55 11 12345-6789"
             />
           </div>
 
           {/* Bio */}
           <div>
-            <label className="block text-[var(--app-text-tertiary)] text-xs mb-2">
-              Bio <span className="text-[var(--app-text-muted)]">(opcional)</span>
-            </label>
-            <textarea
-              value={bio}
-              onChange={(e) => {
-                setBio(e.target.value);
-                handleInputChange();
-              }}
-              rows={3}
-              maxLength={120}
-              className="w-full px-4 py-3 bg-[var(--app-surface-hover)] border border-[var(--app-border)] rounded-[var(--app-radius-md)] text-[var(--app-text-primary)] text-sm placeholder-[var(--app-text-muted)] focus:outline-none focus:border-[var(--app-accent)]/50 transition-colors resize-none"
-              placeholder="Conte um pouco sobre você..."
-            />
-            <p className="text-[var(--app-text-muted)] text-xs mt-1 text-right">{bio.length}/120</p>
+            <label className="block text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest mb-2.5 ml-1">Bio</label>
+            <div className="relative">
+              <textarea
+                value={bio}
+                onChange={(e) => {
+                  setBio(e.target.value);
+                  handleInputChange();
+                }}
+                rows={3}
+                maxLength={120}
+                className="w-full px-5 py-4 bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-2xl text-[var(--text-primary)] text-sm placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary-border)] transition-all resize-none shadow-inner"
+                placeholder="Conte um pouco sobre você..."
+              />
+              <p className="absolute bottom-3 right-4 text-[var(--text-subtle)] text-[10px] font-bold">{bio.length}/120</p>
+            </div>
           </div>
         </div>
 
         {/* Preference Chips */}
-        <div className="mb-8">
-          <label className="block text-[var(--app-text-tertiary)] text-xs mb-3">Preferências de notificação</label>
-          <div className="flex flex-wrap gap-2">
+        <div className="mb-12">
+          <label className="block text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest mb-4 ml-1">Preferências de notificação</label>
+          <div className="flex flex-wrap gap-2.5">
             <PreferenceChip
               label="Alertas de preço"
               selected={preferences.novidades}
@@ -190,46 +199,61 @@ export default function EditProfile() {
       </div>
 
       {/* Sticky CTA */}
-      {hasChanges && (
-        <div className="fixed bottom-0 left-0 right-0 bg-[var(--app-bg)]/95 backdrop-blur-xl border-t border-[var(--app-border)] px-6 py-4 z-50">
-          <button
-            onClick={handleSave}
-            className="w-full py-3.5 bg-[var(--app-accent)] hover:bg-[var(--app-accent-hover)] rounded-[var(--app-radius-md)] font-medium text-white transition-all duration-200"
+      <AnimatePresence>
+        {hasChanges && (
+          <motion.div 
+            initial={{ y: 100 }}
+            animate={{ y: 0 }}
+            exit={{ y: 100 }}
+            className="fixed bottom-0 left-0 right-0 bg-[var(--app-bg)]/80 backdrop-blur-2xl border-t border-[var(--glass-border-strong)] px-6 py-5 z-50 flex justify-center"
           >
-            Salvar alterações
-          </button>
-        </div>
-      )}
+            <Button
+              onClick={handleSave}
+              variant="primary"
+              size="lg"
+              className="w-full max-w-md shadow-2xl shadow-[var(--accent-primary-soft)] font-black tracking-widest"
+            >
+              SALVAR ALTERAÇÕES
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Unsaved Changes Dialog */}
       {showUnsavedDialog && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center px-6 z-50">
-          <div className="bg-[var(--app-surface)] border border-[var(--app-border)] rounded-[var(--app-radius-lg)] p-6 max-w-sm w-full">
-            <h3 className="text-[var(--app-text-primary)] font-medium text-lg mb-2">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center px-6 z-[100]">
+          <GlassSurface 
+            variant="surface-3"
+            blur="heavy"
+            className="rounded-3xl p-8 max-w-sm w-full border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+          >
+            <h3 className="text-[var(--text-primary)] font-black text-xl mb-3 tracking-tight text-center">
               Descartar alterações?
             </h3>
-            <p className="text-[var(--app-text-tertiary)] text-sm leading-relaxed mb-6">
-              Você tem alterações não salvas. Deseja descartá-las e voltar?
+            <p className="text-[var(--text-tertiary)] text-sm leading-relaxed mb-8 text-center font-light">
+              Você tem alterações não salvas que serão perdidas permanentemente.
             </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowUnsavedDialog(false)}
-                className="flex-1 py-3 bg-[var(--app-surface-hover)] hover:bg-[var(--app-surface)] rounded-[var(--app-radius-md)] text-[var(--app-text-primary)] text-sm font-medium transition-colors"
-              >
-                Cancelar
-              </button>
-              <button
+            <div className="flex flex-col gap-3">
+              <Button
                 onClick={() => {
                   setShowUnsavedDialog(false);
                   setHasChanges(false);
                   goBack();
                 }}
-                className="flex-1 py-3 bg-red-500/10 hover:bg-red-500/20 rounded-[var(--app-radius-md)] text-red-400 text-sm font-medium transition-colors"
+                variant="ghost"
+                className="py-4 text-red-400 font-bold hover:bg-red-500/10"
               >
-                Descartar
-              </button>
+                DESCARTAR
+              </Button>
+              <Button
+                onClick={() => setShowUnsavedDialog(false)}
+                variant="secondary"
+                className="py-4 font-bold"
+              >
+                CANCELAR
+              </Button>
             </div>
-          </div>
+          </GlassSurface>
         </div>
       )}
     </div>

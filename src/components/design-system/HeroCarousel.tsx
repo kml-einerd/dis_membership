@@ -70,11 +70,11 @@ export function HeroCarousel({
 
   return (
     <div
-      className="relative w-full aspect-[21/9] md:aspect-[2.5/1] lg:aspect-[3/1] rounded-[var(--radius-2xl)] overflow-hidden group"
+      className="relative w-full aspect-[16/10] md:aspect-[21/9] lg:aspect-[2.4/1] rounded-[var(--radius-2xl)] overflow-hidden group"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Background Image with Parallax Effect */}
+      {/* Background Image with subtle Ken Burns effect */}
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -84,137 +84,160 @@ export function HeroCarousel({
           animate="center"
           exit="exit"
           transition={{
-            x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.3 },
+            x: { type: 'spring', stiffness: 300, damping: 35 },
+            opacity: { duration: 0.5 },
           }}
           className="absolute inset-0"
         >
-          <img
+          <motion.img
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 10, ease: "linear" }}
             src={currentSlide.imageUrl}
             alt={currentSlide.title}
-            className="w-full h-full object-cover scale-105"
+            className="w-full h-full object-cover"
           />
         </motion.div>
       </AnimatePresence>
 
-      {/* Overlay gradients */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--app-bg)]/95 via-[var(--app-bg)]/70 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--app-bg)]/80 via-transparent to-transparent" />
-
-      {/* Badge */}
-      {currentSlide.badge && (
-        <div className="absolute top-6 left-6">
-          <Badge variant="primary">{currentSlide.badge}</Badge>
-        </div>
-      )}
+      {/* Sophisticated Gradients */}
+      {/* Main atmospheric dark fade from left and bottom */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[var(--app-bg)]/80 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--app-bg)]/60 via-transparent to-transparent" />
+      
+      {/* Decorative accent glow */}
+      <div className="absolute -top-24 -left-24 w-96 h-96 bg-[var(--accent-primary-soft)] rounded-full blur-[120px] opacity-20" />
+      
+      {/* Subtle Noise Texture for film grain feel */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 lg:p-10">
+      <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12 lg:p-16">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="max-w-xl"
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="max-w-2xl"
           >
-            {/* Tags */}
-            {currentSlide.tags && currentSlide.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {currentSlide.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 bg-[var(--glass-surface-3)] backdrop-blur-md rounded-full text-xs font-medium text-[var(--text-secondary)]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            {/* Badge - Minimalist */}
+            {currentSlide.badge && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="mb-4"
+              >
+                <span className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-[10px] uppercase tracking-[0.2em] font-bold text-white/90">
+                  {currentSlide.badge}
+                </span>
+              </motion.div>
             )}
 
-            {/* Title */}
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--text-primary)] leading-tight mb-3">
-              {currentSlide.title}
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-sm text-[var(--accent-primary)] font-medium mb-2">
+            {/* Subtitle - Elegant */}
+            <p className="text-[10px] md:text-[11px] text-[var(--accent-primary)] font-black uppercase tracking-[0.35em] mb-3 opacity-90">
               {currentSlide.subtitle}
             </p>
 
-            {/* Description */}
-            <p className="text-sm md:text-base text-[var(--text-tertiary)] leading-relaxed mb-6 line-clamp-2 md:line-clamp-3">
+            {/* Title - Large & Punchy - REDUZIDO */}
+            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black text-white leading-[0.95] mb-4 tracking-tighter">
+              {currentSlide.title}
+            </h1>
+
+            {/* Description - REMOVIDO em mobile, mínimo em desktop */}
+            <p className="hidden lg:block text-sm text-white/50 leading-snug mb-8 max-w-md font-light">
               {currentSlide.description}
             </p>
 
-            {/* Actions */}
-            <div className="flex items-center gap-3">
-              <Button
-                variant="primary"
-                size="md"
+            {/* Actions - Smaller & Sophisticated */}
+            <div className="flex items-center gap-4">
+              <button
                 onClick={() => onWatchClick?.(currentSlide)}
-                className="shadow-lg"
+                className="group flex items-center gap-2.5 px-6 py-2.5 bg-white text-black rounded-full text-xs font-bold transition-all hover:bg-[var(--accent-primary)] hover:text-black hover:scale-105"
               >
-                <Play className="w-4 h-4" />
-                Assistir
-              </Button>
-              <Button
-                variant="secondary"
-                size="md"
+                <Play className="w-3.5 h-3.5 fill-current" />
+                ASSISTIR AGORA
+              </button>
+              
+              <button
                 onClick={() => onDownloadClick?.(currentSlide)}
+                className="flex items-center gap-2 px-4 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-[10px] font-bold text-white/80 transition-all hover:bg-white/10 hover:text-white"
               >
-                <Download className="w-4 h-4" />
-                Download
-              </Button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--glass-surface-3)] hover:bg-[var(--glass-surface-hover)] transition-colors backdrop-blur-md">
-                <MoreHorizontal className="w-5 h-5 text-[var(--text-tertiary)]" />
+                DETALHES
+              </button>
+
+              <button className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 hover:bg-white/5 transition-colors">
+                <MoreHorizontal className="w-4 h-4 text-white/60" />
               </button>
             </div>
-
-            {/* Progress bar if applicable */}
-            {currentSlide.progress !== undefined && currentSlide.progress > 0 && (
-              <div className="mt-4 h-1 bg-[var(--glass-surface-3)] rounded-full overflow-hidden max-w-xs">
-                <div
-                  className="h-full bg-[var(--accent-primary)] transition-all duration-500"
-                  style={{ width: `${currentSlide.progress}%` }}
-                />
-              </div>
-            )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Navigation Arrows */}
-      <div className="absolute right-6 bottom-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        <button
-          onClick={() => paginate(-1)}
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--glass-surface-3)] hover:bg-[var(--glass-surface-hover)] border border-[var(--glass-border)] backdrop-blur-md transition-all"
-        >
-          <ChevronLeft className="w-5 h-5 text-[var(--text-primary)]" />
-        </button>
-        <button
-          onClick={() => paginate(1)}
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--glass-surface-3)] hover:bg-[var(--glass-surface-hover)] border border-[var(--glass-border)] backdrop-blur-md transition-all"
-        >
-          <ChevronRight className="w-5 h-5 text-[var(--text-primary)]" />
-        </button>
+      {/* Minimal Navigation Overlay */}
+      <div className="absolute bottom-10 right-10 hidden md:flex items-center gap-8">
+        {/* Slide Numbers with animated underline */}
+        <div className="flex flex-col items-end gap-1">
+          <div className="flex items-baseline gap-2">
+            <span className="text-2xl font-black text-white tracking-tighter italic">0{currentIndex + 1}</span>
+            <div className="w-12 h-[1px] bg-white/20 relative overflow-hidden">
+              <motion.div 
+                className="absolute inset-0 bg-[var(--accent-primary)]"
+                initial={{ x: "-100%" }}
+                animate={{ x: "0%" }}
+                transition={{ duration: autoPlayInterval / 1000, ease: "linear" }}
+                key={currentIndex}
+              />
+            </div>
+            <span className="text-xs font-bold text-white/30">0{slides.length}</span>
+          </div>
+          <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em]">PRÓXIMO: {slides[(currentIndex + 1) % slides.length].title.split('.')[0]}</span>
+        </div>
+
+        {/* Minimal Circle Progress for autoplay */}
+        <div className="relative w-12 h-12 flex items-center justify-center">
+          <svg className="w-full h-full -rotate-90">
+            <circle
+              cx="24"
+              cy="24"
+              r="22"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="transparent"
+              className="text-white/10"
+            />
+            <motion.circle
+              key={currentIndex}
+              cx="24"
+              cy="24"
+              r="22"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="transparent"
+              strokeDasharray="138.23"
+              initial={{ strokeDashoffset: 138.23 }}
+              animate={{ strokeDashoffset: 0 }}
+              transition={{ duration: autoPlayInterval / 1000, ease: "linear" }}
+              className="text-[var(--accent-primary)]"
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+             <button onClick={() => paginate(1)} className="group">
+                <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
+             </button>
+          </div>
+        </div>
       </div>
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2">
+      {/* Mobile Navigation Indicators */}
+      <div className="absolute bottom-6 left-6 flex md:hidden items-center gap-1.5">
         {slides.map((_, index) => (
-          <button
+          <div
             key={index}
-            onClick={() => {
-              setDirection(index > currentIndex ? 1 : -1);
-              setCurrentIndex(index);
-            }}
             className={cn(
-              'h-1.5 rounded-full transition-all duration-300',
-              index === currentIndex
-                ? 'w-8 bg-[var(--accent-primary)]'
-                : 'w-1.5 bg-[var(--glass-surface-hover)] hover:bg-[var(--text-muted)]'
+              'h-1 rounded-full transition-all duration-300',
+              index === currentIndex ? 'w-6 bg-[var(--accent-primary)]' : 'w-2 bg-white/20'
             )}
           />
         ))}

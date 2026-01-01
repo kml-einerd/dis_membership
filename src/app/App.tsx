@@ -7,7 +7,7 @@ import OnboardingV2 from './screens/OnboardingV2';
 import HomeV5 from './screens/HomeV5';
 import ExploreV2 from './screens/ExploreV2';
 import LibraryV2 from './screens/LibraryV2';
-import CourseDetail from './screens/CourseDetail';
+import CourseDetailV2 from './screens/CourseDetailV2';
 import StoreV3 from './StoreV3';
 import ProfileV2 from './ProfileV2';
 import EditProfile from './EditProfile';
@@ -82,7 +82,7 @@ function AppContent() {
       case 'library':
         return <LibraryV2 />;
       case 'course-detail':
-        return <CourseDetail />;
+        return <CourseDetailV2 />;
       case 'store':
         return <StoreV3 />;
       case 'profile':

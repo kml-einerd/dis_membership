@@ -52,22 +52,24 @@ export default function ExploreV2() {
     {
       id: '1',
       imageUrl: 'https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400',
-      title: 'Guia Definitivo: Passagens Baratas',
-      subtitle: '24 aulas • 6h 30min',
+      title: 'Método Completo: Passagens 70% Mais Baratas',
+      subtitle: '32 aulas • 8h 45min',
       category: 'Técnicas',
-      duration: '6h 30min',
+      duration: '8h 45min',
+      badge: 'Bestseller',
     },
     {
       id: '2',
       imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400',
-      title: 'Praias Paradisíacas Acessíveis',
-      subtitle: '8 destinos exclusivos',
+      title: 'Caribe Secreto: Praias por R$ 1.200',
+      subtitle: '18 aulas • 5h 10min',
       category: 'Destinos',
+      duration: '5h 10min',
     },
     {
       id: '3',
       imageUrl: 'https://images.unsplash.com/photo-1721592872734-3398900b195c?w=400',
-      title: 'Extensão: Rastreador de Preços',
+      title: 'Extensão Chrome: Rastreador de Preços Pro',
       subtitle: 'Alertas em tempo real',
       discount: 'Grátis',
       category: 'Ferramentas',
@@ -75,33 +77,94 @@ export default function ExploreV2() {
     {
       id: '4',
       imageUrl: 'https://images.unsplash.com/photo-1655722724447-2d2a3071e7f8?w=400',
-      title: 'Milhas e Pontos: Maximizando',
-      subtitle: 'Curso completo • Premium',
+      title: 'Milhas e Pontos: Do Zero ao Primeira Classe',
+      subtitle: '36 aulas • 10h 40min',
       locked: true,
       category: 'Premium',
+      badge: 'Exclusivo',
     },
     {
       id: '5',
       imageUrl: 'https://images.unsplash.com/photo-1579077926357-365f07b70b01?w=400',
-      title: 'Roteiro Caribe 15 Dias',
-      subtitle: 'Passo a passo completo',
+      title: 'Paris com Menos de R$ 200/Dia',
+      subtitle: '20 aulas • 5h 50min',
       category: 'Destinos',
+      duration: '5h 50min',
+      badge: 'Atualizado',
     },
     {
       id: '6',
       imageUrl: 'https://images.unsplash.com/photo-1590077066281-edbd16178b7e?w=400',
-      title: 'Erro de Tarifa: Como Encontrar',
-      subtitle: 'Técnicas avançadas',
+      title: 'Erros de Tarifa: Como Encontrar e Comprar',
+      subtitle: '14 aulas • 3h 20min',
       badge: 'Avançado',
       category: 'Técnicas',
+      duration: '3h 20min',
+    },
+    {
+      id: '7',
+      imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+      title: 'Europa Completa: 15 Países em 30 Dias',
+      subtitle: '42 aulas • 12h 30min',
+      locked: true,
+      badge: 'Premium',
+      category: 'Premium',
+      duration: '12h 30min',
+    },
+    {
+      id: '8',
+      imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+      title: 'Sudeste Asiático: 90 Dias por R$ 4.500',
+      subtitle: '28 aulas • 9h 15min',
+      category: 'Destinos',
+      duration: '9h 15min',
+      badge: 'Popular',
+    },
+    {
+      id: '9',
+      imageUrl: 'https://images.unsplash.com/photo-1673505413397-0cd0dc4f5854?w=400',
+      title: 'Ferramenta: Comparador Multi-Sites',
+      subtitle: 'Compare 15+ sites simultaneamente',
+      discount: '-50%',
+      category: 'Ferramentas',
+    },
+    {
+      id: '10',
+      imageUrl: 'https://images.unsplash.com/photo-1655722724447-2d2a3071e7f8?w=400',
+      title: 'Dubai Luxuosa por R$ 180/Dia',
+      subtitle: '16 aulas • 4h 45min',
+      category: 'Destinos',
+      duration: '4h 45min',
+    },
+    {
+      id: '11',
+      imageUrl: 'https://images.unsplash.com/photo-1721592872734-3398900b195c?w=400',
+      title: 'Stopover Estratégico: 2 Destinos pelo Preço de 1',
+      subtitle: '12 aulas • 3h 10min',
+      category: 'Técnicas',
+      duration: '3h 10min',
+    },
+    {
+      id: '12',
+      imageUrl: 'https://images.unsplash.com/photo-1590077066281-edbd16178b7e?w=400',
+      title: 'Japão: Cerejeiras e Templos por R$ 250/Dia',
+      subtitle: '30 aulas • 8h 30min',
+      locked: true,
+      badge: 'Premium',
+      category: 'Premium',
+      duration: '8h 30min',
     },
   ];
 
   const categoryCards = [
-    { id: '1', name: 'Destinos Nacionais', count: 28, color: 'primary' },
-    { id: '2', name: 'América do Sul', count: 22, color: 'secondary' },
-    { id: '3', name: 'Europa', count: 35, color: 'purchase' },
-    { id: '4', name: 'Técnicas Avançadas', count: 18, color: 'premium' },
+    { id: '1', name: 'Brasil Low Cost', count: 32, color: 'primary', description: 'Praias, cidades e natureza' },
+    { id: '2', name: 'América do Sul', count: 28, color: 'secondary', description: 'Andes, praias e cultura' },
+    { id: '3', name: 'Europa Barata', count: 42, color: 'purchase', description: '20+ países acessíveis' },
+    { id: '4', name: 'Sudeste Asiático', count: 35, color: 'premium', description: 'Paraíso mochileiro' },
+    { id: '5', name: 'Milhas e Pontos', count: 24, color: 'purchase', description: 'Voe de graça' },
+    { id: '6', name: 'Ferramentas', count: 18, color: 'primary', description: 'Apps e extensões' },
+    { id: '7', name: 'África', count: 15, color: 'secondary', description: 'Safari e cultura' },
+    { id: '8', name: 'Oceania', count: 12, color: 'premium', description: 'Austrália e NZ' },
   ];
 
   const filteredContent = allContent.filter(item => 
@@ -184,13 +247,18 @@ export default function ExploreV2() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
+          className="mb-8"
         >
-          <h1 className="text-[var(--text-primary)] text-2xl lg:text-3xl font-bold mb-2">
-            Explorar
-          </h1>
-          <p className="text-[var(--text-tertiary)] text-sm lg:text-base">
-            Descubra novos conteúdos e treinamentos
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-8 h-8 rounded-lg bg-[var(--accent-primary-soft)] flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-[var(--accent-primary)]" />
+            </div>
+            <h1 className="text-[var(--text-primary)] text-2xl lg:text-4xl font-black tracking-tight">
+              Explorar
+            </h1>
+          </div>
+          <p className="text-[var(--text-tertiary)] text-sm lg:text-lg font-light">
+            Descubra novos horizontes e domine técnicas exclusivas.
           </p>
         </motion.div>
 
@@ -258,30 +326,31 @@ export default function ExploreV2() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mb-8"
+          className="mb-10"
         >
           <SectionHeader
             title={
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-2.5">
                 <TrendingUp className="w-5 h-5 text-[var(--accent-purchase)]" />
-                Em alta agora
+                <span className="text-[var(--text-primary)] font-black uppercase tracking-widest text-xs">Em alta agora</span>
               </span>
             }
           />
-          <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3">
+          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3">
             {trending.map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 + index * 0.05 }}
-                className="w-40 flex-shrink-0 lg:w-full"
+                className="w-48 flex-shrink-0 lg:w-full"
               >
                 <ContentCard
                   imageUrl={item.imageUrl}
                   title={item.title}
                   subtitle={item.subtitle}
                   badge={item.badge}
+                  variant="default"
                   onClick={() => navigate('video-lesson')}
                 />
               </motion.div>

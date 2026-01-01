@@ -56,19 +56,22 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true }: V
         <header className="sticky top-0 z-50 hidden lg:block">
           <div className="mx-auto max-w-[1600px] px-6 py-4">
             <div className="flex items-center justify-between">
-              {/* Logo */}
-              <div className="flex items-center gap-3">
+              {/* Logo - Clicável para voltar à Home */}
+              <button 
+                onClick={() => navigateTab('home')}
+                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+              >
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-lg">
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-[var(--text-primary)] text-xl font-bold tracking-tight">
                   Velox
                 </span>
-              </div>
+              </button>
 
               {/* Navigation Pills */}
               <nav className="flex items-center">
-                <div className="flex items-center gap-1 p-1.5 bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-full backdrop-blur-xl">
+                <div className="flex items-center gap-1 p-1 bg-white/[0.03] border border-white/5 rounded-full backdrop-blur-2xl shadow-2xl">
                   {navItems.map((item) => {
                     const Icon = item.icon;
                     const isActive = currentTab === item.id;
@@ -77,14 +80,14 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true }: V
                         key={item.id}
                         onClick={() => navigateTab(item.id)}
                         className={cn(
-                          'relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200',
+                          'relative px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.15em] transition-all duration-300',
                           isActive
-                            ? 'bg-[var(--accent-primary)] text-white shadow-lg'
-                            : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--glass-surface-hover)]'
+                            ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+                            : 'text-white/40 hover:text-white hover:bg-white/5'
                         )}
                       >
                         <span className="relative z-10 flex items-center gap-2">
-                          <Icon className="w-4 h-4" />
+                          <Icon className={cn("w-3.5 h-3.5", isActive ? "fill-current" : "")} />
                           {item.label}
                         </span>
                       </button>
@@ -94,56 +97,58 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true }: V
               </nav>
 
               {/* Right Section */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 {/* Search Bar */}
-                <div className="relative">
-                  <div className="flex items-center gap-2 px-4 py-2.5 bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-full backdrop-blur-xl min-w-[240px]">
-                    <Search className="w-4 h-4 text-[var(--text-muted)]" />
+                <div className="relative group">
+                  <div className="flex items-center gap-3 px-4 py-2 bg-white/[0.03] border border-white/5 rounded-full backdrop-blur-xl min-w-[200px] group-focus-within:border-[var(--accent-primary-border)] transition-all">
+                    <Search className="w-3.5 h-3.5 text-white/30 group-focus-within:text-[var(--accent-primary)] transition-colors" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Buscar..."
-                      className="flex-1 bg-transparent text-[var(--text-primary)] text-sm placeholder-[var(--text-muted)] outline-none"
+                      placeholder="BUSCAR..."
+                      className="flex-1 bg-transparent text-white text-[10px] font-bold tracking-widest placeholder-white/20 outline-none"
                     />
-                    <kbd className="hidden sm:flex items-center gap-1 px-2 py-1 bg-[var(--glass-surface-3)] rounded-md text-[10px] text-[var(--text-muted)] font-medium">
-                      ⌘ K
-                    </kbd>
                   </div>
                 </div>
 
                 {/* Action Icons */}
-                <button className="relative w-10 h-10 flex items-center justify-center rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-colors">
-                  <Bell className="w-4.5 h-4.5 text-[var(--text-tertiary)]" />
-                  <span className="absolute top-2 right-2 w-2 h-2 bg-[var(--accent-purchase)] rounded-full" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button className="relative w-10 h-10 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 hover:bg-white/10 transition-all active:scale-90 group">
+                    <Bell className="w-4 h-4 text-white/40 group-hover:text-white transition-colors" />
+                    <span className="absolute top-3 right-3 w-1.5 h-1.5 bg-[var(--accent-purchase)] rounded-full shadow-[0_0_8px_var(--accent-purchase)]" />
+                  </button>
 
-                <button
-                  onClick={() => navigate('settings')}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-colors"
-                >
-                  <Settings className="w-4.5 h-4.5 text-[var(--text-tertiary)]" />
-                </button>
+                  <button
+                    onClick={() => navigate('settings')}
+                    className="w-10 h-10 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 hover:bg-white/10 transition-all active:scale-90 group"
+                  >
+                    <Settings className="w-4 h-4 text-white/40 group-hover:text-white transition-colors" />
+                  </button>
+                </div>
 
                 {/* User Profile */}
                 <button
                   onClick={() => navigate('profile')}
-                  className="flex items-center gap-3 pl-1 pr-3 py-1 bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-full hover:bg-[var(--glass-surface-hover)] transition-colors group"
+                  className="flex items-center gap-3 pl-1 pr-4 py-1 bg-white/[0.03] border border-white/5 rounded-full hover:bg-white/10 transition-all group active:scale-95"
                 >
-                  <img
-                    src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=100"
-                    alt="Avatar"
-                    className="w-8 h-8 rounded-full object-cover ring-2 ring-[var(--glass-border)]"
-                  />
+                  <div className="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=100"
+                      alt="Avatar"
+                      className="w-8 h-8 rounded-full object-cover ring-2 ring-white/10 group-hover:ring-[var(--accent-primary-border)] transition-all"
+                    />
+                    <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[var(--accent-primary)] rounded-full border-2 border-[#040a0a]" />
+                  </div>
                   <div className="hidden xl:block text-left">
-                    <p className="text-[var(--text-primary)] text-sm font-medium leading-tight">
-                      Ana Carolina
+                    <p className="text-white text-[10px] font-black uppercase tracking-tighter leading-none">
+                      Ana Silva
                     </p>
-                    <p className="text-[var(--text-muted)] text-xs">
+                    <p className="text-[var(--accent-premium)] text-[8px] font-black uppercase tracking-widest mt-0.5">
                       Premium
                     </p>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--text-tertiary)] transition-colors" />
+                  <ChevronDown className="w-3.5 h-3.5 text-white/20 group-hover:text-white transition-colors" />
                 </button>
               </div>
             </div>
@@ -154,32 +159,35 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true }: V
       {/* Mobile Header */}
       {showNavigation && (
         <header className="sticky top-0 z-50 lg:hidden">
-          <div className="flex items-center justify-between px-4 py-3 bg-[var(--app-bg)]/80 backdrop-blur-xl border-b border-[var(--glass-border)]">
-            {/* Logo */}
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center">
-                <Sparkles className="w-4.5 h-4.5 text-white" />
+          <div className="flex items-center justify-between px-4 py-3 bg-[var(--app-bg)]/60 backdrop-blur-2xl border-b border-white/5">
+            {/* Logo - Clicável para voltar à Home */}
+            <button 
+              onClick={() => navigateTab('home')}
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            >
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-lg">
+                <Sparkles className="w-4 h-4 text-white" />
               </div>
-              <span className="text-[var(--text-primary)] text-lg font-bold">
+              <span className="text-white text-base font-black uppercase tracking-tighter">
                 Velox
               </span>
-            </div>
+            </button>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)]"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 active:scale-90"
               >
-                <Search className="w-4 h-4 text-[var(--text-tertiary)]" />
+                <Search className="w-4 h-4 text-white/60" />
               </button>
-              <button className="relative w-9 h-9 flex items-center justify-center rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)]">
-                <Bell className="w-4 h-4 text-[var(--text-tertiary)]" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[var(--accent-purchase)] rounded-full" />
+              <button className="relative w-9 h-9 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 active:scale-90">
+                <Bell className="w-4 h-4 text-white/60" />
+                <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-[var(--accent-purchase)] rounded-full shadow-[0_0_5px_var(--accent-purchase)]" />
               </button>
               <button
                 onClick={() => navigate('profile')}
-                className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-[var(--glass-border)]"
+                className="w-9 h-9 rounded-full overflow-hidden border-2 border-white/10 active:scale-90"
               >
                 <img
                   src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=100"
@@ -271,8 +279,8 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true }: V
       {/* Mobile Bottom Tab Bar */}
       {showNavigation && (
         <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden pb-safe">
-          <div className="relative bg-[var(--app-bg)]/80 backdrop-blur-xl border-t border-[var(--glass-border)]">
-            <div className="flex items-center justify-around h-16 px-2">
+          <div className="relative bg-[var(--app-bg)]/60 backdrop-blur-2xl border-t border-white/5 pt-2 pb-1">
+            <div className="flex items-center justify-around h-14 px-2">
               {[...navItems, { id: 'profile' as TabRoute, icon: User, label: 'Perfil' }].map((item) => {
                 const Icon = item.icon;
                 const isActive = currentTab === item.id;
@@ -283,28 +291,28 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true }: V
                     onClick={() => navigateTab(item.id)}
                     className={cn(
                       'flex flex-col items-center justify-center gap-1 flex-1 h-full',
-                      'transition-all duration-200 active:scale-95'
+                      'transition-all duration-300 active:scale-90 group'
                     )}
                   >
                     <div className="relative">
                       <Icon
                         className={cn(
-                          'w-5 h-5 transition-colors duration-200',
-                          isActive ? 'text-[var(--accent-primary)]' : 'text-[var(--text-muted)]'
+                          'w-5 h-5 transition-all duration-300',
+                          isActive ? 'text-[var(--accent-primary)] scale-110' : 'text-white/30 group-hover:text-white/60'
                         )}
                         strokeWidth={isActive ? 2.5 : 2}
                       />
                       {isActive && (
                         <motion.div
                           layoutId="activeTabIndicator"
-                          className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--accent-primary)]"
+                          className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--accent-primary)] shadow-[0_0_8px_var(--accent-primary)]"
                         />
                       )}
                     </div>
                     <span
                       className={cn(
-                        'text-[10px] font-medium transition-colors duration-200',
-                        isActive ? 'text-[var(--accent-primary)]' : 'text-[var(--text-muted)]'
+                        'text-[9px] font-black uppercase tracking-widest transition-all duration-300',
+                        isActive ? 'text-[var(--accent-primary)]' : 'text-white/20'
                       )}
                     >
                       {item.label}

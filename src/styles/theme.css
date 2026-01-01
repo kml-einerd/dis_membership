@@ -58,17 +58,22 @@
   --ambient-glow-2: radial-gradient(ellipse 600px 400px at 80% 80%, rgba(34, 242, 239, 0.04), transparent);
 
   /* Glass surfaces - iOS-like frosted acrylic layers */
-  --glass-surface-1: rgba(255, 255, 255, 0.02);
-  --glass-surface-2: rgba(255, 255, 255, 0.04);
-  --glass-surface-3: rgba(255, 255, 255, 0.06);
+  --glass-surface-1: rgba(255, 255, 255, 0.01);
+  --glass-surface-2: rgba(255, 255, 255, 0.03);
+  --glass-surface-3: rgba(255, 255, 255, 0.05);
   --glass-surface-hover: rgba(255, 255, 255, 0.08);
   --glass-surface-active: rgba(255, 255, 255, 0.12);
 
   /* Glass borders - subtle with luminous edge highlights */
-  --glass-border: rgba(255, 255, 255, 0.06);
-  --glass-border-subtle: rgba(255, 255, 255, 0.04);
-  --glass-border-strong: rgba(255, 255, 255, 0.10);
-  --glass-border-luminous: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.04);
+  --glass-border-subtle: rgba(255, 255, 255, 0.02);
+  --glass-border-strong: rgba(255, 255, 255, 0.08);
+  --glass-border-luminous: rgba(255, 255, 255, 0.12);
+
+  /* Special border gradients for paid/premium content */
+  --border-gradient-premium: linear-gradient(135deg, var(--accent-premium), transparent 60%);
+  --border-gradient-purchase: linear-gradient(135deg, var(--accent-purchase), transparent 60%);
+  --border-gradient-primary: linear-gradient(135deg, var(--accent-primary), transparent 60%);
 
   /* Backdrop blur values */
   --blur-light: 12px;

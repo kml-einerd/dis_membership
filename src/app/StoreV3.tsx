@@ -24,28 +24,71 @@ export default function StoreV3() {
       id: '1',
       imageUrl: 'https://images.unsplash.com/photo-1721592872734-3398900b195c?w=400',
       title: 'Rastreador de Preços Pro',
-      subtitle: 'Alertas em tempo real',
+      subtitle: 'Alertas em tempo real • WhatsApp',
       discount: 'Grátis',
+      price: 'R$ 0',
+      badge: 'Popular',
     },
     {
       id: '2',
       imageUrl: 'https://images.unsplash.com/photo-1655722724447-2d2a3071e7f8?w=400',
-      title: 'Comparador Multi-Sites',
-      subtitle: '10+ sites ao mesmo tempo',
-      discount: '-50%',
+      title: 'Comparador Multi-Sites Premium',
+      subtitle: 'Compare 15+ sites simultaneamente',
+      discount: '-60%',
+      price: 'R$ 19,90',
+      originalPrice: 'R$ 49,90',
+      badge: 'Oferta',
     },
     {
       id: '3',
       imageUrl: 'https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400',
-      title: 'Calendário de Tarifas',
-      subtitle: 'Visualize o mês inteiro',
+      title: 'Calendário Flex de Tarifas',
+      subtitle: 'Veja mês inteiro + previsões IA',
+      price: 'R$ 29,90',
     },
     {
       id: '4',
       imageUrl: 'https://images.unsplash.com/photo-1579077926357-365f07b70b01?w=400',
-      title: 'Alerta de Erro de Tarifa',
-      subtitle: 'Notificações instantâneas',
+      title: 'Alerta Erro de Tarifa VIP',
+      subtitle: 'Notificações 24/7 antes de todos',
+      price: 'R$ 47,90/mês',
       locked: true,
+      badge: 'VIP',
+    },
+    {
+      id: '5',
+      imageUrl: 'https://images.unsplash.com/photo-1673505413397-0cd0dc4f5854?w=400',
+      title: 'Planilha Automática de Viagens',
+      subtitle: 'Organize tudo + calculadora de gastos',
+      discount: '-40%',
+      price: 'R$ 17,90',
+      originalPrice: 'R$ 29,90',
+    },
+    {
+      id: '6',
+      imageUrl: 'https://images.unsplash.com/photo-1590077066281-edbd16178b7e?w=400',
+      title: 'Bundle: Todas as Ferramentas',
+      subtitle: 'Economize 70% comprando tudo junto',
+      discount: '-70%',
+      price: 'R$ 97',
+      originalPrice: 'R$ 327',
+      badge: 'Melhor Oferta',
+    },
+    {
+      id: '7',
+      imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+      title: 'Consultor de Milhas IA',
+      subtitle: 'Otimize suas milhas com inteligência artificial',
+      price: 'R$ 67/mês',
+      locked: true,
+      badge: 'Novo',
+    },
+    {
+      id: '8',
+      imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+      title: 'E-book: 101 Destinos Baratos',
+      subtitle: 'Guia completo + orçamentos reais',
+      price: 'R$ 27',
     },
   ];
 
@@ -259,72 +302,71 @@ export default function StoreV3() {
             blur="heavy"
             glow
             glowColor="var(--accent-purchase)"
-            className="p-6 lg:p-8 rounded-[var(--radius-2xl)]"
+            borderGradient="purchase"
+            className="p-6 lg:p-10 rounded-[var(--radius-3xl)] overflow-hidden"
           >
-            <div className="lg:flex lg:items-center lg:gap-8">
+            <div className="lg:flex lg:items-center lg:gap-12 relative z-10">
               {/* Left Content */}
-              <div className="flex-1 text-center lg:text-left mb-6 lg:mb-0">
-                <div className="w-14 h-14 rounded-2xl bg-[var(--accent-purchase-soft)] border border-[var(--accent-purchase-border)] flex items-center justify-center mx-auto lg:mx-0 mb-4">
-                  <Zap className="w-7 h-7 text-[var(--accent-purchase)]" />
-                </div>
-                <h2 className="text-[var(--text-primary)] text-xl lg:text-2xl font-bold mb-2">
+              <div className="flex-1 text-center lg:text-left mb-8 lg:mb-0">
+                <motion.div 
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--accent-purchase)] to-[var(--accent-premium)] shadow-xl shadow-orange-500/20 flex items-center justify-center mx-auto lg:mx-0 mb-6"
+                >
+                  <Zap className="w-8 h-8 text-white fill-current" />
+                </motion.div>
+                <h2 className="text-[var(--text-primary)] text-2xl lg:text-4xl font-black mb-3 tracking-tight">
                   Acesso Premium Completo
                 </h2>
-                <p className="text-[var(--text-tertiary)] text-sm lg:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
-                  Desbloqueie todas as extensões, ferramentas exclusivas e suporte prioritário
+                <p className="text-[var(--text-tertiary)] text-sm lg:text-lg leading-relaxed max-w-md mx-auto lg:mx-0 font-light">
+                  Desbloqueie todas as extensões, ferramentas exclusivas e suporte prioritário para maximizar sua economia.
                 </p>
               </div>
 
               {/* Benefits Grid - Desktop */}
-              <div className="hidden lg:grid lg:grid-cols-2 gap-4 flex-shrink-0">
+              <div className="hidden lg:grid lg:grid-cols-2 gap-6 flex-shrink-0">
                 {premiumBenefits.map((benefit, index) => {
                   const Icon = benefit.icon;
                   return (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-[var(--accent-premium-soft)] border border-[var(--accent-premium-border)] flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-4 h-4 text-[var(--accent-premium)]" />
+                    <motion.div 
+                      key={index} 
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 + index * 0.1 }}
+                      className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-sm"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5 text-[var(--accent-premium)]" />
                       </div>
                       <div>
-                        <h4 className="text-[var(--text-primary)] text-sm font-semibold">
+                        <h4 className="text-[var(--text-primary)] text-sm font-bold">
                           {benefit.title}
                         </h4>
-                        <p className="text-[var(--text-muted)] text-xs">
+                        <p className="text-[var(--text-muted)] text-[11px] font-medium leading-normal mt-0.5">
                           {benefit.description}
                         </p>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
 
               {/* CTA */}
-              <div className="lg:flex-shrink-0 lg:ml-8">
+              <div className="lg:flex-shrink-0 lg:ml-8 flex flex-col items-center">
                 <Button 
                   variant="purchase" 
                   size="lg" 
                   fullWidth 
                   onClick={() => navigate('sales-video')}
-                  className="lg:w-auto lg:px-8"
+                  className="lg:w-auto lg:px-12 lg:h-14 lg:text-lg shadow-2xl shadow-orange-500/30 font-black tracking-wide"
                 >
-                  Fazer upgrade agora
+                  FAZER UPGRADE
                 </Button>
-                <p className="text-center text-[var(--text-muted)] text-xs mt-3">
+                <div className="flex items-center gap-2 mt-4 text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest">
+                  <Shield className="w-3 h-3" />
                   Garantia de 30 dias
-                </p>
+                </div>
               </div>
-            </div>
-
-            {/* Benefits - Mobile */}
-            <div className="lg:hidden grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-[var(--glass-border)]">
-              {premiumBenefits.map((benefit, index) => {
-                const Icon = benefit.icon;
-                return (
-                  <div key={index} className="flex items-center gap-2">
-                    <Icon className="w-4 h-4 text-[var(--accent-premium)]" />
-                    <span className="text-[var(--text-secondary)] text-xs">{benefit.title}</span>
-                  </div>
-                );
-              })}
             </div>
           </GlassSurface>
         </motion.section>

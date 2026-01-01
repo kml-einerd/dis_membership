@@ -41,38 +41,100 @@ export default function LibraryV2() {
   const modules: Module[] = [
     {
       id: '1',
-      title: 'Fundamentos: Como Encontrar Passagens Baratas',
-      lessonsCount: 10,
-      duration: '3h 20min',
-      progress: 40,
+      title: 'Módulo 1: Fundamentos de Viagens Econômicas',
+      lessonsCount: 15,
+      duration: '4h 35min',
+      progress: 53,
       lessons: [
-        { id: '1-1', title: 'Introdução: Por que você paga caro', duration: '12min', type: 'video', completed: true },
-        { id: '1-2', title: 'Melhores sites para comparar preços', duration: '18min', type: 'video', completed: true },
-        { id: '1-3', title: 'Quando comprar: timing perfeito', duration: '15min', type: 'video' },
-        { id: '1-4', title: 'Checklist antes de comprar', duration: '8min', type: 'article' },
+        { id: '1-1', title: 'Boas-vindas: Como este curso vai mudar suas viagens', duration: '5min', type: 'video', completed: true },
+        { id: '1-2', title: 'Por que você paga mais caro em passagens', duration: '12min', type: 'video', completed: true },
+        { id: '1-3', title: 'Os 3 pilares de uma viagem econômica', duration: '15min', type: 'video', completed: true },
+        { id: '1-4', title: 'Melhores sites para comparar preços (2025)', duration: '18min', type: 'video', completed: true },
+        { id: '1-5', title: 'Google Flights: O guia completo', duration: '22min', type: 'video', completed: true },
+        { id: '1-6', title: 'Skyscanner vs Kayak vs Momondo', duration: '16min', type: 'video', completed: true },
+        { id: '1-7', title: 'Quando comprar: timing perfeito', duration: '20min', type: 'video', completed: true },
+        { id: '1-8', title: 'Dias da semana mais baratos para voar', duration: '14min', type: 'video' },
+        { id: '1-9', title: 'Aeroportos alternativos: economia de até 60%', duration: '18min', type: 'video' },
+        { id: '1-10', title: 'Voos diretos vs conexões: quando vale a pena', duration: '12min', type: 'video' },
+        { id: '1-11', title: 'Bagagem: como evitar taxas extras', duration: '15min', type: 'article' },
+        { id: '1-12', title: 'Checklist completa antes de comprar', duration: '10min', type: 'article' },
+        { id: '1-13', title: 'Exercício prático: Encontre sua primeira oferta', duration: '25min', type: 'video' },
+        { id: '1-14', title: 'Template: Planilha de comparação de preços', duration: '8min', type: 'article' },
+        { id: '1-15', title: 'Resumo e próximos passos', duration: '5min', type: 'video' },
       ],
     },
     {
       id: '2',
-      title: 'Técnicas Avançadas de Busca',
-      lessonsCount: 12,
-      duration: '4h 50min',
+      title: 'Módulo 2: Técnicas Avançadas de Busca',
+      lessonsCount: 18,
+      duration: '6h 20min',
       progress: 0,
       lessons: [
-        { id: '2-1', title: 'Alertas de preço automáticos', duration: '20min', type: 'video' },
-        { id: '2-2', title: 'Voos com múltiplas paradas', duration: '25min', type: 'video', locked: true },
-        { id: '2-3', title: 'Milhas e pontos: maximizando', duration: '30min', type: 'video', locked: true },
+        { id: '2-1', title: 'Alertas de preço automáticos: Setup completo', duration: '20min', type: 'video' },
+        { id: '2-2', title: 'Como encontrar erros de tarifa antes dos outros', duration: '25min', type: 'video' },
+        { id: '2-3', title: 'Voos com múltiplas paradas: economize 40%', duration: '22min', type: 'video', locked: true },
+        { id: '2-4', title: 'Stopover estratégico: 2 destinos pelo preço de 1', duration: '18min', type: 'video', locked: true },
+        { id: '2-5', title: 'Open jaw tickets: o segredo dos profissionais', duration: '20min', type: 'video', locked: true },
+        { id: '2-6', title: 'Busca avançada: filtros que ninguém usa', duration: '15min', type: 'video', locked: true },
+        { id: '2-7', title: 'Modo anônimo: mito ou verdade?', duration: '12min', type: 'video', locked: true },
+        { id: '2-8', title: 'VPN para passagens: quando funciona', duration: '14min', type: 'video', locked: true },
+        { id: '2-9', title: 'Matrix ITA: a ferramenta secreta da Google', duration: '28min', type: 'video', locked: true },
+        { id: '2-10', title: 'Positioning flights: técnica avançada', duration: '16min', type: 'video', locked: true },
+        { id: '2-11', title: 'Como usar o Hopper para prever preços', duration: '18min', type: 'video', locked: true },
+        { id: '2-12', title: 'Extensões Chrome essenciais', duration: '15min', type: 'article', locked: true },
+        { id: '2-13', title: 'Caso real: SP para Paris por R$ 1.200', duration: '20min', type: 'video', locked: true },
+        { id: '2-14', title: 'Caso real: Brasil-Ásia por R$ 2.000', duration: '22min', type: 'video', locked: true },
+        { id: '2-15', title: 'Exercício: Encontre um erro de tarifa', duration: '30min', type: 'article', locked: true },
+        { id: '2-16', title: 'Template: Planilha de rastreamento de ofertas', duration: '10min', type: 'article', locked: true },
+        { id: '2-17', title: 'Fórum de dúvidas e casos reais', duration: '15min', type: 'article', locked: true },
+        { id: '2-18', title: 'Resumo do módulo avançado', duration: '8min', type: 'video', locked: true },
       ],
     },
     {
       id: '3',
-      title: 'Ferramentas e Extensões',
-      lessonsCount: 8,
-      duration: '2h 30min',
+      title: 'Módulo 3: Milhas e Pontos - Sistema Completo',
+      lessonsCount: 24,
+      duration: '8h 45min',
       progress: 0,
       lessons: [
-        { id: '3-1', title: 'Rastreador de preços: setup', duration: '15min', type: 'video', locked: true },
-        { id: '3-2', title: 'Alertas no Telegram', duration: '12min', type: 'article', locked: true },
+        { id: '3-1', title: 'Introdução ao mundo das milhas', duration: '15min', type: 'video', locked: true },
+        { id: '3-2', title: 'Tipos de milhas: aéreas vs bancos', duration: '18min', type: 'video', locked: true },
+        { id: '3-3', title: 'Melhores cartões de crédito para acumular', duration: '25min', type: 'video', locked: true },
+        { id: '3-4', title: 'Como acumular sem viajar', duration: '20min', type: 'video', locked: true },
+        { id: '3-5', title: 'Programas de fidelidade: qual escolher', duration: '22min', type: 'video', locked: true },
+        { id: '3-6', title: 'Transferência de pontos: guia completo', duration: '28min', type: 'video', locked: true },
+        { id: '3-7', title: 'Sweet spots: passagens baratas em milhas', duration: '30min', type: 'video', locked: true },
+        { id: '3-8', title: 'Como resgatar primeira classe por 30k milhas', duration: '35min', type: 'video', locked: true },
+        { id: '3-9', title: 'Calendários de baixa temporada', duration: '15min', type: 'article', locked: true },
+        { id: '3-10', title: 'Latam Pass: Guia completo', duration: '25min', type: 'video', locked: true },
+      ],
+    },
+    {
+      id: '4',
+      title: 'Módulo 4: Destinos Específicos - Europa',
+      lessonsCount: 20,
+      duration: '7h 10min',
+      progress: 0,
+      lessons: [
+        { id: '4-1', title: 'Planejamento: Quanto custa viajar pela Europa', duration: '20min', type: 'video', locked: true },
+        { id: '4-2', title: 'Melhores épocas para visitar cada país', duration: '18min', type: 'video', locked: true },
+        { id: '4-3', title: 'Voos low-cost na Europa: Ryanair, EasyJet, Wizz', duration: '25min', type: 'video', locked: true },
+        { id: '4-4', title: 'Passes de trem: Eurail vs Interrail', duration: '22min', type: 'video', locked: true },
+        { id: '4-5', title: 'Hospedagem: Hostels vs Airbnb vs Hotéis', duration: '20min', type: 'video', locked: true },
+      ],
+    },
+    {
+      id: '5',
+      title: 'Módulo 5: Ferramentas e Automação',
+      lessonsCount: 12,
+      duration: '3h 40min',
+      progress: 0,
+      lessons: [
+        { id: '5-1', title: 'Rastreador de preços: Setup completo', duration: '18min', type: 'video', locked: true },
+        { id: '5-2', title: 'Alertas no Telegram e WhatsApp', duration: '15min', type: 'video', locked: true },
+        { id: '5-3', title: 'Extensão Chrome: Instalação e uso', duration: '20min', type: 'video', locked: true },
+        { id: '5-4', title: 'App mobile: Tutorial completo', duration: '16min', type: 'video', locked: true },
+        { id: '5-5', title: 'Planilhas automatizadas de controle', duration: '22min', type: 'article', locked: true },
       ],
     },
   ];
@@ -274,6 +336,7 @@ export default function LibraryV2() {
           {modules.map((module, moduleIndex) => {
             const isExpanded = expandedModules.includes(module.id);
             const completedLessons = module.lessons.filter(l => l.completed).length;
+            const isLocked = module.lessons.some(l => l.locked);
 
             return (
               <motion.div
@@ -283,15 +346,25 @@ export default function LibraryV2() {
                 transition={{ delay: 0.2 + moduleIndex * 0.05 }}
               >
                 <GlassSurface
-                  variant="surface-2"
+                  variant={isLocked ? "surface-3" : "surface-2"}
                   blur="medium"
-                  className="rounded-[var(--radius-xl)] overflow-hidden"
+                  glow={isLocked}
+                  glowColor="var(--accent-purchase)"
+                  borderGradient={isLocked ? "purchase" : "none"}
+                  className={cn(
+                    "rounded-[var(--radius-xl)] overflow-hidden transition-all duration-500",
+                    isLocked && "shadow-[0_0_20px_rgba(249,115,22,0.05)]"
+                  )}
                 >
                   {/* Module Header */}
                   <button
                     onClick={() => toggleModule(module.id)}
-                    className="w-full flex items-center gap-4 p-4 lg:p-5 hover:bg-[var(--glass-surface-hover)] transition-colors"
+                    className="w-full flex items-center gap-4 p-4 lg:p-5 hover:bg-[var(--glass-surface-hover)] transition-colors relative"
                   >
+                    {isLocked && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-purchase)]/[0.02] to-transparent pointer-events-none" />
+                    )}
+                    
                     {/* Progress Circle */}
                     <div className="relative w-12 h-12 flex-shrink-0">
                       <svg className="w-full h-full transform -rotate-90">
@@ -303,35 +376,49 @@ export default function LibraryV2() {
                           strokeWidth="4"
                           fill="none"
                         />
-                        <circle
-                          cx="24"
-                          cy="24"
-                          r="20"
-                          stroke="var(--accent-primary)"
-                          strokeWidth="4"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeDasharray={`${2 * Math.PI * 20 * module.progress / 100} ${2 * Math.PI * 20}`}
-                        />
+                        {!isLocked && (
+                          <circle
+                            cx="24"
+                            cy="24"
+                            r="20"
+                            stroke="var(--accent-primary)"
+                            strokeWidth="4"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeDasharray={`${2 * Math.PI * 20 * module.progress / 100} ${2 * Math.PI * 20}`}
+                          />
+                        )}
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-[var(--text-primary)] text-xs font-bold">{module.progress}%</span>
+                        {isLocked ? (
+                          <Lock className="w-4 h-4 text-[var(--accent-purchase)]" />
+                        ) : (
+                          <span className="text-[var(--text-primary)] text-xs font-bold">{module.progress}%</span>
+                        )}
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className="flex-1 text-left min-w-0">
-                      <h3 className="text-[var(--text-primary)] text-sm lg:text-base font-semibold leading-snug line-clamp-2">
-                        {module.title}
-                      </h3>
-                      <p className="text-[var(--text-muted)] text-xs lg:text-sm mt-1">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <h3 className={cn(
+                          "text-sm lg:text-base font-bold leading-snug line-clamp-2",
+                          isLocked ? "text-[var(--text-tertiary)]" : "text-[var(--text-primary)]"
+                        )}>
+                          {module.title}
+                        </h3>
+                        {isLocked && (
+                          <Badge variant="locked" size="sm" className="bg-[var(--accent-purchase-soft)] text-[var(--accent-purchase)] border-none">PREMIUM</Badge>
+                        )}
+                      </div>
+                      <p className="text-[var(--text-muted)] text-[10px] uppercase tracking-wider font-bold">
                         {completedLessons}/{module.lessonsCount} aulas • {module.duration}
                       </p>
                     </div>
 
                     {/* Expand Icon */}
                     <div className={cn(
-                      'w-8 h-8 rounded-full bg-[var(--glass-surface-3)] flex items-center justify-center transition-transform',
+                      'w-8 h-8 rounded-full bg-white/5 border border-white/5 flex items-center justify-center transition-transform',
                       isExpanded && 'rotate-180'
                     )}>
                       <ChevronDown className="w-4 h-4 text-[var(--text-tertiary)]" />
@@ -360,43 +447,43 @@ export default function LibraryV2() {
                             >
                               {/* Status Icon */}
                               <div className={cn(
-                                'flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center',
+                                'flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all',
                                 lesson.completed
                                   ? 'bg-[var(--accent-primary-soft)] border border-[var(--accent-primary-border)]'
                                   : lesson.locked
-                                  ? 'bg-[var(--glass-surface-2)]'
-                                  : 'bg-[var(--glass-surface-3)]'
+                                  ? 'bg-white/5 border border-white/5 group-hover:bg-[var(--accent-purchase-soft)] group-hover:border-[var(--accent-purchase-border)]'
+                                  : 'bg-white/5 border border-white/10 group-hover:bg-[var(--accent-primary)] group-hover:border-transparent group-hover:text-black'
                               )}>
                                 {lesson.completed ? (
                                   <CheckCircle2 className="w-5 h-5 text-[var(--accent-primary)]" />
                                 ) : lesson.locked ? (
-                                  <Lock className="w-4 h-4 text-[var(--text-muted)]" />
+                                  <Lock className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--accent-purchase)] transition-colors" />
                                 ) : lesson.type === 'video' ? (
-                                  <Play className="w-4 h-4 text-[var(--text-tertiary)] ml-0.5" />
+                                  <Play className={cn("w-4 h-4 ml-0.5", !lesson.completed && "fill-current")} />
                                 ) : (
-                                  <FileText className="w-4 h-4 text-[var(--text-tertiary)]" />
+                                  <FileText className="w-4 h-4" />
                                 )}
                               </div>
 
                               {/* Content */}
                               <div className="flex-1 min-w-0">
                                 <h4 className={cn(
-                                  'text-sm leading-snug',
+                                  'text-sm leading-snug transition-colors',
                                   lesson.locked
-                                    ? 'text-[var(--text-muted)]'
+                                    ? 'text-[var(--text-tertiary)] font-medium'
                                     : lesson.completed
                                     ? 'text-[var(--text-secondary)]'
-                                    : 'text-[var(--text-primary)] font-medium'
+                                    : 'text-[var(--text-primary)] font-bold group-hover:text-[var(--accent-primary)]'
                                 )}>
                                   {lesson.title}
                                 </h4>
                                 <div className="flex items-center gap-2 mt-1">
-                                  <span className="text-[var(--text-muted)] text-xs">{lesson.duration}</span>
+                                  <span className="text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-wider">{lesson.duration}</span>
                                   {lesson.completed && (
-                                    <span className="text-[var(--accent-primary)] text-xs font-medium">Concluído</span>
+                                    <span className="text-[var(--accent-primary)] text-[10px] font-bold uppercase tracking-wider">Concluído</span>
                                   )}
                                   {lesson.locked && (
-                                    <span className="text-[var(--accent-premium)] text-xs font-medium">Premium</span>
+                                    <span className="text-[var(--accent-purchase)] text-[10px] font-bold uppercase tracking-wider">Bloqueado</span>
                                   )}
                                 </div>
                               </div>

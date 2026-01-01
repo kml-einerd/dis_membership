@@ -190,64 +190,94 @@ export default function VideoLesson() {
   const currentLessons = getLessonsForModule(selectedModule);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pb-8">
-      {/* Back Button */}
-      <div className="absolute top-4 left-4 z-50">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-8">
+      {/* Ambient background effects */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 left-0 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(73,220,122,0.03),transparent_70%)]" />
+      </div>
+
+      {/* Header / Back Button */}
+      <div className="sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-[var(--app-bg)]/60 backdrop-blur-xl border-b border-[var(--glass-border)]">
         <button
           onClick={goBack}
-          className="w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm hover:bg-black/80 transition-colors flex items-center justify-center"
+          className="w-10 h-10 rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-all flex items-center justify-center group active:scale-95"
         >
-          <ArrowLeft className="w-5 h-5 text-white" />
+          <ArrowLeft className="w-5 h-5 text-[var(--text-primary)] group-hover:-translate-x-0.5 transition-transform" />
         </button>
+        
+        <div className="flex-1 px-4 text-center">
+          <span className="text-[var(--text-muted)] text-[10px] uppercase tracking-[0.2em] font-bold">Assistindo Agora</span>
+          <h2 className="text-[var(--text-primary)] text-sm font-semibold truncate">Análise de Métricas Avançadas</h2>
+        </div>
+
+        <div className="w-10 h-10" /> {/* Spacer */}
       </div>
 
-      {/* Video Player */}
-      <div className="pt-4 px-6">
-        <VideoPlayer
-          thumbnailUrl="https://images.unsplash.com/photo-1542626991-cbc4e32524cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGNvdXJzZSUyMGxlYXJuaW5nfGVufDF8fHx8MTc2NzA5OTU3MXww&ixlib=rb-4.1.0&q=80&w=1080"
-          title="Análise de Métricas Avançadas"
-        />
-      </div>
+      <div className="relative z-10">
+        {/* Video Player */}
+        <div className="pt-6 px-4 lg:px-8 max-w-5xl mx-auto">
+          <div className="rounded-[var(--radius-2xl)] overflow-hidden shadow-2xl border border-[var(--glass-border-strong)]">
+            <VideoPlayer
+              thumbnailUrl="https://images.unsplash.com/photo-1542626991-cbc4e32524cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGNvdXJzZSUyMGxlYXJuaW5nfGVufDF8fHx8MTc2NzA5OTU3MXww&ixlib=rb-4.1.0&q=80&w=1080"
+              title="Análise de Métricas Avançadas"
+            />
+          </div>
+        </div>
 
-      {/* Info Panel */}
-      <ExpandableDescription
-        title="Análise de Métricas Avançadas"
-        metadata="Módulo 2 • Aula 5 • 12 min"
-        description="Nesta aula você aprenderá a analisar métricas avançadas de marketing digital, interpretar dados complexos e tomar decisões estratégicas baseadas em performance. Vamos explorar técnicas profissionais de análise, como calcular CAC, LTV, taxa de conversão por canal e muito mais."
-        hasMaterials={true}
-      />
+        {/* Content Layout */}
+        <div className="px-4 lg:px-8 max-w-5xl mx-auto mt-8 grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            {/* Info Panel */}
+            <div className="bg-[var(--glass-surface-1)] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] p-6 backdrop-blur-md">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="px-2 py-0.5 bg-[var(--accent-primary-soft)] text-[var(--accent-primary)] text-[10px] font-bold rounded uppercase">Módulo 2</span>
+                <span className="text-[var(--text-tertiary)] text-[10px] font-bold uppercase tracking-wider">Aula 5 • 12 min</span>
+              </div>
+              <h1 className="text-white text-2xl lg:text-3xl font-bold mb-4">Análise de Métricas Avançadas</h1>
+              <p className="text-[var(--text-secondary)] text-sm lg:text-base leading-relaxed">
+                Nesta aula você aprenderá a analisar métricas avançadas de marketing digital, interpretar dados complexos e tomar decisões estratégicas baseadas em performance. Vamos explorar técnicas profissionais de análise, como calcular CAC, LTV, taxa de conversão por canal e muito mais.
+              </p>
+            </div>
 
-      {/* Materials Card */}
-      <MaterialsCard materials={materials} />
+            {/* Materials Card */}
+            <MaterialsCard materials={materials} />
+          </div>
 
-      {/* Module Navigation */}
-      <div className="mb-4">
-        <h3 className="text-white font-medium text-base px-6 mb-3.5">
-          Conteúdo do curso
-        </h3>
-        <ModuleChipsTabs
-          modules={modules}
-          selectedModule={selectedModule}
-          onSelectModule={setSelectedModule}
-        />
-      </div>
+          <div className="space-y-6">
+            {/* Module Navigation */}
+            <div className="bg-[var(--glass-surface-2)] border border-[var(--glass-border-strong)] rounded-[var(--radius-2xl)] overflow-hidden flex flex-col h-[600px] sticky top-24 shadow-xl">
+              <div className="p-5 border-b border-[var(--glass-border)]">
+                <h3 className="text-white font-bold text-sm uppercase tracking-[0.1em]">Conteúdo do curso</h3>
+              </div>
+              
+              <div className="p-3">
+                <ModuleChipsTabs
+                  modules={modules}
+                  selectedModule={selectedModule}
+                  onSelectModule={setSelectedModule}
+                />
+              </div>
 
-      {/* Lesson List */}
-      <div className="px-6 space-y-2">
-        {currentLessons.map((lesson) => (
-          <LessonListItem
-            key={lesson.id}
-            lessonNumber={lesson.lessonNumber}
-            title={lesson.title}
-            duration={lesson.duration}
-            isWatched={lesson.isWatched}
-            isCurrentLesson={lesson.isCurrentLesson}
-            isLocked={lesson.isLocked}
-            isBonusOffer={lesson.isBonusOffer}
-            discount={lesson.discount}
-            watchProgress={lesson.watchProgress}
-          />
-        ))}
+              {/* Lesson List */}
+              <div className="flex-1 overflow-y-auto scrollbar-custom p-3 space-y-2">
+                {currentLessons.map((lesson) => (
+                  <LessonListItem
+                    key={lesson.id}
+                    lessonNumber={lesson.lessonNumber}
+                    title={lesson.title}
+                    duration={lesson.duration}
+                    isWatched={lesson.isWatched}
+                    isCurrentLesson={lesson.isCurrentLesson}
+                    isLocked={lesson.isLocked}
+                    isBonusOffer={lesson.isBonusOffer}
+                    discount={lesson.discount}
+                    watchProgress={lesson.watchProgress}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

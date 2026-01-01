@@ -22,171 +22,194 @@ export default function Settings() {
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[var(--app-bg)] pb-8">
+    <div className="min-h-screen bg-[var(--app-bg)] pb-8 relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[var(--accent-secondary-soft)] opacity-10 blur-[150px] pointer-events-none" />
+
       {/* Header */}
-      <div className="flex items-center gap-3 px-6 py-4 mb-4">
+      <div className="sticky top-0 z-50 flex items-center gap-4 px-6 py-4 bg-[var(--app-bg)]/60 backdrop-blur-xl border-b border-[var(--glass-border)]">
         <button
           onClick={goBack}
-          className="w-9 h-9 rounded-full bg-[var(--app-surface-hover)] hover:bg-[var(--app-surface)] transition-colors flex items-center justify-center"
+          className="w-10 h-10 rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-all flex items-center justify-center group active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4 text-[var(--app-text-secondary)]" />
+          <ArrowLeft className="w-5 h-5 text-[var(--text-primary)] group-hover:-translate-x-0.5 transition-transform" />
         </button>
-        <h1 className="text-[var(--app-text-primary)] text-2xl font-medium">Configurações</h1>
+        <h1 className="text-[var(--text-primary)] text-sm font-bold uppercase tracking-[0.2em]">Configurações</h1>
       </div>
 
-      <div className="px-6">
+      <div className="px-6 relative z-10 pt-6 max-w-2xl mx-auto space-y-8">
         {/* Conta Section */}
-        <SettingsSection title="Conta">
-          <SettingsRow
-            icon={CreditCard}
-            label="Assinatura e compras"
-            showChevron
-            onClick={() => navigate('store')}
-          />
-          <SettingsRow
-            icon={User}
-            label="Dados da conta"
-            showChevron
-            onClick={() => navigate('edit-profile')}
-          />
-          <SettingsRow
-            icon={LogOut}
-            label="Sair"
-            destructive
-            onClick={() => setShowLogoutDialog(true)}
-          />
+        <SettingsSection title="Sua Conta">
+          <div className="bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-3xl overflow-hidden divide-y divide-[var(--glass-border-subtle)]">
+            <SettingsRow
+              icon={CreditCard}
+              label="Assinatura e compras"
+              showChevron
+              onClick={() => navigate('store')}
+            />
+            <SettingsRow
+              icon={User}
+              label="Dados da conta"
+              showChevron
+              onClick={() => navigate('edit-profile')}
+            />
+            <SettingsRow
+              icon={LogOut}
+              label="Sair da conta"
+              destructive
+              onClick={() => setShowLogoutDialog(true)}
+            />
+          </div>
         </SettingsSection>
 
         {/* Player e Conteúdo Section */}
-        <SettingsSection title="Player e Conteúdo">
-          <SettingsRow
-            icon={Monitor}
-            label="Qualidade padrão"
-            value={quality}
-            showChevron
-            onClick={() => console.log('Open quality selector')}
-          />
-          <SettingsRow
-            icon={Zap}
-            label="Autoplay"
-            toggle
-            toggleValue={autoplay}
-            onToggleChange={setAutoplay}
-          />
-          <SettingsRow
-            icon={SettingsIcon}
-            label="Velocidade padrão"
-            value={speed}
-            showChevron
-            onClick={() => console.log('Open speed selector')}
-          />
-          <SettingsRow
-            icon={Download}
-            label="Downloads só em Wi-Fi"
-            toggle
-            toggleValue={wifiOnly}
-            onToggleChange={setWifiOnly}
-          />
+        <SettingsSection title="Experiência de Uso">
+          <div className="bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-3xl overflow-hidden divide-y divide-[var(--glass-border-subtle)]">
+            <SettingsRow
+              icon={Monitor}
+              label="Qualidade padrão"
+              value={quality}
+              showChevron
+              onClick={() => console.log('Open quality selector')}
+            />
+            <SettingsRow
+              icon={Zap}
+              label="Autoplay"
+              toggle
+              toggleValue={autoplay}
+              onToggleChange={setAutoplay}
+            />
+            <SettingsRow
+              icon={SettingsIcon}
+              label="Velocidade padrão"
+              value={speed}
+              showChevron
+              onClick={() => console.log('Open speed selector')}
+            />
+            <SettingsRow
+              icon={Download}
+              label="Downloads só em Wi-Fi"
+              toggle
+              toggleValue={wifiOnly}
+              onToggleChange={setWifiOnly}
+            />
+          </div>
         </SettingsSection>
 
         {/* Notificações Section */}
         <SettingsSection title="Notificações">
-          <SettingsRow
-            icon={Bell}
-            label="Notificações push"
-            toggle
-            toggleValue={pushNotifications}
-            onToggleChange={setPushNotifications}
-          />
-          <SettingsRow
-            icon={Bell}
-            label="Notificações por email"
-            toggle
-            toggleValue={emailNotifications}
-            onToggleChange={setEmailNotifications}
-          />
-          <SettingsRow
-            icon={Bell}
-            label="Novidades e promoções"
-            toggle
-            toggleValue={newsNotifications}
-            onToggleChange={setNewsNotifications}
-          />
+          <div className="bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-3xl overflow-hidden divide-y divide-[var(--glass-border-subtle)]">
+            <SettingsRow
+              icon={Bell}
+              label="Notificações push"
+              toggle
+              toggleValue={pushNotifications}
+              onToggleChange={setPushNotifications}
+            />
+            <SettingsRow
+              icon={Bell}
+              label="Notificações por email"
+              toggle
+              toggleValue={emailNotifications}
+              onToggleChange={setEmailNotifications}
+            />
+            <SettingsRow
+              icon={Bell}
+              label="Novidades e promoções"
+              toggle
+              toggleValue={newsNotifications}
+              onToggleChange={setNewsNotifications}
+            />
+          </div>
         </SettingsSection>
 
         {/* Aparência Section */}
-        <SettingsSection title="Aparência">
-          <SettingsRow
-            icon={Monitor}
-            label="Tema"
-            value={theme}
-            showChevron
-            onClick={() => console.log('Open theme selector')}
-          />
-          <SettingsRow
-            icon={Type}
-            label="Tamanho da fonte"
-            value={font}
-            showChevron
-            onClick={() => console.log('Open font selector')}
-          />
-          <SettingsRow
-            icon={Zap}
-            label="Reduzir animações"
-            toggle
-            toggleValue={reduceAnimations}
-            onToggleChange={setReduceAnimations}
-          />
+        <SettingsSection title="Interface">
+          <div className="bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-3xl overflow-hidden divide-y divide-[var(--glass-border-subtle)]">
+            <SettingsRow
+              icon={Monitor}
+              label="Tema do sistema"
+              value={theme}
+              showChevron
+              onClick={() => console.log('Open theme selector')}
+            />
+            <SettingsRow
+              icon={Type}
+              label="Tamanho da fonte"
+              value={font}
+              showChevron
+              onClick={() => console.log('Open font selector')}
+            />
+            <SettingsRow
+              icon={Zap}
+              label="Reduzir movimentos"
+              toggle
+              toggleValue={reduceAnimations}
+              onToggleChange={setReduceAnimations}
+            />
+          </div>
         </SettingsSection>
 
         {/* Ajuda Section */}
-        <SettingsSection title="Ajuda">
-          <SettingsRow
-            icon={HelpCircle}
-            label="Central de ajuda"
-            showChevron
-            onClick={() => console.log('Navigate to help')}
-          />
-          <SettingsRow
-            icon={FileText}
-            label="Termos de uso e privacidade"
-            showChevron
-            onClick={() => console.log('Navigate to terms')}
-          />
-          <SettingsRow
-            icon={SettingsIcon}
-            label="Versão"
-            value="2.1.0"
-          />
+        <SettingsSection title="Suporte e Jurídico">
+          <div className="bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-3xl overflow-hidden divide-y divide-[var(--glass-border-subtle)]">
+            <SettingsRow
+              icon={HelpCircle}
+              label="Central de ajuda"
+              showChevron
+              onClick={() => console.log('Navigate to help')}
+            />
+            <SettingsRow
+              icon={FileText}
+              label="Termos de uso e privacidade"
+              showChevron
+              onClick={() => console.log('Navigate to terms')}
+            />
+            <div className="px-6 py-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <SettingsIcon className="w-5 h-5 text-[var(--text-muted)]" />
+                <span className="text-[var(--text-tertiary)] text-sm">Versão do App</span>
+              </div>
+              <span className="text-[var(--text-muted)] text-xs font-mono">v3.4.2-premium</span>
+            </div>
+          </div>
         </SettingsSection>
       </div>
 
       {/* Logout Confirmation Dialog */}
       {showLogoutDialog && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center px-6 z-50">
-          <div className="bg-[var(--app-surface)] border border-[var(--app-border)] rounded-[var(--app-radius-lg)] p-6 max-w-sm w-full">
-            <h3 className="text-[var(--app-text-primary)] font-medium text-lg mb-2">Sair da conta?</h3>
-            <p className="text-[var(--app-text-tertiary)] text-sm leading-relaxed mb-6">
-              Você precisará fazer login novamente para acessar seu conteúdo.
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center px-6 z-[100]">
+          <GlassSurface 
+            variant="surface-3"
+            blur="heavy"
+            className="rounded-3xl p-8 max-w-sm w-full border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+          >
+            <h3 className="text-[var(--text-primary)] font-black text-xl mb-3 tracking-tight text-center">
+              Encerrar Sessão?
+            </h3>
+            <p className="text-[var(--text-tertiary)] text-sm leading-relaxed mb-8 text-center font-light">
+              Você precisará fazer login novamente para acessar seus cursos e ferramentas exclusivas.
             </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowLogoutDialog(false)}
-                className="flex-1 py-3 bg-[var(--app-surface-hover)] hover:bg-[var(--app-surface)] rounded-[var(--app-radius-md)] text-[var(--app-text-primary)] text-sm font-medium transition-colors"
-              >
-                Cancelar
-              </button>
-              <button
+            <div className="flex flex-col gap-3">
+              <Button
                 onClick={() => {
                   setShowLogoutDialog(false);
                   console.log('Logout confirmed');
                 }}
-                className="flex-1 py-3 bg-red-500/10 hover:bg-red-500/20 rounded-[var(--app-radius-md)] text-red-400 text-sm font-medium transition-colors"
+                variant="ghost"
+                className="py-4 text-red-400 font-bold hover:bg-red-500/10"
               >
-                Sair
-              </button>
+                ENCERRAR SESSÃO
+              </Button>
+              <Button
+                onClick={() => setShowLogoutDialog(false)}
+                variant="secondary"
+                className="py-4 font-bold"
+              >
+                VOLTAR
+              </Button>
             </div>
-          </div>
+          </GlassSurface>
         </div>
       )}
     </div>

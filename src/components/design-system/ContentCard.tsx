@@ -35,6 +35,81 @@ export function ContentCard({
   className,
 }: ContentCardProps) {
   const TypeIcon = type === 'article' ? BookOpen : Play;
+  const isPremium = badge?.toLowerCase().includes('premium') || badge?.toLowerCase().includes('exclusivo');
+
+  // Default variant - poster style (2:3 ratio)
+  const renderDefault = () => (
+    <button
+      onClick={onClick}
+      className={cn(
+        'group relative w-full rounded-[var(--radius-lg)] overflow-hidden transition-all duration-300 active:scale-95',
+        locked && 'ring-1 ring-[var(--accent-purchase-border)] shadow-[0_0_20px_rgba(249,115,22,0.1)]',
+        isPremium && 'ring-1 ring-[var(--accent-premium-border)] shadow-[0_0_20px_rgba(234,179,8,0.1)]',
+        className
+      )}
+    >
+      <div className="relative aspect-[2/3] w-full">
+        <img
+          src={imageUrl}
+          alt={title}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        
+        {/* Glow for paid/premium */}
+        {(locked || isPremium) && (
+          <div className={cn(
+            "absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity",
+            locked ? "bg-[var(--accent-purchase)]" : "bg-[var(--accent-premium)]"
+          )} />
+        )}
+
+        {/* Subtle vignette overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+        
+        {/* Border accent for paid/premium */}
+        {locked && <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--accent-purchase)]" />}
+        {isPremium && !locked && <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--accent-premium)]" />}
+
+        {/* Badges */}
+        <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
+          <div>
+            {discount ? (
+              <Badge variant="discount">{discount}</Badge>
+            ) : badge ? (
+              <Badge variant="primary" className={cn(isPremium && 'bg-[var(--accent-premium-soft)] text-[var(--accent-premium)] border-[var(--accent-premium-border)]')}>
+                {badge}
+              </Badge>
+            ) : null}
+          </div>
+          {locked && (
+            <div className="w-7 h-7 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/10">
+              <Lock className="w-3.5 h-3.5 text-[var(--accent-purchase)]" />
+            </div>
+          )}
+        </div>
+
+        {/* Title overlay on image */}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <h3 className="text-white text-sm font-bold leading-tight line-clamp-2 mb-1 group-hover:text-[var(--accent-primary)] transition-colors">
+            {title}
+          </h3>
+          {subtitle && (
+            <p className="text-white/60 text-[10px] uppercase tracking-wider font-semibold line-clamp-1">
+              {subtitle}
+            </p>
+          )}
+          {progress !== undefined && progress > 0 && (
+            <div className="mt-2.5 h-1 bg-white/10 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-[var(--accent-primary)] shadow-[0_0_8px_var(--accent-primary)]"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </button>
+  );
 
   // Compact variant - horizontal layout
   if (variant === 'compact') {
@@ -43,27 +118,27 @@ export function ContentCard({
         onClick={onClick}
         className={cn(
           'w-full flex items-center gap-4 p-3 rounded-[var(--radius-lg)]',
-          'bg-[var(--glass-surface-1)] border border-[var(--glass-border-subtle)]',
+          'bg-[var(--glass-surface-1)] border border-[var(--glass-border-subtle)] backdrop-blur-md',
           'hover:bg-[var(--glass-surface-hover)] hover:border-[var(--glass-border)]',
-          'transition-all duration-200 active:scale-[0.99]',
-          locked && 'opacity-75',
+          'transition-all duration-300 active:scale-[0.98]',
+          locked && 'border-l-2 border-l-[var(--accent-purchase)] bg-[var(--accent-purchase-soft)]/5 shadow-[0_0_15px_rgba(249,115,22,0.05)]',
           className
         )}
       >
         {/* Thumbnail */}
         <div className="relative w-20 h-14 rounded-[var(--radius-md)] overflow-hidden flex-shrink-0">
           <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
             {locked ? (
-              <Lock className="w-4 h-4 text-white/80" />
+              <Lock className="w-4 h-4 text-[var(--accent-purchase)]" />
             ) : (
               <TypeIcon className="w-4 h-4 text-white" />
             )}
           </div>
           {progress !== undefined && progress > 0 && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-black/30">
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/50">
               <div
-                className="h-full bg-[var(--accent-primary)]"
+                className="h-full bg-[var(--accent-primary)] shadow-[0_0_5px_var(--accent-primary)]"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -72,19 +147,22 @@ export function ContentCard({
 
         {/* Content */}
         <div className="flex-1 min-w-0 text-left">
-          <h4 className="text-[var(--text-primary)] text-sm font-medium leading-snug truncate">
+          <h4 className="text-[var(--text-primary)] text-sm font-semibold leading-snug truncate group-hover:text-[var(--accent-primary)] transition-colors">
             {title}
           </h4>
           {subtitle && (
-            <p className="text-[var(--text-muted)] text-xs mt-0.5 truncate">
+            <p className="text-[var(--text-tertiary)] text-[10px] uppercase tracking-wide font-bold mt-1 truncate">
               {subtitle}
             </p>
           )}
         </div>
 
         {/* Play indicator */}
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--glass-surface-3)] flex items-center justify-center">
-          <TypeIcon className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+        <div className={cn(
+          "flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center border transition-all",
+          locked ? "bg-[var(--accent-purchase-soft)] border-[var(--accent-purchase-border)]" : "bg-white/5 border-white/10 group-hover:bg-[var(--accent-primary)] group-hover:border-transparent group-hover:text-black"
+        )}>
+          {locked ? <Lock className="w-3.5 h-3.5 text-[var(--accent-purchase)]" /> : <TypeIcon className="w-3.5 h-3.5" />}
         </div>
       </button>
     );
@@ -96,55 +174,63 @@ export function ContentCard({
       <button
         onClick={onClick}
         className={cn(
-          'w-full flex items-start gap-4 p-4 rounded-[var(--radius-xl)]',
-          'bg-[var(--glass-surface-2)] border border-[var(--glass-border)]',
+          'w-full flex items-start gap-5 p-5 rounded-[var(--radius-xl)]',
+          'bg-[var(--glass-surface-2)] border border-[var(--glass-border)] backdrop-blur-xl',
           'hover:bg-[var(--glass-surface-hover)] hover:border-[var(--glass-border-strong)]',
-          'transition-all duration-200 active:scale-[0.99]',
-          locked && 'opacity-75',
+          'transition-all duration-300 active:scale-[0.99] group',
+          locked && 'border-l-4 border-l-[var(--accent-purchase)] bg-[var(--accent-purchase-soft)]/5',
+          isPremium && 'border-l-4 border-l-[var(--accent-premium)] bg-[var(--accent-premium-soft)]/5',
           className
         )}
       >
         {/* Thumbnail */}
-        <div className="relative w-32 h-24 lg:w-40 lg:h-28 rounded-[var(--radius-lg)] overflow-hidden flex-shrink-0">
-          <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          {badge && (
-            <div className="absolute top-2 left-2">
-              <Badge variant="primary" size="sm">{badge}</Badge>
-            </div>
-          )}
+        <div className="relative w-36 h-24 lg:w-48 lg:h-32 rounded-[var(--radius-xl)] overflow-hidden flex-shrink-0 shadow-2xl">
+          <img src={imageUrl} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+          
+          <div className="absolute top-3 left-3 flex gap-2">
+            {badge && (
+              <Badge variant={isPremium ? 'warning' : 'primary'} size="sm" className="backdrop-blur-md">
+                {badge}
+              </Badge>
+            )}
+          </div>
+
           {locked && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-              <Lock className="w-6 h-6 text-white/80" />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
+              <div className="w-12 h-12 rounded-full bg-[var(--accent-purchase)] flex items-center justify-center shadow-[0_0_20px_var(--accent-purchase)]">
+                <Lock className="w-6 h-6 text-white" />
+              </div>
             </div>
           )}
-          {duration && (
-            <div className="absolute bottom-2 right-2 flex items-center gap-1 px-2 py-1 bg-black/70 rounded-md backdrop-blur-sm">
+
+          {duration && !locked && (
+            <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1 bg-black/60 rounded-full backdrop-blur-md border border-white/10">
               <Clock className="w-3 h-3 text-white/80" />
-              <span className="text-white text-xs font-medium">{duration}</span>
+              <span className="text-white text-[10px] font-bold">{duration}</span>
             </div>
           )}
         </div>
 
         {/* Content */}
-        <div className="flex-1 min-w-0 text-left">
+        <div className="flex-1 min-w-0 text-left pt-1">
           {category && (
-            <span className="text-[var(--accent-primary)] text-xs font-medium">
+            <span className="text-[var(--accent-primary)] text-[10px] font-bold uppercase tracking-[0.2em] mb-2 block">
               {category}
             </span>
           )}
-          <h3 className="text-[var(--text-primary)] text-base font-semibold leading-snug mt-1 line-clamp-2">
+          <h3 className="text-[var(--text-primary)] text-lg lg:text-xl font-bold leading-tight mt-1 line-clamp-2 group-hover:text-[var(--accent-primary)] transition-colors">
             {title}
           </h3>
           {subtitle && (
-            <p className="text-[var(--text-tertiary)] text-sm mt-1 line-clamp-2">
+            <p className="text-[var(--text-tertiary)] text-sm mt-2 line-clamp-2 leading-relaxed">
               {subtitle}
             </p>
           )}
           {progress !== undefined && progress > 0 && (
-            <div className="mt-3">
+            <div className="mt-4">
               <Progress value={progress} size="sm" variant="primary" />
-              <span className="text-[var(--text-muted)] text-xs mt-1 block">
+              <span className="text-[var(--text-muted)] text-[10px] font-bold mt-1.5 block uppercase tracking-wider">
                 {progress}% concluído
               </span>
             </div>
@@ -154,128 +240,5 @@ export function ContentCard({
     );
   }
 
-  // Featured variant - large with prominent styling
-  if (variant === 'featured') {
-    return (
-      <button
-        onClick={onClick}
-        className={cn(
-          'group relative w-full aspect-[4/3] rounded-[var(--radius-xl)] overflow-hidden',
-          'transition-all duration-300 active:scale-[0.98]',
-          className
-        )}
-      >
-        <img src={imageUrl} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-        
-        {/* Badges */}
-        <div className="absolute top-4 left-4 right-4 flex items-start justify-between">
-          {badge && <Badge variant="primary">{badge}</Badge>}
-          {discount && <Badge variant="discount">{discount}</Badge>}
-          {locked && !discount && (
-            <Badge variant="locked" icon={<Lock className="w-3 h-3" />}>Premium</Badge>
-          )}
-        </div>
-
-        {/* Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-5">
-          {category && (
-            <span className="text-[var(--accent-secondary)] text-xs font-semibold uppercase tracking-wide">
-              {category}
-            </span>
-          )}
-          <h3 className="text-white text-lg font-bold leading-tight mt-2 line-clamp-2">
-            {title}
-          </h3>
-          {subtitle && (
-            <p className="text-white/70 text-sm mt-2 line-clamp-2">
-              {subtitle}
-            </p>
-          )}
-          {duration && (
-            <div className="flex items-center gap-2 mt-3 text-white/60">
-              <Clock className="w-4 h-4" />
-              <span className="text-sm">{duration}</span>
-            </div>
-          )}
-        </div>
-
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-[var(--accent-primary)]/0 group-hover:bg-[var(--accent-primary)]/10 transition-colors duration-300" />
-      </button>
-    );
-  }
-
-  // Default variant - poster style (2:3 ratio)
-  return (
-    <button
-      onClick={onClick}
-      className={cn(
-        'group relative w-full rounded-[var(--radius-lg)] overflow-hidden',
-        'transition-all duration-300 active:scale-95',
-        className
-      )}
-    >
-      {/* 2:3 ratio container */}
-      <div className="relative aspect-[2/3] w-full">
-        <img
-          src={imageUrl}
-          alt={title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-
-        {/* Subtle vignette overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-        {/* Locked badge */}
-        {locked && (
-          <div className="absolute top-3 right-3">
-            <Badge variant="locked" icon={<Lock className="w-3 h-3" />}>
-              Premium
-            </Badge>
-          </div>
-        )}
-
-        {/* Discount badge */}
-        {discount && (
-          <div className="absolute top-3 left-3">
-            <Badge variant="discount">
-              {discount}
-            </Badge>
-          </div>
-        )}
-
-        {/* Badge */}
-        {badge && !discount && (
-          <div className="absolute top-3 left-3">
-            <Badge variant="primary">{badge}</Badge>
-          </div>
-        )}
-
-        {/* Title overlay on image */}
-        <div className="absolute bottom-0 left-0 right-0 p-3">
-          <h3 className="text-white text-sm font-semibold leading-tight line-clamp-2 mb-0.5">
-            {title}
-          </h3>
-          {subtitle && (
-            <p className="text-white/70 text-xs leading-snug line-clamp-1">
-              {subtitle}
-            </p>
-          )}
-          {progress !== undefined && progress > 0 && (
-            <div className="mt-2 h-0.5 bg-white/20 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[var(--accent-primary)]"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          )}
-        </div>
-
-        {/* Hover effect */}
-        <div className="absolute inset-0 bg-[var(--accent-primary)]/0 group-hover:bg-[var(--accent-primary)]/10 transition-colors duration-300" />
-      </div>
-    </button>
-  );
+  return renderDefault();
 }
-
