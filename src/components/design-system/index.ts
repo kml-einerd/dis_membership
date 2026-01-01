@@ -20,3 +20,4 @@ export { HeroCarousel } from './HeroCarousel';
 export { StatsWidget } from './StatsWidget';
 export { SidebarWidget, SidebarListItem, SidebarTrailerCard } from './SidebarWidget';
 export { NetflixCarousel } from './NetflixCarousel';
+export { ResumeBar } from './ResumeBar';

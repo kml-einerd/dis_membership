@@ -22,6 +22,7 @@ import SalesArticleScreen from './SalesArticleScreen';
 function AppContent() {
   const { currentRoute } = useNavigation();
 
+  /* 
   // Suppress console errors that don't affect functionality
   useEffect(() => {
     const originalError = console.error;
@@ -69,6 +70,7 @@ function AppContent() {
       window.removeEventListener('unhandledrejection', handleRejection);
     };
   }, []);
+  */
 
   // Render the current route
   const renderScreen = () => {

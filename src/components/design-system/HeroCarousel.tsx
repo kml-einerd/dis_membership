@@ -22,6 +22,7 @@ interface HeroCarouselProps {
   onDownloadClick?: (slide: HeroSlide) => void;
   autoPlay?: boolean;
   autoPlayInterval?: number;
+  fullWidth?: boolean;
 }
 
 export function HeroCarousel({
@@ -30,6 +31,7 @@ export function HeroCarousel({
   onDownloadClick,
   autoPlay = true,
   autoPlayInterval = 6000,
+  fullWidth = false,
 }: HeroCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -70,7 +72,12 @@ export function HeroCarousel({
 
   return (
     <div
-      className="relative w-full aspect-[16/10] md:aspect-[21/9] lg:aspect-[2.4/1] rounded-[var(--radius-2xl)] overflow-hidden group"
+      className={cn(
+        "relative w-full overflow-hidden group",
+        fullWidth
+          ? "aspect-[16/10] md:aspect-[21/9] lg:aspect-[2.4/1] rounded-none"
+          : "aspect-[16/10] md:aspect-[21/9] lg:aspect-[2.4/1] rounded-[var(--radius-2xl)]"
+      )}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -104,10 +111,10 @@ export function HeroCarousel({
       {/* Main atmospheric dark fade from left and bottom */}
       <div className="absolute inset-0 bg-gradient-to-tr from-[var(--app-bg)]/80 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-[var(--app-bg)]/60 via-transparent to-transparent" />
-      
+
       {/* Decorative accent glow */}
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-[var(--accent-primary-soft)] rounded-full blur-[120px] opacity-20" />
-      
+
       {/* Subtle Noise Texture for film grain feel */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
@@ -124,7 +131,7 @@ export function HeroCarousel({
           >
             {/* Badge - Minimalist */}
             {currentSlide.badge && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="mb-4"
@@ -159,7 +166,7 @@ export function HeroCarousel({
                 <Play className="w-3.5 h-3.5 fill-current" />
                 ASSISTIR AGORA
               </button>
-              
+
               <button
                 onClick={() => onDownloadClick?.(currentSlide)}
                 className="flex items-center gap-2 px-4 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-[10px] font-bold text-white/80 transition-all hover:bg-white/10 hover:text-white"
@@ -182,7 +189,7 @@ export function HeroCarousel({
           <div className="flex items-baseline gap-2">
             <span className="text-2xl font-black text-white tracking-tighter italic">0{currentIndex + 1}</span>
             <div className="w-12 h-[1px] bg-white/20 relative overflow-hidden">
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-[var(--accent-primary)]"
                 initial={{ x: "-100%" }}
                 animate={{ x: "0%" }}
@@ -223,9 +230,9 @@ export function HeroCarousel({
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-             <button onClick={() => paginate(1)} className="group">
-                <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
-             </button>
+            <button onClick={() => paginate(1)} className="group">
+              <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
+            </button>
           </div>
         </div>
       </div>

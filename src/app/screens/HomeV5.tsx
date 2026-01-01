@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, TrendingUp, Clock, Award, Zap, BookOpen, ChevronRight } from 'lucide-react';
+import { Play, TrendingUp, Clock, Award, Zap, BookOpen, ChevronRight, CheckCircle2, MessageCircle } from 'lucide-react';
 import { useNavigation } from '../navigation/NavigationContext';
 import { VeloxLayout } from '../../components/layout/VeloxLayout';
 import {
@@ -14,6 +14,7 @@ import {
   SidebarListItem,
   SidebarTrailerCard,
   NetflixCarousel,
+  ResumeBar,
 } from '../../components/design-system';
 import { motion } from 'motion/react';
 
@@ -421,7 +422,7 @@ export default function HomeV5() {
         title="Novidades"
         sortable
         sortLabel="Hoje"
-        onSortChange={() => {}}
+        onSortChange={() => { }}
       >
         <div className="space-y-3">
           {newTrailers.map((trailer) => (
@@ -563,7 +564,22 @@ export default function HomeV5() {
 
   return (
     <VeloxLayout rightSidebar={renderRightSidebar()}>
-      <div className="px-4 lg:px-6 py-6 pb-24 lg:pb-6">
+      {/* Hero Carousel - Full Width */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="mb-6 lg:mb-8"
+      >
+        <HeroCarousel
+          slides={heroSlides}
+          onWatchClick={() => navigate('video-lesson')}
+          onDownloadClick={() => { }}
+          fullWidth
+        />
+      </motion.section>
+
+      <div className="px-4 lg:px-6 pb-24 lg:pb-6">
         {/* Welcome Message - Mobile */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -576,38 +592,20 @@ export default function HomeV5() {
           </h1>
         </motion.div>
 
-        {/* Hero Carousel */}
+        {/* Resume Bar - Continue de onde parou */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.2 }}
           className="mb-8"
         >
-          <HeroCarousel
-            slides={heroSlides}
-            onWatchClick={() => navigate('video-lesson')}
-            onDownloadClick={() => {}}
+          <ResumeBar
+            imageUrl={continueWatching[0].imageUrl}
+            title={continueWatching[0].title}
+            subtitle={continueWatching[0].subtitle}
+            progress={continueWatching[0].progress}
+            onClick={() => navigate('video-lesson')}
           />
-        </motion.section>
-
-        {/* Stats - Desktop */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="hidden lg:block mb-8"
-        >
-          <StatsWidget stats={userStats} layout="grid" />
-        </motion.section>
-
-        {/* Stats - Mobile (horizontal scroll) */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="lg:hidden mb-8"
-        >
-          <StatsWidget stats={userStats} layout="horizontal" />
         </motion.section>
 
         {/* Chip Tabs Filter */}
@@ -731,107 +729,109 @@ export default function HomeV5() {
           </motion.section>
         ))}
 
-
-        {/* INLINE SALES BANNER - Comparação de Planos (Desktop) */}
+        {/* BANNER WHATSAPP - Captura de Leads */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.53 }}
-          className="hidden lg:block mb-8"
+          className="mb-8 -mx-4 lg:-mx-6"
         >
-          <GlassSurface
-            variant="surface-3"
-            blur="heavy"
-            className="p-8 rounded-[var(--radius-3xl)] overflow-hidden relative"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-primary)]/5 via-[var(--accent-purchase)]/5 to-[var(--accent-premium)]/5" />
+          <div className="relative overflow-hidden bg-gradient-to-br from-[#0d3f2e] via-[#0a2f22] to-[#082a1e] py-12 lg:py-16">
+            {/* WhatsApp Icons Watermark Pattern */}
+            <div className="absolute inset-0 opacity-[0.03]" style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2325D366'%3E%3Cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z'/%3E%3C/svg%3E")`,
+              backgroundSize: '60px 60px'
+            }} />
 
-            <div className="relative z-10">
-              <div className="text-center mb-8">
-                <h3 className="text-[var(--text-primary)] text-2xl font-black mb-2">
-                  Escolha Seu Plano
-                </h3>
-                <p className="text-[var(--text-tertiary)] text-sm">
-                  Acesso ilimitado, cancele quando quiser
-                </p>
+            {/* Gradient Overlays */}
+            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#0d3f2e] to-transparent" />
+            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#082a1e] to-transparent" />
+            <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#25D366]/10 rounded-full blur-[100px]" />
+            <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-[#25D366]/5 rounded-full blur-[80px]" />
+
+            <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8">
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                {/* Coluna Esquerda - Copy */}
+                <div className="text-center lg:text-left">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#25D366]/20 border border-[#25D366]/30 rounded-full mb-6">
+                    <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                    <span className="text-[#25D366] text-xs font-bold uppercase tracking-wider">Grupo Exclusivo WhatsApp</span>
+                  </div>
+
+                  <h2 className="text-white text-3xl lg:text-4xl xl:text-5xl font-black leading-tight mb-4">
+                    Não perca nenhuma<br />
+                    <span className="text-[#25D366]">oportunidade!</span>
+                  </h2>
+
+                  <p className="text-[#a0b8ae] text-base lg:text-lg mb-8 max-w-lg mx-auto lg:mx-0">
+                    Receba alertas em tempo real de promoções exclusivas e erros de tarifa direto no seu celular.
+                  </p>
+
+                  {/* Benefícios */}
+                  <ul className="space-y-4 mb-8 text-left max-w-md mx-auto lg:mx-0">
+                    {[
+                      'Alertas de Erro de Tarifa em primeira mão',
+                      'Promoções relâmpago antes de todo mundo',
+                      'Dicas exclusivas de economia em viagens'
+                    ].map((benefit, i) => (
+                      <li key={i} className="flex items-center gap-3">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#25D366]/20 border border-[#25D366]/30 flex items-center justify-center">
+                          <CheckCircle2 className="w-4 h-4 text-[#25D366]" />
+                        </div>
+                        <span className="text-white/90 text-sm lg:text-base">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA Button */}
+                  <button
+                    onClick={() => window.open('https://wa.me/5511999999999', '_blank')}
+                    className="w-full lg:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] hover:bg-[#20c55e] text-white text-lg font-black rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(37,211,102,0.4)] active:scale-95"
+                  >
+                    <MessageCircle className="w-6 h-6" />
+                    Quero Entrar no Grupo VIP Agora
+                  </button>
+
+                  <p className="text-[#6b8a7a] text-xs mt-4">
+                    🔒 Grupo privado • Sem spam • Saia quando quiser
+                  </p>
+                </div>
+
+                {/* Coluna Direita - Imagem */}
+                <div className="hidden lg:block relative">
+                  <div className="relative aspect-[4/5] max-w-md mx-auto">
+                    {/* Glow behind image */}
+                    <div className="absolute inset-0 bg-[#25D366]/20 blur-[60px] rounded-full" />
+
+                    {/* Image Container */}
+                    <div className="relative rounded-3xl overflow-hidden border-2 border-[#25D366]/20 shadow-2xl">
+                      <img
+                        src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=750&fit=crop&crop=faces"
+                        alt="Pessoa usando celular em lounge de aeroporto"
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Overlay gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#082a1e]/80 via-transparent to-transparent" />
+
+                      {/* Floating notification mockup */}
+                      <div className="absolute bottom-8 left-4 right-4 bg-white rounded-2xl p-4 shadow-xl">
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center flex-shrink-0">
+                            <MessageCircle className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-gray-900 text-sm font-bold">Velox Alertas</p>
+                            <p className="text-gray-600 text-xs mt-0.5">🔥 ERRO DE TARIFA! São Paulo → Paris por R$ 1.890 ida e volta!</p>
+                            <p className="text-gray-400 text-[10px] mt-1">Agora</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <div className="grid grid-cols-3 gap-6 max-w-5xl mx-auto">
-                {/* Plano Básico */}
-                <GlassSurface variant="surface-2" blur="medium" className="p-6 rounded-[var(--radius-xl)] text-center">
-                  <h4 className="text-[var(--text-primary)] text-lg font-bold mb-2">Básico</h4>
-                  <div className="mb-4">
-                    <span className="text-[var(--text-primary)] text-3xl font-black">R$ 97</span>
-                    <span className="text-[var(--text-muted)] text-xs block">ou 12x R$ 9,70</span>
-                  </div>
-                  <ul className="text-left text-xs text-[var(--text-tertiary)] space-y-2 mb-6">
-                    <li>✓ 20 cursos selecionados</li>
-                    <li>✓ Suporte por email</li>
-                    <li>✓ Certificados</li>
-                    <li className="text-[var(--text-muted)]">✗ Sem atualizações</li>
-                  </ul>
-                  <Button variant="secondary" size="sm" fullWidth onClick={() => navigate('store')}>
-                    Selecionar
-                  </Button>
-                </GlassSurface>
-
-                {/* Plano Premium - DESTAQUE */}
-                <GlassSurface
-                  variant="surface-3"
-                  blur="heavy"
-                  glow
-                  glowColor="var(--accent-purchase)"
-                  borderGradient="purchase"
-                  className="p-6 rounded-[var(--radius-xl)] text-center relative scale-105 shadow-2xl"
-                >
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="px-4 py-1 bg-[var(--accent-purchase)] text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-lg">
-                      Mais Popular
-                    </span>
-                  </div>
-                  <h4 className="text-[var(--text-primary)] text-lg font-black mb-2 mt-2">Premium</h4>
-                  <div className="mb-4">
-                    <span className="text-[var(--text-muted)] text-sm line-through block">R$ 997</span>
-                    <span className="text-[var(--text-primary)] text-4xl font-black">R$ 397</span>
-                    <span className="text-[var(--text-muted)] text-xs block">ou 12x R$ 39,70</span>
-                  </div>
-                  <ul className="text-left text-xs text-[var(--text-secondary)] space-y-2 mb-6">
-                    <li>✓ <strong>120+ cursos completos</strong></li>
-                    <li>✓ Suporte VIP prioritário</li>
-                    <li>✓ Certificados premium</li>
-                    <li>✓ Atualizações vitalícias</li>
-                    <li>✓ Acesso a comunidade</li>
-                    <li>✓ Ferramentas exclusivas</li>
-                  </ul>
-                  <Button variant="purchase" size="md" fullWidth onClick={() => navigate('sales-video')} className="font-black shadow-xl">
-                    GARANTIR 60% OFF
-                  </Button>
-                </GlassSurface>
-
-                {/* Plano VIP */}
-                <GlassSurface variant="surface-2" blur="medium" className="p-6 rounded-[var(--radius-xl)] text-center">
-                  <h4 className="text-[var(--text-primary)] text-lg font-bold mb-2">VIP</h4>
-                  <div className="mb-4">
-                    <span className="text-[var(--text-primary)] text-3xl font-black">R$ 697</span>
-                    <span className="text-[var(--text-muted)] text-xs block">ou 12x R$ 69,70</span>
-                  </div>
-                  <ul className="text-left text-xs text-[var(--text-tertiary)] space-y-2 mb-6">
-                    <li>✓ Tudo do Premium</li>
-                    <li>✓ Mentoria 1 a 1 (2h/mês)</li>
-                    <li>✓ Análise de roteiros</li>
-                    <li>✓ Grupo exclusivo VIP</li>
-                  </ul>
-                  <Button variant="premium" size="sm" fullWidth onClick={() => navigate('store')}>
-                    Selecionar
-                  </Button>
-                </GlassSurface>
-              </div>
-
-              <p className="text-center text-[var(--text-muted)] text-xs mt-6">
-                🛡️ Garantia incondicional de 30 dias em todos os planos
-              </p>
             </div>
-          </GlassSurface>
+          </div>
         </motion.section>
 
         {/* Quick Reads */}

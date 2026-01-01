@@ -43,8 +43,10 @@ export function ContentCard({
       onClick={onClick}
       className={cn(
         'group relative w-full rounded-[var(--radius-lg)] overflow-hidden transition-all duration-300 active:scale-95',
-        locked && 'ring-1 ring-[var(--accent-purchase-border)] shadow-[0_0_20px_rgba(249,115,22,0.1)]',
-        isPremium && 'ring-1 ring-[var(--accent-premium-border)] shadow-[0_0_20px_rgba(234,179,8,0.1)]',
+        // Glow intensificado para conteúdo bloqueado - laranja neon
+        locked && 'ring-2 ring-[#f97316] shadow-[0_0_30px_rgba(249,115,22,0.4),0_0_60px_rgba(249,115,22,0.2)] hover:shadow-[0_0_40px_rgba(249,115,22,0.5),0_0_80px_rgba(249,115,22,0.3)]',
+        // Glow para conteúdo premium exclusivo - azul/dourado neon
+        isPremium && !locked && 'ring-2 ring-[#eab308] shadow-[0_0_30px_rgba(234,179,8,0.4),0_0_60px_rgba(234,179,8,0.2)] hover:shadow-[0_0_40px_rgba(234,179,8,0.5),0_0_80px_rgba(234,179,8,0.3)]',
         className
       )}
     >
@@ -54,7 +56,7 @@ export function ContentCard({
           alt={title}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        
+
         {/* Glow for paid/premium */}
         {(locked || isPremium) && (
           <div className={cn(
@@ -65,7 +67,7 @@ export function ContentCard({
 
         {/* Subtle vignette overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-        
+
         {/* Border accent for paid/premium */}
         {locked && <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--accent-purchase)]" />}
         {isPremium && !locked && <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--accent-premium)]" />}
@@ -187,7 +189,7 @@ export function ContentCard({
         <div className="relative w-36 h-24 lg:w-48 lg:h-32 rounded-[var(--radius-xl)] overflow-hidden flex-shrink-0 shadow-2xl">
           <img src={imageUrl} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-          
+
           <div className="absolute top-3 left-3 flex gap-2">
             {badge && (
               <Badge variant={isPremium ? 'warning' : 'primary'} size="sm" className="backdrop-blur-md">
