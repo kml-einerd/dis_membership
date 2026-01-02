@@ -18,7 +18,6 @@ export { ContentCard } from './ContentCard';
 // Conversion Cards (7 Styles)
 export {
   VIPLockCard,
-  FlashOfferCard,
   ComboBundleCard,
   DiscountTagCard,
   BlurTeaserCard,
