@@ -9,8 +9,6 @@ import {
   Button,
   GlassSurface,
   HeroCarousel,
-  SidebarWidget,
-  SidebarTrailerCard,
   NetflixCarousel,
   ResumeBar,
   VIPLockCard,
@@ -383,14 +381,6 @@ export default function HomeV6() {
   const flashOfferEndTime = new Date(Date.now() + (2 * 60 * 60 * 1000) + (14 * 60 * 1000) + (55 * 1000));
 
   // ==========================================
-  // SIDEBAR DATA
-  // ==========================================
-  const newTrailers = [
-    { id: '1', imageUrl: TRAVEL_IMAGES.bali, title: 'Ásia Econômica', subtitle: 'Novo módulo' },
-    { id: '2', imageUrl: TRAVEL_IMAGES.caribbean, title: 'Caribe Low Cost', subtitle: 'Em destaque' },
-  ];
-
-  // ==========================================
   // LARGURA PADRÃO DOS CARDS (consistente)
   // ==========================================
   const CARD_WIDTH = "w-[140px] sm:w-[160px] lg:w-[180px]";
@@ -518,24 +508,10 @@ export default function HomeV6() {
   };
 
   // ==========================================
-  // SIDEBAR
+  // SIDEBAR (Fixa - sem scroll próprio)
   // ==========================================
   const renderRightSidebar = () => (
-    <div className="space-y-6">
-      <SidebarWidget title="Novidades" sortable sortLabel="Hoje" onSortChange={() => {}}>
-        <div className="space-y-3">
-          {newTrailers.map((trailer) => (
-            <SidebarTrailerCard
-              key={trailer.id}
-              imageUrl={trailer.imageUrl}
-              title={trailer.title}
-              subtitle={trailer.subtitle}
-              onClick={() => navigate('video-lesson')}
-            />
-          ))}
-        </div>
-      </SidebarWidget>
-
+    <div className="space-y-5">
       <GlassSurface variant="surface-2" blur="medium" className="p-5 rounded-[var(--radius-xl)]">
         <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-4">Seu progresso</h3>
         <div className="space-y-4">
