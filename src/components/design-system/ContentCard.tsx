@@ -42,7 +42,7 @@ export function ContentCard({
     <button
       onClick={onClick}
       className={cn(
-        'group relative w-full rounded-[var(--radius-lg)] overflow-hidden transition-all duration-300 active:scale-95',
+        'group/card relative w-full rounded-[var(--radius-lg)] overflow-hidden transition-all duration-300 active:scale-95',
         // Glow intensificado para conteúdo bloqueado - laranja neon
         locked && 'ring-2 ring-[#f97316] shadow-[0_0_30px_rgba(249,115,22,0.4),0_0_60px_rgba(249,115,22,0.2)] hover:shadow-[0_0_40px_rgba(249,115,22,0.5),0_0_80px_rgba(249,115,22,0.3)]',
         // Glow para conteúdo premium exclusivo - azul/dourado neon
@@ -54,13 +54,13 @@ export function ContentCard({
         <img
           src={imageUrl}
           alt={title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
         />
 
         {/* Glow for paid/premium */}
         {(locked || isPremium) && (
           <div className={cn(
-            "absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity",
+            "absolute inset-0 opacity-20 group-hover/card:opacity-30 transition-opacity",
             locked ? "bg-[var(--accent-purchase)]" : "bg-[var(--accent-premium)]"
           )} />
         )}
@@ -92,7 +92,7 @@ export function ContentCard({
 
         {/* Title overlay on image */}
         <div className="absolute bottom-0 left-0 right-0 p-4">
-          <h3 className="text-white text-sm font-bold leading-tight line-clamp-2 mb-1 group-hover:text-[var(--accent-primary)] transition-colors">
+          <h3 className="text-white text-sm font-bold leading-tight line-clamp-2 mb-1 group-hover/card:text-[var(--accent-primary)] transition-colors">
             {title}
           </h3>
           {subtitle && (
@@ -149,7 +149,7 @@ export function ContentCard({
 
         {/* Content */}
         <div className="flex-1 min-w-0 text-left">
-          <h4 className="text-[var(--text-primary)] text-sm font-semibold leading-snug truncate group-hover:text-[var(--accent-primary)] transition-colors">
+          <h4 className="text-[var(--text-primary)] text-sm font-semibold leading-snug truncate hover:text-[var(--accent-primary)] transition-colors">
             {title}
           </h4>
           {subtitle && (
@@ -162,7 +162,7 @@ export function ContentCard({
         {/* Play indicator */}
         <div className={cn(
           "flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center border transition-all",
-          locked ? "bg-[var(--accent-purchase-soft)] border-[var(--accent-purchase-border)]" : "bg-white/5 border-white/10 group-hover:bg-[var(--accent-primary)] group-hover:border-transparent group-hover:text-black"
+          locked ? "bg-[var(--accent-purchase-soft)] border-[var(--accent-purchase-border)]" : "bg-white/5 border-white/10 hover:bg-[var(--accent-primary)] hover:border-transparent hover:text-black"
         )}>
           {locked ? <Lock className="w-3.5 h-3.5 text-[var(--accent-purchase)]" /> : <TypeIcon className="w-3.5 h-3.5" />}
         </div>
@@ -179,7 +179,7 @@ export function ContentCard({
           'w-full flex items-start gap-5 p-5 rounded-[var(--radius-xl)]',
           'bg-[var(--glass-surface-2)] border border-[var(--glass-border)] backdrop-blur-xl',
           'hover:bg-[var(--glass-surface-hover)] hover:border-[var(--glass-border-strong)]',
-          'transition-all duration-300 active:scale-[0.99] group',
+          'transition-all duration-300 active:scale-[0.99] group/wide',
           locked && 'border-l-4 border-l-[var(--accent-purchase)] bg-[var(--accent-purchase-soft)]/5',
           isPremium && 'border-l-4 border-l-[var(--accent-premium)] bg-[var(--accent-premium-soft)]/5',
           className
@@ -187,7 +187,7 @@ export function ContentCard({
       >
         {/* Thumbnail */}
         <div className="relative w-36 h-24 lg:w-48 lg:h-32 rounded-[var(--radius-xl)] overflow-hidden flex-shrink-0 shadow-2xl">
-          <img src={imageUrl} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <img src={imageUrl} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover/wide:scale-110" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
 
           <div className="absolute top-3 left-3 flex gap-2">
@@ -221,7 +221,7 @@ export function ContentCard({
               {category}
             </span>
           )}
-          <h3 className="text-[var(--text-primary)] text-lg lg:text-xl font-bold leading-tight mt-1 line-clamp-2 group-hover:text-[var(--accent-primary)] transition-colors">
+          <h3 className="text-[var(--text-primary)] text-lg lg:text-xl font-bold leading-tight mt-1 line-clamp-2 group-hover/wide:text-[var(--accent-primary)] transition-colors">
             {title}
           </h3>
           {subtitle && (

@@ -67,7 +67,7 @@ export function NetflixCarousel({
   };
 
   return (
-    <div className={cn('relative group', className)}>
+    <div className={cn('relative netflix-carousel-container', className)}>
       {/* Title */}
       {title && (
         <h3 className="text-[var(--text-primary)] text-lg lg:text-xl font-bold mb-4 px-4 lg:px-0">
@@ -89,8 +89,8 @@ export function NetflixCarousel({
               'absolute left-0 top-0 bottom-0 z-10 w-12 lg:w-16',
               'flex items-center justify-center',
               'bg-gradient-to-r from-[var(--app-bg)] via-[var(--app-bg)]/80 to-transparent',
-              'opacity-0 group-hover:opacity-100 transition-opacity duration-200',
-              'hover:bg-gradient-to-r hover:from-[var(--app-bg)] hover:via-[var(--app-bg)]/90 hover:to-transparent'
+              'opacity-0 hover:opacity-100 transition-opacity duration-200',
+              '[.netflix-carousel-container:hover_&]:opacity-100'
             )}
             aria-label="Scroll left"
           >
@@ -132,8 +132,8 @@ export function NetflixCarousel({
               'absolute right-0 top-0 bottom-0 z-10 w-12 lg:w-16',
               'flex items-center justify-center',
               'bg-gradient-to-l from-[var(--app-bg)] via-[var(--app-bg)]/80 to-transparent',
-              'opacity-0 group-hover:opacity-100 transition-opacity duration-200',
-              'hover:bg-gradient-to-l hover:from-[var(--app-bg)] hover:via-[var(--app-bg)]/90 hover:to-transparent'
+              'opacity-0 hover:opacity-100 transition-opacity duration-200',
+              '[.netflix-carousel-container:hover_&]:opacity-100'
             )}
             aria-label="Scroll right"
           >

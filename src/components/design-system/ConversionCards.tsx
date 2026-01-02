@@ -27,7 +27,7 @@ export function VIPLockCard({
     <button
       onClick={onClick}
       className={cn(
-        'group relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-500 active:scale-95',
+        'group/vip relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-500 active:scale-95',
         // Borda fina dourada com glow sutil
         'ring-[1.5px] ring-amber-500/60',
         'shadow-[0_0_25px_rgba(245,158,11,0.2),0_0_50px_rgba(245,158,11,0.1)]',
@@ -131,15 +131,15 @@ export function FlashOfferCard({
     <button
       onClick={onClick}
       className={cn(
-        'group relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
+        'group/flash relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
         'bg-gradient-to-br from-orange-600 via-red-600 to-rose-700',
         'shadow-[0_0_30px_rgba(249,115,22,0.3)]',
         'hover:shadow-[0_0_50px_rgba(249,115,22,0.5)]',
         className
       )}
     >
-      {/* Mesma altura dos cards de curso: aspect-[2/3] */}
-      <div className="relative aspect-[2/3] w-full p-4 flex flex-col justify-between">
+      {/* Altura fixa igual aos cards de curso (180px * 1.5 = 270px) */}
+      <div className="relative h-[210px] sm:h-[240px] lg:h-[270px] w-full p-4 flex flex-col justify-between">
         {/* Animated fire particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-3 right-3 text-2xl animate-bounce" style={{ animationDelay: '0s' }}>🔥</div>
@@ -192,7 +192,7 @@ export function FlashOfferCard({
             <span className="text-white/50 text-xs line-through">{originalPrice}</span>
             <span className="text-white text-lg font-black">{discountedPrice}</span>
           </div>
-          <div className="w-full py-2 bg-white text-orange-600 rounded-lg text-[10px] font-black uppercase tracking-wider text-center group-hover:bg-yellow-300 transition-colors">
+          <div className="w-full py-2 bg-white text-orange-600 rounded-lg text-[10px] font-black uppercase tracking-wider text-center group-hover/flash:bg-yellow-300 transition-colors">
             Garantir Desconto
           </div>
         </div>
@@ -229,14 +229,14 @@ export function ComboBundleCard({
     <button
       onClick={onClick}
       className={cn(
-        'group relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
+        'group/combo relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
         'bg-[var(--glass-surface-2)] border border-[var(--glass-border)]',
         'hover:border-[var(--accent-primary)]/50',
         className
       )}
     >
-      {/* Mesma altura dos cards de curso: aspect-[2/3] */}
-      <div className="relative aspect-[2/3] w-full flex flex-col">
+      {/* Altura fixa igual aos cards de curso (180px * 1.5 = 270px) */}
+      <div className="relative h-[210px] sm:h-[240px] lg:h-[270px] w-full flex flex-col">
         {/* Split image header - proporção fixa */}
         <div className="relative h-[40%] flex">
           <div className="w-1/2 relative overflow-hidden">
@@ -284,7 +284,7 @@ export function ComboBundleCard({
               <span className="text-[var(--text-muted)] text-[10px] line-through">{originalPrice}</span>
               <span className="text-[var(--accent-primary)] text-lg font-black">{discountedPrice}</span>
             </div>
-            <div className="w-full py-2 bg-[var(--accent-primary)] text-black rounded-lg text-[10px] font-black uppercase tracking-wider text-center group-hover:scale-[1.02] transition-transform">
+            <div className="w-full py-2 bg-[var(--accent-primary)] text-black rounded-lg text-[10px] font-black uppercase tracking-wider text-center group-hover/combo:scale-[1.02] transition-transform">
               Comprar Combo
             </div>
           </div>
@@ -322,15 +322,16 @@ export function DiscountTagCard({
     <button
       onClick={onClick}
       className={cn(
-        'group relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
+        'group/discount relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
         className
       )}
     >
-      <div className="relative aspect-[2/3] w-full">
+      {/* Altura fixa igual aos cards de curso */}
+      <div className="relative h-[210px] sm:h-[240px] lg:h-[270px] w-full">
         <img
           src={imageUrl}
           alt={title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/discount:scale-110"
         />
         
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
@@ -344,7 +345,7 @@ export function DiscountTagCard({
         
         {/* Content */}
         <div className="absolute bottom-0 left-0 right-0 p-4">
-          <h3 className="text-white text-sm font-bold leading-tight line-clamp-2 mb-1 group-hover:text-[var(--accent-primary)] transition-colors">
+          <h3 className="text-white text-sm font-bold leading-tight line-clamp-2 mb-1 group-hover/discount:text-[var(--accent-primary)] transition-colors">
             {title}
           </h3>
           {subtitle && (
@@ -394,7 +395,7 @@ export function BlurTeaserCard({
     <button
       onClick={onClick}
       className={cn(
-        'group relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
+        'group/blur relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
         'ring-1 ring-white/10',
         className
       )}
@@ -465,7 +466,7 @@ export function UnlockCTACard({
     <button
       onClick={onClick}
       className={cn(
-        'group relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
+        'group/unlock relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
         'ring-1 ring-purple-500/30 hover:ring-purple-500/60',
         'shadow-[0_0_20px_rgba(168,85,247,0.15)]',
         'hover:shadow-[0_0_40px_rgba(168,85,247,0.3)]',
@@ -476,7 +477,7 @@ export function UnlockCTACard({
         <img
           src={imageUrl}
           alt={title}
-          className="absolute inset-0 w-full h-full object-cover brightness-[0.4] transition-all duration-500 group-hover:brightness-[0.5]"
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.4] transition-all duration-500 group-hover/unlock:brightness-[0.5]"
         />
         
         <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent" />
@@ -501,7 +502,7 @@ export function UnlockCTACard({
           )}
           
           {/* Unlock button */}
-          <div className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-black uppercase tracking-wider text-center rounded-xl group-hover:from-purple-400 group-hover:to-pink-400 transition-all shadow-lg">
+          <div className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-black uppercase tracking-wider text-center rounded-xl group-hover/unlock:from-purple-400 group-hover/unlock:to-pink-400 transition-all shadow-lg">
             Desbloquear Agora
           </div>
           
@@ -542,7 +543,7 @@ export function SocialProofCard({
     <button
       onClick={onClick}
       className={cn(
-        'group relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
+        'group/social relative w-full rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 active:scale-95',
         'ring-1 ring-white/10 hover:ring-[var(--accent-primary)]/50',
         className
       )}
@@ -551,7 +552,7 @@ export function SocialProofCard({
         <img
           src={imageUrl}
           alt={title}
-          className="absolute inset-0 w-full h-full object-cover brightness-[0.5] transition-transform duration-700 group-hover:scale-110"
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.5] transition-transform duration-700 group-hover/social:scale-110"
         />
         
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
@@ -598,11 +599,11 @@ export function SocialProofCard({
             <span className="text-white/70 text-xs ml-1">{rating}</span>
           </div>
           
-          <h3 className="text-white text-sm font-bold leading-tight line-clamp-2 mb-3 group-hover:text-[var(--accent-primary)] transition-colors">
+          <h3 className="text-white text-sm font-bold leading-tight line-clamp-2 mb-3 group-hover/social:text-[var(--accent-primary)] transition-colors">
             {title}
           </h3>
           
-          <div className="w-full py-2 bg-[var(--accent-primary)] text-black text-xs font-bold uppercase tracking-wider text-center rounded-lg group-hover:bg-[var(--accent-secondary)] transition-colors">
+          <div className="w-full py-2 bg-[var(--accent-primary)] text-black text-xs font-bold uppercase tracking-wider text-center rounded-lg group-hover/social:bg-[var(--accent-secondary)] transition-colors">
             Quero Acesso
           </div>
         </div>

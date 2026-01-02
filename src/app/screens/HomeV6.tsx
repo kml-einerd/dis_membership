@@ -394,9 +394,11 @@ export default function HomeV6() {
   // LARGURA PADRÃO DOS CARDS (consistente)
   // ==========================================
   const CARD_WIDTH = "w-[140px] sm:w-[160px] lg:w-[180px]";
+  // Cards de vendas mais largos (horizontal)
+  const SALES_CARD_WIDTH = "w-[220px] sm:w-[260px] lg:w-[280px]";
 
   // ==========================================
-  // RENDER: Elemento de vendas (mesma largura dos cursos)
+  // RENDER: Elemento de vendas (mais largos que cursos, mesma altura)
   // ==========================================
   const renderSalesElement = (salesElement: CategoryRow['salesElement']) => {
     if (!salesElement) return null;
@@ -415,7 +417,7 @@ export default function HomeV6() {
         );
       case 'flash-offer':
         return (
-          <div className={`flex-shrink-0 ${CARD_WIDTH}`}>
+          <div className={`flex-shrink-0 ${SALES_CARD_WIDTH}`}>
             <FlashOfferCard
               title={salesElement.data.title}
               subtitle={salesElement.data.subtitle}
@@ -428,7 +430,7 @@ export default function HomeV6() {
         );
       case 'combo-bundle':
         return (
-          <div className={`flex-shrink-0 ${CARD_WIDTH}`}>
+          <div className={`flex-shrink-0 ${SALES_CARD_WIDTH}`}>
             <ComboBundleCard
               courseImages={salesElement.data.courseImages}
               title={salesElement.data.title}
@@ -442,7 +444,7 @@ export default function HomeV6() {
         );
       case 'discount-tag':
         return (
-          <div className={`flex-shrink-0 ${CARD_WIDTH}`}>
+          <div className={`flex-shrink-0 ${SALES_CARD_WIDTH}`}>
             <DiscountTagCard
               imageUrl={salesElement.data.imageUrl}
               title={salesElement.data.title}
