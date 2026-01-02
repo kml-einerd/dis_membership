@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Play, Clock, BookOpen, ChevronRight, CheckCircle2, MessageCircle, Crown, Zap } from 'lucide-react';
+import { BookOpen, ChevronRight, CheckCircle2, MessageCircle } from 'lucide-react';
 import { useNavigation } from '../navigation/NavigationContext';
 import { VeloxLayout } from '../../components/layout/VeloxLayout';
 import {
@@ -17,7 +17,7 @@ import {
   BlurTeaserCard,
   UnlockCTACard,
   SocialProofCard,
-  CountdownWidget,
+  CountdownWidget
 } from '../../components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -88,294 +88,306 @@ const TRAVEL_IMAGES = {
   planning: 'https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?w=400',
 };
 
+const CATEGORIES = [
+  'Todos',
+  'Fundamentos',
+  'Destinos',
+  'Milhas e Pontos',
+  'Técnicas Avançadas',
+];
+
+const HERO_SLIDES = [
+  {
+    id: '1',
+    imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600',
+    title: 'Estratégia do Mês',
+    subtitle: '🔴 AO VIVO HOJE ÀS 20H',
+    description: 'O Guia Definitivo das Emissões com João Marcos',
+    tags: ['Ao Vivo', 'Exclusivo'],
+    badge: 'AO VIVO',
+  },
+  {
+    id: '2',
+    imageUrl: 'https://images.unsplash.com/photo-1580541631950-7282082b03fe?w=1600',
+    title: 'Novo Módulo: Caribe',
+    subtitle: '🆕 LANÇAMENTO',
+    description: 'Descubra praias paradisíacas por menos de R$ 2.000',
+    tags: ['Caribe', 'Praias'],
+    badge: 'NOVO',
+  },
+  {
+    id: '3',
+    imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600',
+    title: 'Europa 2025',
+    subtitle: 'GUIA COMPLETO',
+    description: 'Roteiros otimizados para 15 países europeus',
+    tags: ['Europa', 'Roteiro'],
+    badge: 'POPULAR',
+  },
+];
+
+const CONTINUE_WATCHING = {
+  id: '1',
+  imageUrl: TRAVEL_IMAGES.airplane1,
+  title: 'ALIA 04 - O Segredo das Emissões Tabela Fixa',
+  subtitle: 'Aula 3 de 8 • Módulo Avançado',
+  progress: 50,
+  timeRemaining: '12 min restantes',
+};
+
+const HERO_UPDATES = [
+  { title: 'Nova trilha Caribe', detail: 'Aulas fresquinhas com roteiro completo e checklist de bagagem', badge: 'Lançamento' },
+  { title: 'Clube VIP reaberto', detail: 'Vagas limitadas para mentorias semanais com especialistas', badge: 'VIP' },
+  { title: 'Alerta de tarifa', detail: 'São Paulo → Lisboa por R$ 2.150 (taxas inclusas)', badge: 'Urgente' },
+];
+
+const SALES_SPOTLIGHT = {
+  title: 'Upgrade relâmpago',
+  description: 'Desbloqueie lives e roteiros premium com 72% OFF por tempo limitado.',
+  originalPrice: 'R$ 1.497',
+  offerPrice: 'R$ 397',
+};
+
+const QUICK_ARTICLES = [
+  { id: '1', title: '10 Erros que Fazem Você Pagar Mais nas Passagens', preview: 'Descubra os erros mais comuns que fazem você perder oportunidades de economizar.' },
+  { id: '2', title: 'Como Usar o Modo Anônimo Para Preços Melhores', preview: 'Técnica comprovada para evitar que sites aumentem os preços.' },
+];
+
+// ==========================================
+// FILEIRAS DE CURSOS POR CATEGORIA
+// ==========================================
+const CATEGORY_ROWS: CategoryRow[] = [
+  // CATEGORIA: FUNDAMENTOS
+  {
+    id: 'fundamentos',
+    title: 'Fundamentos',
+    category: 'Fundamentos',
+    courses: [
+      {
+        id: 'f1',
+        imageUrl: TRAVEL_IMAGES.airplane2,
+        title: 'Método Completo: Passagens 70% Mais Baratas',
+        subtitle: '32 aulas • 8h 45min',
+        badge: 'Bestseller',
+        category: 'Fundamentos',
+      },
+      {
+        id: 'f2',
+        imageUrl: TRAVEL_IMAGES.planning,
+        title: 'Primeiros Passos: Economia em Viagens',
+        subtitle: '18 aulas • 4h 20min',
+        badge: 'Iniciante',
+        category: 'Fundamentos',
+      },
+      {
+        id: 'f3',
+        imageUrl: TRAVEL_IMAGES.map,
+        title: 'Como Planejar Sua Primeira Viagem',
+        subtitle: '15 aulas • 3h 45min',
+        category: 'Fundamentos',
+      },
+      {
+        id: 'f4',
+        imageUrl: TRAVEL_IMAGES.airport,
+        title: 'Alertas de Preço: Guia Completo',
+        subtitle: '12 aulas • 2h 30min',
+        category: 'Fundamentos',
+      },
+      {
+        id: 'f5',
+        imageUrl: TRAVEL_IMAGES.luggage,
+        title: 'Ferramentas Essenciais do Viajante',
+        subtitle: '20 aulas • 5h',
+        badge: 'Popular',
+        category: 'Fundamentos',
+      },
+    ],
+    salesElement: {
+      type: 'vip-lock',
+      position: 2,
+      data: {
+        imageUrl: TRAVEL_IMAGES.passport,
+        title: 'Masterclass: Segredos dos Experts',
+        subtitle: '40 aulas • 12h',
+      },
+    },
+  },
+  // CATEGORIA: DESTINOS
+  {
+    id: 'destinos',
+    title: 'Destinos',
+    category: 'Destinos',
+    courses: [
+      {
+        id: 'd1',
+        imageUrl: TRAVEL_IMAGES.nyc,
+        title: 'Nova York Econômica',
+        subtitle: '22 aulas • 6h 15min',
+        category: 'Destinos',
+      },
+      {
+        id: 'd2',
+        imageUrl: TRAVEL_IMAGES.paris,
+        title: 'Paris com R$ 200/Dia',
+        subtitle: '20 aulas • 5h 50min',
+        badge: 'Atualizado',
+        category: 'Destinos',
+      },
+      {
+        id: 'd3',
+        imageUrl: TRAVEL_IMAGES.thailand,
+        title: 'Tailândia Completa',
+        subtitle: '24 aulas • 7h 20min',
+        badge: 'TOP 5',
+        category: 'Destinos',
+      },
+      {
+        id: 'd4',
+        imageUrl: TRAVEL_IMAGES.tokyo,
+        title: 'Japão: Cerejeiras e Templos',
+        subtitle: '30 aulas • 8h 30min',
+        category: 'Destinos',
+      },
+      {
+        id: 'd5',
+        imageUrl: TRAVEL_IMAGES.dubai,
+        title: 'Dubai Luxuosa por R$ 180/Dia',
+        subtitle: '16 aulas • 4h 45min',
+        category: 'Destinos',
+      },
+    ],
+    salesElement: {
+      type: 'vip-lock',
+      position: 3,
+      data: {
+        imageUrl: TRAVEL_IMAGES.rome,
+        title: 'Roma: Roteiro Secreto',
+        subtitle: 'Conteúdo VIP',
+      },
+    },
+  },
+  // CATEGORIA: MILHAS E PONTOS
+  {
+    id: 'milhas',
+    title: 'Milhas e Pontos',
+    category: 'Milhas e Pontos',
+    courses: [
+      {
+        id: 'm1',
+        imageUrl: TRAVEL_IMAGES.miles,
+        title: 'Milhas do Zero ao Avançado',
+        subtitle: '36 aulas • 10h 40min',
+        badge: 'Mais Vendido',
+        category: 'Milhas e Pontos',
+      },
+      {
+        id: 'm2',
+        imageUrl: TRAVEL_IMAGES.creditCard,
+        title: 'Cartões de Crédito para Milhas',
+        subtitle: '18 aulas • 4h 30min',
+        category: 'Milhas e Pontos',
+      },
+      {
+        id: 'm3',
+        imageUrl: TRAVEL_IMAGES.airplane1,
+        title: 'Transferências Bonificadas',
+        subtitle: '12 aulas • 3h',
+        badge: 'Novo',
+        category: 'Milhas e Pontos',
+      },
+      {
+        id: 'm4',
+        imageUrl: TRAVEL_IMAGES.passport,
+        title: 'Resgate Inteligente de Passagens',
+        subtitle: '15 aulas • 4h',
+        category: 'Milhas e Pontos',
+      },
+    ],
+    salesElement: {
+      type: 'combo-bundle',
+      position: 2,
+      data: {
+        courseImages: [TRAVEL_IMAGES.miles, TRAVEL_IMAGES.creditCard],
+        title: 'Combo Milhas PRO',
+        coursesIncluded: ['Milhas do Zero ao Avançado', 'Erros de Tarifa Masterclass'],
+        originalPrice: 'R$ 997',
+        discountedPrice: 'R$ 497',
+        savings: '-50%',
+      },
+    },
+  },
+  // CATEGORIA: TÉCNICAS AVANÇADAS
+  {
+    id: 'tecnicas',
+    title: 'Técnicas Avançadas',
+    category: 'Técnicas Avançadas',
+    courses: [
+      {
+        id: 't1',
+        imageUrl: TRAVEL_IMAGES.map,
+        title: 'Stopover Estratégico',
+        subtitle: '12 aulas • 3h 30min',
+        category: 'Técnicas Avançadas',
+      },
+      {
+        id: 't2',
+        imageUrl: TRAVEL_IMAGES.planning,
+        title: 'Ferramentas de Busca Avançadas',
+        subtitle: '15 aulas • 4h',
+        category: 'Técnicas Avançadas',
+      },
+      {
+        id: 't3',
+        imageUrl: TRAVEL_IMAGES.airport,
+        title: 'Erros de Tarifa: Como Encontrar',
+        subtitle: '18 aulas • 5h',
+        badge: 'Avançado',
+        category: 'Técnicas Avançadas',
+      },
+      {
+        id: 't4',
+        imageUrl: TRAVEL_IMAGES.airplane2,
+        title: 'Voos com Múltiplas Paradas',
+        subtitle: '10 aulas • 2h 30min',
+        category: 'Técnicas Avançadas',
+      },
+    ],
+    salesElement: {
+      type: 'discount-tag',
+      position: 2,
+      data: {
+        imageUrl: TRAVEL_IMAGES.luggage,
+        title: 'Erros de Tarifa Masterclass',
+        subtitle: '25 aulas • 7h',
+        discount: '-40% OFF',
+        originalPrice: 'R$ 497',
+        discountedPrice: 'R$ 297',
+      },
+    },
+  },
+];
+
 export default function HomeV6() {
   const { navigate } = useNavigation();
-  const [activeFilter, setActiveFilter] = useState('Todos');
-
-  // ==========================================
-  // CATEGORIAS - Filtros de navegação
-  // ==========================================
-  const categories = [
-    'Todos',
-    'Fundamentos',
-    'Destinos',
-    'Milhas e Pontos',
-    'Técnicas Avançadas',
-  ];
-
-  // ==========================================
-  // DADOS DO HERO BANNER
-  // ==========================================
-  const heroSlides = [
-    {
-      id: '1',
-      imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600',
-      title: 'Estratégia do Mês',
-      subtitle: '🔴 AO VIVO HOJE ÀS 20H',
-      description: 'O Guia Definitivo das Emissões com João Marcos',
-      tags: ['Ao Vivo', 'Exclusivo'],
-      badge: 'AO VIVO',
-    },
-    {
-      id: '2',
-      imageUrl: 'https://images.unsplash.com/photo-1580541631950-7282082b03fe?w=1600',
-      title: 'Novo Módulo: Caribe',
-      subtitle: '🆕 LANÇAMENTO',
-      description: 'Descubra praias paradisíacas por menos de R$ 2.000',
-      tags: ['Caribe', 'Praias'],
-      badge: 'NOVO',
-    },
-    {
-      id: '3',
-      imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600',
-      title: 'Europa 2025',
-      subtitle: 'GUIA COMPLETO',
-      description: 'Roteiros otimizados para 15 países europeus',
-      tags: ['Europa', 'Roteiro'],
-      badge: 'POPULAR',
-    },
-  ];
-
-  // ==========================================
-  // CONTINUAR ASSISTINDO
-  // ==========================================
-  const continueWatching = {
-    id: '1',
-    imageUrl: TRAVEL_IMAGES.airplane1,
-    title: 'ALIA 04 - O Segredo das Emissões Tabela Fixa',
-    subtitle: 'Aula 3 de 8 • Módulo Avançado',
-    progress: 50,
-    timeRemaining: '12 min restantes',
-  };
-
-  // ==========================================
-  // FILEIRAS DE CURSOS POR CATEGORIA
-  // ==========================================
-  const categoryRows: CategoryRow[] = [
-    // CATEGORIA: FUNDAMENTOS
-    {
-      id: 'fundamentos',
-      title: 'Fundamentos',
-      category: 'Fundamentos',
-      courses: [
-        {
-          id: 'f1',
-          imageUrl: TRAVEL_IMAGES.airplane2,
-          title: 'Método Completo: Passagens 70% Mais Baratas',
-          subtitle: '32 aulas • 8h 45min',
-          badge: 'Bestseller',
-          category: 'Fundamentos',
-        },
-        {
-          id: 'f2',
-          imageUrl: TRAVEL_IMAGES.planning,
-          title: 'Primeiros Passos: Economia em Viagens',
-          subtitle: '18 aulas • 4h 20min',
-          badge: 'Iniciante',
-          category: 'Fundamentos',
-        },
-        {
-          id: 'f3',
-          imageUrl: TRAVEL_IMAGES.map,
-          title: 'Como Planejar Sua Primeira Viagem',
-          subtitle: '15 aulas • 3h 45min',
-          category: 'Fundamentos',
-        },
-        {
-          id: 'f4',
-          imageUrl: TRAVEL_IMAGES.airport,
-          title: 'Alertas de Preço: Guia Completo',
-          subtitle: '12 aulas • 2h 30min',
-          category: 'Fundamentos',
-        },
-        {
-          id: 'f5',
-          imageUrl: TRAVEL_IMAGES.luggage,
-          title: 'Ferramentas Essenciais do Viajante',
-          subtitle: '20 aulas • 5h',
-          badge: 'Popular',
-          category: 'Fundamentos',
-        },
-      ],
-      salesElement: {
-        type: 'vip-lock',
-        position: 2,
-        data: {
-          imageUrl: TRAVEL_IMAGES.passport,
-          title: 'Masterclass: Segredos dos Experts',
-          subtitle: '40 aulas • 12h',
-        },
-      },
-    },
-    // CATEGORIA: DESTINOS
-    {
-      id: 'destinos',
-      title: 'Destinos',
-      category: 'Destinos',
-      courses: [
-        {
-          id: 'd1',
-          imageUrl: TRAVEL_IMAGES.nyc,
-          title: 'Nova York Econômica',
-          subtitle: '22 aulas • 6h 15min',
-          category: 'Destinos',
-        },
-        {
-          id: 'd2',
-          imageUrl: TRAVEL_IMAGES.paris,
-          title: 'Paris com R$ 200/Dia',
-          subtitle: '20 aulas • 5h 50min',
-          badge: 'Atualizado',
-          category: 'Destinos',
-        },
-        {
-          id: 'd3',
-          imageUrl: TRAVEL_IMAGES.thailand,
-          title: 'Tailândia Completa',
-          subtitle: '24 aulas • 7h 20min',
-          badge: 'TOP 5',
-          category: 'Destinos',
-        },
-        {
-          id: 'd4',
-          imageUrl: TRAVEL_IMAGES.tokyo,
-          title: 'Japão: Cerejeiras e Templos',
-          subtitle: '30 aulas • 8h 30min',
-          category: 'Destinos',
-        },
-        {
-          id: 'd5',
-          imageUrl: TRAVEL_IMAGES.dubai,
-          title: 'Dubai Luxuosa por R$ 180/Dia',
-          subtitle: '16 aulas • 4h 45min',
-          category: 'Destinos',
-        },
-      ],
-      salesElement: {
-        type: 'vip-lock',
-        position: 3,
-        data: {
-          imageUrl: TRAVEL_IMAGES.rome,
-          title: 'Roma: Roteiro Secreto',
-          subtitle: 'Conteúdo VIP',
-        },
-      },
-    },
-    // CATEGORIA: MILHAS E PONTOS
-    {
-      id: 'milhas',
-      title: 'Milhas e Pontos',
-      category: 'Milhas e Pontos',
-      courses: [
-        {
-          id: 'm1',
-          imageUrl: TRAVEL_IMAGES.miles,
-          title: 'Milhas do Zero ao Avançado',
-          subtitle: '36 aulas • 10h 40min',
-          badge: 'Mais Vendido',
-          category: 'Milhas e Pontos',
-        },
-        {
-          id: 'm2',
-          imageUrl: TRAVEL_IMAGES.creditCard,
-          title: 'Cartões de Crédito para Milhas',
-          subtitle: '18 aulas • 4h 30min',
-          category: 'Milhas e Pontos',
-        },
-        {
-          id: 'm3',
-          imageUrl: TRAVEL_IMAGES.airplane1,
-          title: 'Transferências Bonificadas',
-          subtitle: '12 aulas • 3h',
-          badge: 'Novo',
-          category: 'Milhas e Pontos',
-        },
-        {
-          id: 'm4',
-          imageUrl: TRAVEL_IMAGES.passport,
-          title: 'Resgate Inteligente de Passagens',
-          subtitle: '15 aulas • 4h',
-          category: 'Milhas e Pontos',
-        },
-      ],
-      salesElement: {
-        type: 'combo-bundle',
-        position: 2,
-        data: {
-          courseImages: [TRAVEL_IMAGES.miles, TRAVEL_IMAGES.creditCard],
-          title: 'Combo Milhas PRO',
-          coursesIncluded: ['Milhas do Zero ao Avançado', 'Erros de Tarifa Masterclass'],
-          originalPrice: 'R$ 997',
-          discountedPrice: 'R$ 497',
-          savings: '-50%',
-        },
-      },
-    },
-    // CATEGORIA: TÉCNICAS AVANÇADAS
-    {
-      id: 'tecnicas',
-      title: 'Técnicas Avançadas',
-      category: 'Técnicas Avançadas',
-      courses: [
-        {
-          id: 't1',
-          imageUrl: TRAVEL_IMAGES.map,
-          title: 'Stopover Estratégico',
-          subtitle: '12 aulas • 3h 30min',
-          category: 'Técnicas Avançadas',
-        },
-        {
-          id: 't2',
-          imageUrl: TRAVEL_IMAGES.planning,
-          title: 'Ferramentas de Busca Avançadas',
-          subtitle: '15 aulas • 4h',
-          category: 'Técnicas Avançadas',
-        },
-        {
-          id: 't3',
-          imageUrl: TRAVEL_IMAGES.airport,
-          title: 'Erros de Tarifa: Como Encontrar',
-          subtitle: '18 aulas • 5h',
-          badge: 'Avançado',
-          category: 'Técnicas Avançadas',
-        },
-        {
-          id: 't4',
-          imageUrl: TRAVEL_IMAGES.airplane2,
-          title: 'Voos com Múltiplas Paradas',
-          subtitle: '10 aulas • 2h 30min',
-          category: 'Técnicas Avançadas',
-        },
-      ],
-      salesElement: {
-        type: 'discount-tag',
-        position: 2,
-        data: {
-          imageUrl: TRAVEL_IMAGES.luggage,
-          title: 'Erros de Tarifa Masterclass',
-          subtitle: '25 aulas • 7h',
-          discount: '-40% OFF',
-          originalPrice: 'R$ 497',
-          discountedPrice: 'R$ 297',
-        },
-      },
-    },
-  ];
+  const [activeFilter, setActiveFilter] = useState(CATEGORIES[0]);
 
   // ==========================================
   // FILTRAGEM POR CATEGORIA
   // ==========================================
   const filteredRows = useMemo(() => {
     if (activeFilter === 'Todos') {
-      return categoryRows;
+      return CATEGORY_ROWS;
     }
-    return categoryRows.filter(row => row.category === activeFilter);
+    return CATEGORY_ROWS.filter(row => row.category === activeFilter);
   }, [activeFilter]);
 
   // ==========================================
   // TIMERS
   // ==========================================
-  const countdownEndTime = new Date(Date.now() + (2 * 24 * 60 * 60 * 1000) + (4 * 60 * 60 * 1000) + (57 * 60 * 1000));
+  const countdownEndTime = useMemo(
+    () => new Date(Date.now() + (2 * 24 * 60 * 60 * 1000) + (4 * 60 * 60 * 1000) + (57 * 60 * 1000)),
+    []
+  );
 
   // ==========================================
   // LARGURA PADRÃO DOS CARDS (consistente)
@@ -492,101 +504,104 @@ export default function HomeV6() {
   };
 
   // ==========================================
-  // SIDEBAR
-  // ==========================================
-  const renderRightSidebar = () => (
-    <div className="space-y-6">
-      <GlassSurface variant="surface-2" blur="medium" className="p-5 rounded-[var(--radius-xl)]">
-        <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-4">Seu progresso</h3>
-        <div className="space-y-4">
-          <div>
-            <div className="flex justify-between mb-2">
-              <span className="text-[var(--text-tertiary)] text-xs">Módulos completos</span>
-              <span className="text-[var(--text-primary)] text-xs font-semibold">3 de 8</span>
-            </div>
-            <div className="h-2 bg-[var(--glass-surface-3)] rounded-full overflow-hidden">
-              <div className="h-full w-[37.5%] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] rounded-full" />
-            </div>
-          </div>
-          <div>
-            <div className="flex justify-between mb-2">
-              <span className="text-[var(--text-tertiary)] text-xs">Tempo esta semana</span>
-              <span className="text-[var(--text-primary)] text-xs font-semibold">4h 30min</span>
-            </div>
-            <div className="h-2 bg-[var(--glass-surface-3)] rounded-full overflow-hidden">
-              <div className="h-full w-[65%] bg-gradient-to-r from-[var(--accent-purchase)] to-[var(--accent-premium)] rounded-full" />
-            </div>
-          </div>
-          <div>
-            <div className="flex justify-between mb-2">
-              <span className="text-[var(--text-tertiary)] text-xs">Próxima conquista</span>
-              <span className="text-[var(--accent-primary)] text-xs font-semibold">85%</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-2 flex-1 bg-[var(--glass-surface-3)] rounded-full overflow-hidden">
-                <div className="h-full w-[85%] bg-gradient-to-r from-amber-500 to-yellow-400 rounded-full" />
-              </div>
-              <Crown className="w-4 h-4 text-amber-400" />
-            </div>
-            <p className="text-[var(--text-muted)] text-[10px] mt-1">Viajante Bronze</p>
-          </div>
-        </div>
-      </GlassSurface>
-
-      <CountdownWidget
-        endTime={countdownEndTime}
-        originalPrice="R$ 997"
-        discountedPrice="R$ 397"
-        onUpgrade={() => navigate('store')}
-      />
-
-      <GlassSurface variant="surface-2" blur="medium" className="p-5 rounded-[var(--radius-xl)]">
-        <div className="flex items-start gap-3 mb-4">
-          <div className="flex -space-x-2">
-            {['https://i.pravatar.cc/150?img=1', 'https://i.pravatar.cc/150?img=2', 'https://i.pravatar.cc/150?img=3'].map((img, i) => (
-              <div key={i} className="w-8 h-8 rounded-full border-2 border-[var(--app-bg)] overflow-hidden">
-                <img src={img} alt="" className="w-full h-full object-cover" />
-              </div>
-            ))}
-          </div>
-          <div className="flex-1">
-            <p className="text-[var(--text-primary)] text-xs font-bold">+2.847 alunos</p>
-            <p className="text-[var(--text-muted)] text-[10px]">entraram esta semana</p>
-          </div>
-        </div>
-        <p className="text-[var(--text-secondary)] text-xs leading-relaxed mb-4 italic">
-          "Economizei R$ 3.200 na minha última viagem usando o que aprendi aqui"
-        </p>
-        <Button variant="primary" size="sm" fullWidth onClick={() => navigate('sales-video')}>
-          Ver depoimentos
-        </Button>
-      </GlassSurface>
-    </div>
-  );
-
-  // ==========================================
   // RENDER PRINCIPAL
   // ==========================================
   return (
-    <VeloxLayout rightSidebar={renderRightSidebar()} heroOverlay>
-      {/* Hero Carousel - Full Width com Sidebar Sobreposta */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="mb-6 lg:mb-8"
-      >
-        <HeroCarousel
-          slides={heroSlides}
-          onWatchClick={() => navigate('video-lesson')}
-          onDownloadClick={() => {}}
-          fullWidth
-          sidebarOverlay
-        />
-      </motion.section>
+    <VeloxLayout>
+      <div className="max-w-[1600px] mx-auto px-4 lg:px-6 pt-6 lg:pt-8 pb-24">
+        {/* Hero com barra lateral somente na primeira dobra */}
+        <section className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_360px] items-start mb-10">
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="rounded-[var(--radius-2xl)] overflow-hidden shadow-2xl shadow-black/20"
+          >
+            <HeroCarousel
+              slides={HERO_SLIDES}
+              onWatchClick={() => navigate('video-lesson')}
+              onDownloadClick={() => {}}
+              fullWidth
+            />
+          </motion.section>
 
-      {/* Padding extra no desktop (xl:) para não conflitar com sidebar fixa */}
-      <div className="px-4 lg:px-6 xl:pr-[360px] pb-24 lg:pb-6">
+          <motion.aside
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.12 }}
+            className="space-y-4"
+          >
+            <GlassSurface
+              variant="surface-2"
+              blur="medium"
+              className="p-5 rounded-[var(--radius-xl)] border border-[var(--glass-border)]/80"
+            >
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <div>
+                  <p className="text-[var(--text-primary)] text-sm font-semibold">Atualizações</p>
+                  <p className="text-[var(--text-tertiary)] text-xs">Tudo que chegou esta semana</p>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-[var(--accent-secondary-soft)] text-[10px] font-black uppercase tracking-widest text-[var(--accent-secondary)]">
+                  ao vivo
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {HERO_UPDATES.map((item, index) => (
+                  <div
+                    key={item.title}
+                    className="flex items-start gap-3 p-3 rounded-xl bg-[var(--glass-surface-3)] border border-[var(--glass-border)]/60"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--accent-primary)]/15 to-[var(--accent-secondary)]/15 flex items-center justify-center text-[10px] font-black text-[var(--accent-primary)] uppercase">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <p className="text-[var(--text-primary)] text-sm font-semibold leading-tight">{item.title}</p>
+                        <span className="px-2 py-0.5 rounded-full bg-white/5 text-[9px] font-black uppercase tracking-widest text-[var(--text-tertiary)]">
+                          {item.badge}
+                        </span>
+                      </div>
+                      <p className="text-[var(--text-tertiary)] text-xs leading-relaxed">{item.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </GlassSurface>
+
+            <GlassSurface
+              variant="surface-3"
+              blur="medium"
+              glow
+              glowColor="var(--accent-purchase)"
+              borderGradient="purchase"
+              className="p-5 rounded-[var(--radius-xl)] relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-purchase)]/10 via-transparent to-[var(--accent-premium)]/10" />
+              <div className="relative z-10 space-y-3">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-[var(--text-primary)] text-sm font-black uppercase tracking-[0.2em]">
+                      {SALES_SPOTLIGHT.title}
+                    </p>
+                    <p className="text-[var(--text-tertiary)] text-xs">{SALES_SPOTLIGHT.description}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[var(--text-muted)] text-xs line-through">{SALES_SPOTLIGHT.originalPrice}</p>
+                    <p className="text-[var(--text-primary)] text-2xl font-black">{SALES_SPOTLIGHT.offerPrice}</p>
+                  </div>
+                </div>
+                <CountdownWidget
+                  endTime={countdownEndTime}
+                  originalPrice={SALES_SPOTLIGHT.originalPrice}
+                  discountedPrice={SALES_SPOTLIGHT.offerPrice}
+                  onUpgrade={() => navigate('store')}
+                />
+              </div>
+            </GlassSurface>
+          </motion.aside>
+        </section>
+
         {/* RESUME BAR */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
@@ -595,11 +610,11 @@ export default function HomeV6() {
           className="mb-6"
         >
           <ResumeBar
-            imageUrl={continueWatching.imageUrl}
-            title={continueWatching.title}
-            subtitle={continueWatching.subtitle}
-            progress={continueWatching.progress}
-            timeRemaining={continueWatching.timeRemaining}
+            imageUrl={CONTINUE_WATCHING.imageUrl}
+            title={CONTINUE_WATCHING.title}
+            subtitle={CONTINUE_WATCHING.subtitle}
+            progress={CONTINUE_WATCHING.progress}
+            timeRemaining={CONTINUE_WATCHING.timeRemaining}
             onClick={() => navigate('video-lesson')}
             highlighted={false}
           />
@@ -613,7 +628,7 @@ export default function HomeV6() {
           className="mb-8"
         >
           <ChipTabs 
-            tabs={categories} 
+            tabs={CATEGORIES} 
             activeTab={activeFilter} 
             onChange={setActiveFilter} 
           />
@@ -829,10 +844,7 @@ export default function HomeV6() {
             action={{ label: 'Ver artigos', onClick: () => navigate('explore') }}
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              { id: '1', title: '10 Erros que Fazem Você Pagar Mais nas Passagens', preview: 'Descubra os erros mais comuns que fazem você perder oportunidades de economizar.' },
-              { id: '2', title: 'Como Usar o Modo Anônimo Para Preços Melhores', preview: 'Técnica comprovada para evitar que sites aumentem os preços.' },
-            ].map((article, index) => (
+            {QUICK_ARTICLES.map((article, index) => (
               <motion.div
                 key={article.id}
                 initial={{ opacity: 0, y: 20 }}
