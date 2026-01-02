@@ -44,10 +44,52 @@ interface CategoryRow {
   courses: Course[];
   salesElement?: {
     type: 'vip-lock' | 'flash-offer' | 'combo-bundle' | 'discount-tag' | 'blur-teaser' | 'unlock-cta' | 'social-proof';
-    position: number; // posição na fileira onde inserir
+    position: number;
     data: any;
   };
 }
+
+// ==========================================
+// IMAGENS DE VIAGEM (NÃO ROSTOS)
+// ==========================================
+const TRAVEL_IMAGES = {
+  // Aviões e Aeroportos
+  airplane1: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400',
+  airplane2: 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=400',
+  airport: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=400',
+  
+  // Praias
+  beach1: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400',
+  beach2: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400',
+  maldives: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400',
+  caribbean: 'https://images.unsplash.com/photo-1580541631950-7282082b03fe?w=400',
+  
+  // Europa
+  paris: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400',
+  london: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400',
+  rome: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400',
+  amsterdam: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=400',
+  
+  // Ásia
+  tokyo: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400',
+  thailand: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=400',
+  bali: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400',
+  dubai: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400',
+  
+  // América
+  nyc: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400',
+  rio: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=400',
+  
+  // Passagens e Milhas
+  passport: 'https://images.unsplash.com/photo-1569288063643-5d29ad64df09?w=400',
+  luggage: 'https://images.unsplash.com/photo-1553531384-411a247ccd73?w=400',
+  creditCard: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400',
+  miles: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=400',
+  
+  // Mapas e Planejamento
+  map: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400',
+  planning: 'https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?w=400',
+};
 
 export default function HomeV6() {
   const { navigate } = useNavigation();
@@ -70,7 +112,7 @@ export default function HomeV6() {
   const heroSlides = [
     {
       id: '1',
-      imageUrl: 'https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=1600',
+      imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600',
       title: 'Estratégia do Mês',
       subtitle: '🔴 AO VIVO HOJE ÀS 20H',
       description: 'O Guia Definitivo das Emissões com João Marcos',
@@ -79,7 +121,7 @@ export default function HomeV6() {
     },
     {
       id: '2',
-      imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600',
+      imageUrl: 'https://images.unsplash.com/photo-1580541631950-7282082b03fe?w=1600',
       title: 'Novo Módulo: Caribe',
       subtitle: '🆕 LANÇAMENTO',
       description: 'Descubra praias paradisíacas por menos de R$ 2.000',
@@ -88,7 +130,7 @@ export default function HomeV6() {
     },
     {
       id: '3',
-      imageUrl: 'https://images.unsplash.com/photo-1673505413397-0cd0dc4f5854?w=1600',
+      imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600',
       title: 'Europa 2025',
       subtitle: 'GUIA COMPLETO',
       description: 'Roteiros otimizados para 15 países europeus',
@@ -98,11 +140,11 @@ export default function HomeV6() {
   ];
 
   // ==========================================
-  // CONTINUAR ASSISTINDO - Sem destaque excessivo
+  // CONTINUAR ASSISTINDO
   // ==========================================
   const continueWatching = {
     id: '1',
-    imageUrl: 'https://images.unsplash.com/photo-1721592872734-3398900b195c?w=400',
+    imageUrl: TRAVEL_IMAGES.airplane1,
     title: 'ALIA 04 - O Segredo das Emissões Tabela Fixa',
     subtitle: 'Aula 3 de 8 • Módulo Avançado',
     progress: 50,
@@ -121,7 +163,7 @@ export default function HomeV6() {
       courses: [
         {
           id: 'f1',
-          imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+          imageUrl: TRAVEL_IMAGES.airplane2,
           title: 'Método Completo: Passagens 70% Mais Baratas',
           subtitle: '32 aulas • 8h 45min',
           badge: 'Bestseller',
@@ -129,7 +171,7 @@ export default function HomeV6() {
         },
         {
           id: 'f2',
-          imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+          imageUrl: TRAVEL_IMAGES.planning,
           title: 'Primeiros Passos: Economia em Viagens',
           subtitle: '18 aulas • 4h 20min',
           badge: 'Iniciante',
@@ -137,21 +179,21 @@ export default function HomeV6() {
         },
         {
           id: 'f3',
-          imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+          imageUrl: TRAVEL_IMAGES.map,
           title: 'Como Planejar Sua Primeira Viagem',
           subtitle: '15 aulas • 3h 45min',
           category: 'Fundamentos',
         },
         {
           id: 'f4',
-          imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+          imageUrl: TRAVEL_IMAGES.airport,
           title: 'Alertas de Preço: Guia Completo',
           subtitle: '12 aulas • 2h 30min',
           category: 'Fundamentos',
         },
         {
           id: 'f5',
-          imageUrl: 'https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400',
+          imageUrl: TRAVEL_IMAGES.luggage,
           title: 'Ferramentas Essenciais do Viajante',
           subtitle: '20 aulas • 5h',
           badge: 'Popular',
@@ -162,7 +204,7 @@ export default function HomeV6() {
         type: 'vip-lock',
         position: 2,
         data: {
-          imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400',
+          imageUrl: TRAVEL_IMAGES.passport,
           title: 'Masterclass: Segredos dos Experts',
           subtitle: '40 aulas • 12h',
         },
@@ -176,14 +218,14 @@ export default function HomeV6() {
       courses: [
         {
           id: 'd1',
-          imageUrl: 'https://images.unsplash.com/photo-1673505413397-0cd0dc4f5854?w=400',
+          imageUrl: TRAVEL_IMAGES.nyc,
           title: 'Nova York Econômica',
           subtitle: '22 aulas • 6h 15min',
           category: 'Destinos',
         },
         {
           id: 'd2',
-          imageUrl: 'https://images.unsplash.com/photo-1579077926357-365f07b70b01?w=400',
+          imageUrl: TRAVEL_IMAGES.paris,
           title: 'Paris com R$ 200/Dia',
           subtitle: '20 aulas • 5h 50min',
           badge: 'Atualizado',
@@ -191,7 +233,7 @@ export default function HomeV6() {
         },
         {
           id: 'd3',
-          imageUrl: 'https://images.unsplash.com/photo-1721592872734-3398900b195c?w=400',
+          imageUrl: TRAVEL_IMAGES.thailand,
           title: 'Tailândia Completa',
           subtitle: '24 aulas • 7h 20min',
           badge: 'TOP 5',
@@ -199,14 +241,14 @@ export default function HomeV6() {
         },
         {
           id: 'd4',
-          imageUrl: 'https://images.unsplash.com/photo-1590077066281-edbd16178b7e?w=400',
+          imageUrl: TRAVEL_IMAGES.tokyo,
           title: 'Japão: Cerejeiras e Templos',
           subtitle: '30 aulas • 8h 30min',
           category: 'Destinos',
         },
         {
           id: 'd5',
-          imageUrl: 'https://images.unsplash.com/photo-1655722724447-2d2a3071e7f8?w=400',
+          imageUrl: TRAVEL_IMAGES.dubai,
           title: 'Dubai Luxuosa por R$ 180/Dia',
           subtitle: '16 aulas • 4h 45min',
           category: 'Destinos',
@@ -216,8 +258,8 @@ export default function HomeV6() {
         type: 'flash-offer',
         position: 3,
         data: {
-          title: '🔥 Oferta Relâmpago: Pacote Europa + Ásia',
-          subtitle: '2 cursos completos pelo preço de 1',
+          title: '🔥 Europa + Ásia',
+          subtitle: '2 cursos pelo preço de 1',
           originalPrice: 'R$ 997',
           discountedPrice: 'R$ 497',
         },
@@ -231,7 +273,7 @@ export default function HomeV6() {
       courses: [
         {
           id: 'm1',
-          imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+          imageUrl: TRAVEL_IMAGES.miles,
           title: 'Milhas do Zero ao Avançado',
           subtitle: '36 aulas • 10h 40min',
           badge: 'Mais Vendido',
@@ -239,14 +281,14 @@ export default function HomeV6() {
         },
         {
           id: 'm2',
-          imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+          imageUrl: TRAVEL_IMAGES.creditCard,
           title: 'Cartões de Crédito para Milhas',
           subtitle: '18 aulas • 4h 30min',
           category: 'Milhas e Pontos',
         },
         {
           id: 'm3',
-          imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+          imageUrl: TRAVEL_IMAGES.airplane1,
           title: 'Transferências Bonificadas',
           subtitle: '12 aulas • 3h',
           badge: 'Novo',
@@ -254,7 +296,7 @@ export default function HomeV6() {
         },
         {
           id: 'm4',
-          imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+          imageUrl: TRAVEL_IMAGES.passport,
           title: 'Resgate Inteligente de Passagens',
           subtitle: '15 aulas • 4h',
           category: 'Milhas e Pontos',
@@ -264,15 +306,12 @@ export default function HomeV6() {
         type: 'combo-bundle',
         position: 2,
         data: {
-          courseImages: [
-            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
-          ],
-          title: 'Combo Milhas PRO: 2 Cursos',
+          courseImages: [TRAVEL_IMAGES.miles, TRAVEL_IMAGES.creditCard],
+          title: 'Combo Milhas PRO',
           coursesIncluded: ['Milhas do Zero ao Avançado', 'Erros de Tarifa Masterclass'],
           originalPrice: 'R$ 997',
           discountedPrice: 'R$ 497',
-          savings: 'Economize R$ 500',
+          savings: '-50%',
         },
       },
     },
@@ -284,21 +323,21 @@ export default function HomeV6() {
       courses: [
         {
           id: 't1',
-          imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+          imageUrl: TRAVEL_IMAGES.map,
           title: 'Stopover Estratégico',
           subtitle: '12 aulas • 3h 30min',
           category: 'Técnicas Avançadas',
         },
         {
           id: 't2',
-          imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+          imageUrl: TRAVEL_IMAGES.planning,
           title: 'Ferramentas de Busca Avançadas',
           subtitle: '15 aulas • 4h',
           category: 'Técnicas Avançadas',
         },
         {
           id: 't3',
-          imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+          imageUrl: TRAVEL_IMAGES.airport,
           title: 'Erros de Tarifa: Como Encontrar',
           subtitle: '18 aulas • 5h',
           badge: 'Avançado',
@@ -306,7 +345,7 @@ export default function HomeV6() {
         },
         {
           id: 't4',
-          imageUrl: 'https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400',
+          imageUrl: TRAVEL_IMAGES.airplane2,
           title: 'Voos com Múltiplas Paradas',
           subtitle: '10 aulas • 2h 30min',
           category: 'Técnicas Avançadas',
@@ -316,7 +355,7 @@ export default function HomeV6() {
         type: 'discount-tag',
         position: 2,
         data: {
-          imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+          imageUrl: TRAVEL_IMAGES.luggage,
           title: 'Erros de Tarifa Masterclass',
           subtitle: '25 aulas • 7h',
           discount: '-40% OFF',
@@ -347,12 +386,17 @@ export default function HomeV6() {
   // SIDEBAR DATA
   // ==========================================
   const newTrailers = [
-    { id: '1', imageUrl: 'https://images.unsplash.com/photo-1673505413397-0cd0dc4f5854?w=400', title: 'Ásia Econômica', subtitle: 'Novo módulo' },
-    { id: '2', imageUrl: 'https://images.unsplash.com/photo-1579077926357-365f07b70b01?w=400', title: 'Caribe Low Cost', subtitle: 'Em destaque' },
+    { id: '1', imageUrl: TRAVEL_IMAGES.bali, title: 'Ásia Econômica', subtitle: 'Novo módulo' },
+    { id: '2', imageUrl: TRAVEL_IMAGES.caribbean, title: 'Caribe Low Cost', subtitle: 'Em destaque' },
   ];
 
   // ==========================================
-  // RENDER: Elemento de vendas por tipo
+  // LARGURA PADRÃO DOS CARDS (consistente)
+  // ==========================================
+  const CARD_WIDTH = "w-[140px] sm:w-[160px] lg:w-[180px]";
+
+  // ==========================================
+  // RENDER: Elemento de vendas (mesma largura dos cursos)
   // ==========================================
   const renderSalesElement = (salesElement: CategoryRow['salesElement']) => {
     if (!salesElement) return null;
@@ -360,7 +404,7 @@ export default function HomeV6() {
     switch (salesElement.type) {
       case 'vip-lock':
         return (
-          <div className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
+          <div className={`flex-shrink-0 ${CARD_WIDTH}`}>
             <VIPLockCard
               imageUrl={salesElement.data.imageUrl}
               title={salesElement.data.title}
@@ -371,7 +415,7 @@ export default function HomeV6() {
         );
       case 'flash-offer':
         return (
-          <div className="flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px]">
+          <div className={`flex-shrink-0 ${CARD_WIDTH}`}>
             <FlashOfferCard
               title={salesElement.data.title}
               subtitle={salesElement.data.subtitle}
@@ -384,7 +428,7 @@ export default function HomeV6() {
         );
       case 'combo-bundle':
         return (
-          <div className="flex-shrink-0 w-[260px] sm:w-[280px] lg:w-[320px]">
+          <div className={`flex-shrink-0 ${CARD_WIDTH}`}>
             <ComboBundleCard
               courseImages={salesElement.data.courseImages}
               title={salesElement.data.title}
@@ -398,7 +442,7 @@ export default function HomeV6() {
         );
       case 'discount-tag':
         return (
-          <div className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
+          <div className={`flex-shrink-0 ${CARD_WIDTH}`}>
             <DiscountTagCard
               imageUrl={salesElement.data.imageUrl}
               title={salesElement.data.title}
@@ -416,7 +460,7 @@ export default function HomeV6() {
   };
 
   // ==========================================
-  // RENDER: Fileira de cursos com elemento de vendas intercalado
+  // RENDER: Fileira de cursos
   // ==========================================
   const renderCategoryRow = (row: CategoryRow, index: number) => {
     const coursesWithSales: JSX.Element[] = [];
@@ -431,9 +475,9 @@ export default function HomeV6() {
         );
       }
       
-      // Adicionar curso
+      // Adicionar curso com mesma largura
       coursesWithSales.push(
-        <div key={course.id} className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
+        <div key={course.id} className={`flex-shrink-0 ${CARD_WIDTH}`}>
           <ContentCard
             imageUrl={course.imageUrl}
             title={course.title}
@@ -476,7 +520,6 @@ export default function HomeV6() {
   // ==========================================
   const renderRightSidebar = () => (
     <div className="space-y-6">
-      {/* Novidades Widget */}
       <SidebarWidget title="Novidades" sortable sortLabel="Hoje" onSortChange={() => {}}>
         <div className="space-y-3">
           {newTrailers.map((trailer) => (
@@ -491,7 +534,6 @@ export default function HomeV6() {
         </div>
       </SidebarWidget>
 
-      {/* Seu Progresso Widget */}
       <GlassSurface variant="surface-2" blur="medium" className="p-5 rounded-[var(--radius-xl)]">
         <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-4">Seu progresso</h3>
         <div className="space-y-4">
@@ -529,7 +571,6 @@ export default function HomeV6() {
         </div>
       </GlassSurface>
 
-      {/* Countdown Widget - Premium Upsell */}
       <CountdownWidget
         endTime={countdownEndTime}
         originalPrice="R$ 997"
@@ -537,7 +578,6 @@ export default function HomeV6() {
         onUpgrade={() => navigate('store')}
       />
 
-      {/* Social Proof Widget */}
       <GlassSurface variant="surface-2" blur="medium" className="p-5 rounded-[var(--radius-xl)]">
         <div className="flex items-start gap-3 mb-4">
           <div className="flex -space-x-2">
@@ -566,8 +606,8 @@ export default function HomeV6() {
   // RENDER PRINCIPAL
   // ==========================================
   return (
-    <VeloxLayout rightSidebar={renderRightSidebar()}>
-      {/* Hero Carousel */}
+    <VeloxLayout rightSidebar={renderRightSidebar()} heroOverlay>
+      {/* Hero Carousel - Full Width com Sidebar Sobreposta */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -579,11 +619,13 @@ export default function HomeV6() {
           onWatchClick={() => navigate('video-lesson')}
           onDownloadClick={() => {}}
           fullWidth
+          sidebarOverlay
         />
       </motion.section>
 
-      <div className="px-4 lg:px-6 pb-24 lg:pb-6">
-        {/* RESUME BAR - Sem destaque excessivo, discreto */}
+      {/* Padding extra no desktop (xl:) para não conflitar com sidebar fixa */}
+      <div className="px-4 lg:px-6 xl:pr-[360px] pb-24 lg:pb-6">
+        {/* RESUME BAR */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -601,7 +643,7 @@ export default function HomeV6() {
           />
         </motion.section>
 
-        {/* FILTROS DE CATEGORIA - Controla as fileiras visíveis */}
+        {/* FILTROS DE CATEGORIA */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -628,58 +670,56 @@ export default function HomeV6() {
           </motion.div>
         </AnimatePresence>
 
-        {/* SEÇÃO: Desbloqueie Mais (sempre visível) */}
-        {activeFilter === 'Todos' && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mb-8"
-          >
-            <SectionHeader
-              title="Desbloqueie Mais"
-              action={{ label: 'Ver premium', onClick: () => navigate('store') }}
+        {/* SEÇÃO: Desbloqueie Mais - SEMPRE VISÍVEL (não afetada pelo filtro) */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mb-8"
+        >
+          <SectionHeader
+            title="Desbloqueie Mais"
+            action={{ label: 'Ver premium', onClick: () => navigate('store') }}
+          />
+          <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
+            <BlurTeaserCard
+              imageUrl={TRAVEL_IMAGES.tokyo}
+              title="Japão: Cerejeiras e Templos"
+              lessonCount="30 aulas"
+              duration="8h 30min"
+              onClick={() => navigate('locked-preview')}
             />
-            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
-              <BlurTeaserCard
-                imageUrl="https://images.unsplash.com/photo-1590077066281-edbd16178b7e?w=400"
-                title="Japão: Cerejeiras e Templos"
-                lessonCount="30 aulas"
-                duration="8h 30min"
+            <UnlockCTACard
+              imageUrl={TRAVEL_IMAGES.maldives}
+              title="Milhas: Do Zero ao Primeira Classe"
+              subtitle="O método mais completo"
+              priceFrom="R$ 29/mês"
+              onClick={() => navigate('store')}
+            />
+            <SocialProofCard
+              imageUrl={TRAVEL_IMAGES.dubai}
+              title="Dubai Luxuosa por R$ 180/Dia"
+              studentsCount="+6.789 alunos"
+              rating={4.7}
+              badge="Mais acessado"
+              avatars={[
+                'https://i.pravatar.cc/150?img=1',
+                'https://i.pravatar.cc/150?img=2',
+                'https://i.pravatar.cc/150?img=3',
+                'https://i.pravatar.cc/150?img=4',
+              ]}
+              onClick={() => navigate('locked-preview')}
+            />
+            <div className="hidden lg:block">
+              <VIPLockCard
+                imageUrl={TRAVEL_IMAGES.maldives}
+                title="Maldivas: Paraíso Acessível"
+                subtitle="Exclusivo VIP"
                 onClick={() => navigate('locked-preview')}
               />
-              <UnlockCTACard
-                imageUrl="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400"
-                title="Milhas: Do Zero ao Primeira Classe"
-                subtitle="O método mais completo"
-                priceFrom="R$ 29/mês"
-                onClick={() => navigate('store')}
-              />
-              <SocialProofCard
-                imageUrl="https://images.unsplash.com/photo-1655722724447-2d2a3071e7f8?w=400"
-                title="Dubai Luxuosa por R$ 180/Dia"
-                studentsCount="+6.789 alunos"
-                rating={4.7}
-                badge="Mais acessado"
-                avatars={[
-                  'https://i.pravatar.cc/150?img=1',
-                  'https://i.pravatar.cc/150?img=2',
-                  'https://i.pravatar.cc/150?img=3',
-                  'https://i.pravatar.cc/150?img=4',
-                ]}
-                onClick={() => navigate('locked-preview')}
-              />
-              <div className="hidden lg:block">
-                <VIPLockCard
-                  imageUrl="https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400"
-                  title="Maldivas: Paraíso Acessível"
-                  subtitle="Exclusivo VIP"
-                  onClick={() => navigate('locked-preview')}
-                />
-              </div>
             </div>
-          </motion.section>
-        )}
+          </div>
+        </motion.section>
 
         {/* INLINE SALES BANNER - Mobile Only */}
         <motion.section
@@ -731,7 +771,6 @@ export default function HomeV6() {
           className="mb-8 -mx-4 lg:-mx-6"
         >
           <div className="relative overflow-hidden bg-gradient-to-br from-[#0d3f2e] via-[#0a2f22] to-[#082a1e] py-12 lg:py-16">
-            {/* WhatsApp Pattern */}
             <div className="absolute inset-0 opacity-[0.03]" style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2325D366'%3E%3Cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z'/%3E%3C/svg%3E")`,
               backgroundSize: '60px 60px'

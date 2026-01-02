@@ -138,60 +138,62 @@ export function FlashOfferCard({
         className
       )}
     >
-      <div className="relative aspect-[16/10] w-full p-5 flex flex-col justify-between">
+      {/* Mesma altura dos cards de curso: aspect-[2/3] */}
+      <div className="relative aspect-[2/3] w-full p-4 flex flex-col justify-between">
         {/* Animated fire particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-2 right-4 text-3xl animate-bounce" style={{ animationDelay: '0s' }}>🔥</div>
-          <div className="absolute top-8 left-6 text-xl animate-bounce" style={{ animationDelay: '0.2s' }}>🔥</div>
-          <div className="absolute bottom-12 right-8 text-2xl animate-bounce" style={{ animationDelay: '0.4s' }}>🔥</div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-3 right-3 text-2xl animate-bounce" style={{ animationDelay: '0s' }}>🔥</div>
+          <div className="absolute top-1/3 left-3 text-lg animate-bounce" style={{ animationDelay: '0.2s' }}>🔥</div>
         </div>
         
         {/* Badge */}
-        <div className="flex items-center gap-2">
-          <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-[10px] font-black uppercase tracking-wider">
+        <div className="flex items-center">
+          <span className="px-2.5 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-[9px] font-black uppercase tracking-wider">
             ⚡ Oferta Relâmpago
           </span>
         </div>
         
-        {/* Content */}
-        <div className="text-left">
-          <h3 className="text-white text-lg font-black leading-tight mb-1">
+        {/* Content - centered */}
+        <div className="text-left flex-1 flex flex-col justify-center">
+          <h3 className="text-white text-sm font-black leading-tight mb-1 line-clamp-2">
             {title}
           </h3>
           {subtitle && (
-            <p className="text-white/70 text-xs mb-3">
+            <p className="text-white/70 text-[10px] mb-3 line-clamp-1">
               {subtitle}
             </p>
           )}
           
-          {/* Countdown */}
-          <div className="flex items-center gap-2 mb-4">
-            <Timer className="w-4 h-4 text-white/80" />
-            <span className="text-white/80 text-xs font-medium">Termina em:</span>
+          {/* Countdown - compact */}
+          <div className="mb-3">
+            <div className="flex items-center gap-1 mb-1">
+              <Timer className="w-3 h-3 text-white/80" />
+              <span className="text-white/80 text-[9px] font-medium">Termina em:</span>
+            </div>
             <div className="flex items-center gap-1 font-mono">
-              <span className="px-2 py-1 bg-black/30 rounded text-white text-sm font-black">
+              <span className="px-1.5 py-0.5 bg-black/30 rounded text-white text-xs font-black">
                 {formatNumber(timeLeft.hours)}
               </span>
-              <span className="text-white font-bold">:</span>
-              <span className="px-2 py-1 bg-black/30 rounded text-white text-sm font-black">
+              <span className="text-white font-bold text-xs">:</span>
+              <span className="px-1.5 py-0.5 bg-black/30 rounded text-white text-xs font-black">
                 {formatNumber(timeLeft.minutes)}
               </span>
-              <span className="text-white font-bold">:</span>
-              <span className="px-2 py-1 bg-black/30 rounded text-white text-sm font-black animate-pulse">
+              <span className="text-white font-bold text-xs">:</span>
+              <span className="px-1.5 py-0.5 bg-black/30 rounded text-white text-xs font-black animate-pulse">
                 {formatNumber(timeLeft.seconds)}
               </span>
             </div>
           </div>
-          
-          {/* Price & CTA */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-baseline gap-2">
-              <span className="text-white/50 text-sm line-through">{originalPrice}</span>
-              <span className="text-white text-xl font-black">{discountedPrice}</span>
-            </div>
-            <div className="px-4 py-2 bg-white text-orange-600 rounded-full text-xs font-black uppercase tracking-wider group-hover:bg-yellow-300 transition-colors">
-              Garantir Desconto
-            </div>
+        </div>
+        
+        {/* Price & CTA - bottom */}
+        <div>
+          <div className="flex items-baseline gap-2 mb-2">
+            <span className="text-white/50 text-xs line-through">{originalPrice}</span>
+            <span className="text-white text-lg font-black">{discountedPrice}</span>
+          </div>
+          <div className="w-full py-2 bg-white text-orange-600 rounded-lg text-[10px] font-black uppercase tracking-wider text-center group-hover:bg-yellow-300 transition-colors">
+            Garantir Desconto
           </div>
         </div>
       </div>
@@ -233,9 +235,10 @@ export function ComboBundleCard({
         className
       )}
     >
-      <div className="relative">
-        {/* Split image header */}
-        <div className="relative h-28 flex">
+      {/* Mesma altura dos cards de curso: aspect-[2/3] */}
+      <div className="relative aspect-[2/3] w-full flex flex-col">
+        {/* Split image header - proporção fixa */}
+        <div className="relative h-[40%] flex">
           <div className="w-1/2 relative overflow-hidden">
             <img src={courseImages[0]} alt="" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/50" />
@@ -246,40 +249,42 @@ export function ComboBundleCard({
           </div>
           {/* Center overlap badge */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-12 h-12 rounded-full bg-[var(--accent-primary)] flex items-center justify-center border-4 border-[var(--app-bg)] shadow-xl">
-              <span className="text-black text-lg font-black">2x</span>
+            <div className="w-10 h-10 rounded-full bg-[var(--accent-primary)] flex items-center justify-center border-3 border-[var(--app-bg)] shadow-xl">
+              <span className="text-black text-sm font-black">2x</span>
             </div>
           </div>
           {/* Savings badge */}
-          <div className="absolute top-3 right-3">
-            <Badge variant="success" className="shadow-lg">
+          <div className="absolute top-2 right-2">
+            <Badge variant="success" className="shadow-lg text-[9px]">
               {savings}
             </Badge>
           </div>
         </div>
         
-        {/* Content */}
-        <div className="p-4 text-left">
-          <h3 className="text-[var(--text-primary)] text-base font-bold mb-2">
-            {title}
-          </h3>
-          
-          <ul className="space-y-1 mb-4">
-            {coursesIncluded.map((course, i) => (
-              <li key={i} className="flex items-center gap-2 text-[var(--text-tertiary)] text-xs">
-                <span className="w-1 h-1 rounded-full bg-[var(--accent-primary)]" />
-                {course}
-              </li>
-            ))}
-          </ul>
+        {/* Content - flex grow */}
+        <div className="flex-1 p-3 text-left flex flex-col justify-between">
+          <div>
+            <h3 className="text-[var(--text-primary)] text-sm font-bold mb-2 line-clamp-2">
+              {title}
+            </h3>
+            
+            <ul className="space-y-1">
+              {coursesIncluded.slice(0, 2).map((course, i) => (
+                <li key={i} className="flex items-center gap-2 text-[var(--text-tertiary)] text-[10px]">
+                  <span className="w-1 h-1 rounded-full bg-[var(--accent-primary)] flex-shrink-0" />
+                  <span className="truncate">{course}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
           
           {/* Pricing */}
-          <div className="flex items-center justify-between pt-3 border-t border-[var(--glass-border)]">
-            <div>
-              <span className="text-[var(--text-muted)] text-xs line-through block">{originalPrice}</span>
-              <span className="text-[var(--accent-primary)] text-xl font-black">{discountedPrice}</span>
+          <div className="pt-2 border-t border-[var(--glass-border)]">
+            <div className="flex items-baseline gap-2 mb-2">
+              <span className="text-[var(--text-muted)] text-[10px] line-through">{originalPrice}</span>
+              <span className="text-[var(--accent-primary)] text-lg font-black">{discountedPrice}</span>
             </div>
-            <div className="px-4 py-2 bg-[var(--accent-primary)] text-black rounded-full text-xs font-black uppercase tracking-wider group-hover:scale-105 transition-transform">
+            <div className="w-full py-2 bg-[var(--accent-primary)] text-black rounded-lg text-[10px] font-black uppercase tracking-wider text-center group-hover:scale-[1.02] transition-transform">
               Comprar Combo
             </div>
           </div>

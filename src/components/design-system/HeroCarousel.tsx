@@ -23,6 +23,7 @@ interface HeroCarouselProps {
   autoPlay?: boolean;
   autoPlayInterval?: number;
   fullWidth?: boolean;
+  sidebarOverlay?: boolean; // Quando sidebar flutua sobre o hero
 }
 
 export function HeroCarousel({
@@ -32,6 +33,7 @@ export function HeroCarousel({
   autoPlay = true,
   autoPlayInterval = 6000,
   fullWidth = false,
+  sidebarOverlay = false,
 }: HeroCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -182,8 +184,11 @@ export function HeroCarousel({
         </AnimatePresence>
       </div>
 
-      {/* Minimal Navigation Overlay */}
-      <div className="absolute bottom-10 right-10 hidden md:flex items-center gap-8">
+      {/* Minimal Navigation Overlay - Posicionado para não conflitar com sidebar */}
+      <div className={cn(
+        "absolute bottom-10 hidden md:flex items-center gap-8",
+        sidebarOverlay ? "right-[360px] xl:right-[380px]" : "right-10"
+      )}>
         {/* Slide Numbers with animated underline */}
         <div className="flex flex-col items-end gap-1">
           <div className="flex items-baseline gap-2">

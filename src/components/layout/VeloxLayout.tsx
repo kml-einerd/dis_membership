@@ -22,6 +22,7 @@ interface VeloxLayoutProps {
   children: ReactNode;
   rightSidebar?: ReactNode;
   showNavigation?: boolean;
+  heroOverlay?: boolean; // Sidebar flutua sobre o hero
 }
 
 interface NavItem {
@@ -37,7 +38,7 @@ const navItems: NavItem[] = [
   { id: 'store', icon: ShoppingBag, label: 'Loja' },
 ];
 
-export function VeloxLayout({ children, rightSidebar, showNavigation = true }: VeloxLayoutProps) {
+export function VeloxLayout({ children, rightSidebar, showNavigation = true, heroOverlay = false }: VeloxLayoutProps) {
   const { currentTab, navigateTab, navigate } = useNavigation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -254,26 +255,46 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true }: V
 
       {/* Main Content */}
       <main className="relative z-10">
-        <div className="mx-auto max-w-[1600px]">
-          <div className={cn(
-            'flex gap-6',
-            rightSidebar ? 'lg:pr-6' : ''
-          )}>
-            {/* Main Content Area */}
-            <div className="flex-1 min-w-0">
+        {heroOverlay ? (
+          // Modo Hero Overlay: Sidebar flutua sobre o conteúdo
+          <div className="relative">
+            {/* Main Content - Full Width */}
+            <div className="w-full">
               {children}
             </div>
 
-            {/* Right Sidebar - Desktop Only */}
+            {/* Right Sidebar - Floating over hero - Desktop Only */}
             {rightSidebar && (
-              <aside className="hidden xl:block w-[320px] flex-shrink-0 py-6">
-                <div className="sticky top-[100px]">
+              <aside className="hidden xl:block fixed top-[100px] right-6 w-[320px] z-30 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-hide">
+                <div className="pr-2">
                   {rightSidebar}
                 </div>
               </aside>
             )}
           </div>
-        </div>
+        ) : (
+          // Modo padrão: Layout em colunas
+          <div className="mx-auto max-w-[1600px]">
+            <div className={cn(
+              'flex gap-6',
+              rightSidebar ? 'lg:pr-6' : ''
+            )}>
+              {/* Main Content Area */}
+              <div className="flex-1 min-w-0">
+                {children}
+              </div>
+
+              {/* Right Sidebar - Desktop Only */}
+              {rightSidebar && (
+                <aside className="hidden xl:block w-[320px] flex-shrink-0 py-6">
+                  <div className="sticky top-[100px]">
+                    {rightSidebar}
+                  </div>
+                </aside>
+              )}
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Mobile Bottom Tab Bar */}
