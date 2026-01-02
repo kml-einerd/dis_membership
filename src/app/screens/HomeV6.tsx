@@ -9,12 +9,9 @@ import {
   Button,
   GlassSurface,
   HeroCarousel,
-  SidebarWidget,
-  SidebarTrailerCard,
   NetflixCarousel,
   ResumeBar,
   VIPLockCard,
-  FlashOfferCard,
   ComboBundleCard,
   DiscountTagCard,
   BlurTeaserCard,
@@ -43,7 +40,7 @@ interface CategoryRow {
   category: string;
   courses: Course[];
   salesElement?: {
-    type: 'vip-lock' | 'flash-offer' | 'combo-bundle' | 'discount-tag' | 'blur-teaser' | 'unlock-cta' | 'social-proof';
+    type: 'vip-lock' | 'combo-bundle' | 'discount-tag' | 'blur-teaser' | 'unlock-cta' | 'social-proof';
     position: number;
     data: any;
   };
@@ -255,13 +252,12 @@ export default function HomeV6() {
         },
       ],
       salesElement: {
-        type: 'flash-offer',
+        type: 'vip-lock',
         position: 3,
         data: {
-          title: '🔥 Europa + Ásia',
-          subtitle: '2 cursos pelo preço de 1',
-          originalPrice: 'R$ 997',
-          discountedPrice: 'R$ 497',
+          imageUrl: TRAVEL_IMAGES.rome,
+          title: 'Roma: Roteiro Secreto',
+          subtitle: 'Conteúdo VIP',
         },
       },
     },
@@ -380,15 +376,6 @@ export default function HomeV6() {
   // TIMERS
   // ==========================================
   const countdownEndTime = new Date(Date.now() + (2 * 24 * 60 * 60 * 1000) + (4 * 60 * 60 * 1000) + (57 * 60 * 1000));
-  const flashOfferEndTime = new Date(Date.now() + (2 * 60 * 60 * 1000) + (14 * 60 * 1000) + (55 * 1000));
-
-  // ==========================================
-  // SIDEBAR DATA
-  // ==========================================
-  const newTrailers = [
-    { id: '1', imageUrl: TRAVEL_IMAGES.bali, title: 'Ásia Econômica', subtitle: 'Novo módulo' },
-    { id: '2', imageUrl: TRAVEL_IMAGES.caribbean, title: 'Caribe Low Cost', subtitle: 'Em destaque' },
-  ];
 
   // ==========================================
   // LARGURA PADRÃO DOS CARDS (consistente)
@@ -412,19 +399,6 @@ export default function HomeV6() {
               title={salesElement.data.title}
               subtitle={salesElement.data.subtitle}
               onClick={() => navigate('locked-preview')}
-            />
-          </div>
-        );
-      case 'flash-offer':
-        return (
-          <div className={`flex-shrink-0 ${SALES_CARD_WIDTH}`}>
-            <FlashOfferCard
-              title={salesElement.data.title}
-              subtitle={salesElement.data.subtitle}
-              originalPrice={salesElement.data.originalPrice}
-              discountedPrice={salesElement.data.discountedPrice}
-              endTime={flashOfferEndTime}
-              onClick={() => navigate('store')}
             />
           </div>
         );
@@ -522,20 +496,6 @@ export default function HomeV6() {
   // ==========================================
   const renderRightSidebar = () => (
     <div className="space-y-6">
-      <SidebarWidget title="Novidades" sortable sortLabel="Hoje" onSortChange={() => {}}>
-        <div className="space-y-3">
-          {newTrailers.map((trailer) => (
-            <SidebarTrailerCard
-              key={trailer.id}
-              imageUrl={trailer.imageUrl}
-              title={trailer.title}
-              subtitle={trailer.subtitle}
-              onClick={() => navigate('video-lesson')}
-            />
-          ))}
-        </div>
-      </SidebarWidget>
-
       <GlassSurface variant="surface-2" blur="medium" className="p-5 rounded-[var(--radius-xl)]">
         <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-4">Seu progresso</h3>
         <div className="space-y-4">

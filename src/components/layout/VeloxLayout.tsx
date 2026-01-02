@@ -263,9 +263,9 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true, her
               {children}
             </div>
 
-            {/* Right Sidebar - Floating over hero - Desktop Only */}
+            {/* Right Sidebar - Posicionada absolute para scrollar junto com a página */}
             {rightSidebar && (
-              <aside className="hidden xl:block fixed top-[100px] right-6 w-[320px] z-30 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-hide">
+              <aside className="hidden xl:block absolute top-0 right-6 w-[320px] z-30 pt-6">
                 <div className="pr-2">
                   {rightSidebar}
                 </div>
