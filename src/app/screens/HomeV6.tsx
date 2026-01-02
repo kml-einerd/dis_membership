@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Play, Clock, BookOpen, ChevronRight, CheckCircle2, MessageCircle, Crown, Zap, Users } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Play, Clock, BookOpen, ChevronRight, CheckCircle2, MessageCircle, Crown, Zap } from 'lucide-react';
 import { useNavigation } from '../navigation/NavigationContext';
 import { VeloxLayout } from '../../components/layout/VeloxLayout';
 import {
@@ -10,7 +10,6 @@ import {
   GlassSurface,
   HeroCarousel,
   SidebarWidget,
-  SidebarListItem,
   SidebarTrailerCard,
   NetflixCarousel,
   ResumeBar,
@@ -23,16 +22,51 @@ import {
   SocialProofCard,
   CountdownWidget,
 } from '../../components/design-system';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
+
+// ==========================================
+// TIPOS E INTERFACES
+// ==========================================
+interface Course {
+  id: string;
+  imageUrl: string;
+  title: string;
+  subtitle: string;
+  badge?: string;
+  locked?: boolean;
+  category: string;
+}
+
+interface CategoryRow {
+  id: string;
+  title: string;
+  category: string;
+  courses: Course[];
+  salesElement?: {
+    type: 'vip-lock' | 'flash-offer' | 'combo-bundle' | 'discount-tag' | 'blur-teaser' | 'unlock-cta' | 'social-proof';
+    position: number; // posição na fileira onde inserir
+    data: any;
+  };
+}
 
 export default function HomeV6() {
   const { navigate } = useNavigation();
   const [activeFilter, setActiveFilter] = useState('Todos');
 
-  // TABS com propósito definido: filtrar TODO o conteúdo
-  const filters = ['Todos', 'Meus Cursos', 'Em Alta', 'Ofertas Exclusivas', 'Ao Vivo'];
+  // ==========================================
+  // CATEGORIAS - Filtros de navegação
+  // ==========================================
+  const categories = [
+    'Todos',
+    'Fundamentos',
+    'Destinos',
+    'Milhas e Pontos',
+    'Técnicas Avançadas',
+  ];
 
-  // Hero carousel data - Banner flexível do admin
+  // ==========================================
+  // DADOS DO HERO BANNER
+  // ==========================================
   const heroSlides = [
     {
       id: '1',
@@ -63,7 +97,9 @@ export default function HomeV6() {
     },
   ];
 
-  // Continue watching - principal para retenção
+  // ==========================================
+  // CONTINUAR ASSISTINDO - Sem destaque excessivo
+  // ==========================================
   const continueWatching = {
     id: '1',
     imageUrl: 'https://images.unsplash.com/photo-1721592872734-3398900b195c?w=400',
@@ -74,130 +110,374 @@ export default function HomeV6() {
   };
 
   // ==========================================
-  // FILEIRA 1: Recomendados (Portrait + VIP Lock)
+  // FILEIRAS DE CURSOS POR CATEGORIA
   // ==========================================
-  const recommendedCourses = [
+  const categoryRows: CategoryRow[] = [
+    // CATEGORIA: FUNDAMENTOS
     {
-      id: '1',
-      imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
-      title: 'Método Completo: Passagens 70% Mais Baratas',
-      subtitle: '32 aulas • 8h 45min',
-      badge: 'Bestseller',
+      id: 'fundamentos',
+      title: 'Fundamentos',
+      category: 'Fundamentos',
+      courses: [
+        {
+          id: 'f1',
+          imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+          title: 'Método Completo: Passagens 70% Mais Baratas',
+          subtitle: '32 aulas • 8h 45min',
+          badge: 'Bestseller',
+          category: 'Fundamentos',
+        },
+        {
+          id: 'f2',
+          imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+          title: 'Primeiros Passos: Economia em Viagens',
+          subtitle: '18 aulas • 4h 20min',
+          badge: 'Iniciante',
+          category: 'Fundamentos',
+        },
+        {
+          id: 'f3',
+          imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+          title: 'Como Planejar Sua Primeira Viagem',
+          subtitle: '15 aulas • 3h 45min',
+          category: 'Fundamentos',
+        },
+        {
+          id: 'f4',
+          imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+          title: 'Alertas de Preço: Guia Completo',
+          subtitle: '12 aulas • 2h 30min',
+          category: 'Fundamentos',
+        },
+        {
+          id: 'f5',
+          imageUrl: 'https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400',
+          title: 'Ferramentas Essenciais do Viajante',
+          subtitle: '20 aulas • 5h',
+          badge: 'Popular',
+          category: 'Fundamentos',
+        },
+      ],
+      salesElement: {
+        type: 'vip-lock',
+        position: 2,
+        data: {
+          imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400',
+          title: 'Masterclass: Segredos dos Experts',
+          subtitle: '40 aulas • 12h',
+        },
+      },
     },
+    // CATEGORIA: DESTINOS
     {
-      id: '2',
-      imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
-      title: 'TOP 50 Destinos Baratos 2025',
-      subtitle: '25 aulas • 6h 20min',
-      badge: 'Novo',
+      id: 'destinos',
+      title: 'Destinos',
+      category: 'Destinos',
+      courses: [
+        {
+          id: 'd1',
+          imageUrl: 'https://images.unsplash.com/photo-1673505413397-0cd0dc4f5854?w=400',
+          title: 'Nova York Econômica',
+          subtitle: '22 aulas • 6h 15min',
+          category: 'Destinos',
+        },
+        {
+          id: 'd2',
+          imageUrl: 'https://images.unsplash.com/photo-1579077926357-365f07b70b01?w=400',
+          title: 'Paris com R$ 200/Dia',
+          subtitle: '20 aulas • 5h 50min',
+          badge: 'Atualizado',
+          category: 'Destinos',
+        },
+        {
+          id: 'd3',
+          imageUrl: 'https://images.unsplash.com/photo-1721592872734-3398900b195c?w=400',
+          title: 'Tailândia Completa',
+          subtitle: '24 aulas • 7h 20min',
+          badge: 'TOP 5',
+          category: 'Destinos',
+        },
+        {
+          id: 'd4',
+          imageUrl: 'https://images.unsplash.com/photo-1590077066281-edbd16178b7e?w=400',
+          title: 'Japão: Cerejeiras e Templos',
+          subtitle: '30 aulas • 8h 30min',
+          category: 'Destinos',
+        },
+        {
+          id: 'd5',
+          imageUrl: 'https://images.unsplash.com/photo-1655722724447-2d2a3071e7f8?w=400',
+          title: 'Dubai Luxuosa por R$ 180/Dia',
+          subtitle: '16 aulas • 4h 45min',
+          category: 'Destinos',
+        },
+      ],
+      salesElement: {
+        type: 'flash-offer',
+        position: 3,
+        data: {
+          title: '🔥 Oferta Relâmpago: Pacote Europa + Ásia',
+          subtitle: '2 cursos completos pelo preço de 1',
+          originalPrice: 'R$ 997',
+          discountedPrice: 'R$ 497',
+        },
+      },
     },
-    // Card 3 será VIP Lock
+    // CATEGORIA: MILHAS E PONTOS
     {
-      id: '4',
-      imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
-      title: 'Caribe Secreto: Praias por R$ 1.200',
-      subtitle: '18 aulas • 5h 10min',
+      id: 'milhas',
+      title: 'Milhas e Pontos',
+      category: 'Milhas e Pontos',
+      courses: [
+        {
+          id: 'm1',
+          imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+          title: 'Milhas do Zero ao Avançado',
+          subtitle: '36 aulas • 10h 40min',
+          badge: 'Mais Vendido',
+          category: 'Milhas e Pontos',
+        },
+        {
+          id: 'm2',
+          imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+          title: 'Cartões de Crédito para Milhas',
+          subtitle: '18 aulas • 4h 30min',
+          category: 'Milhas e Pontos',
+        },
+        {
+          id: 'm3',
+          imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+          title: 'Transferências Bonificadas',
+          subtitle: '12 aulas • 3h',
+          badge: 'Novo',
+          category: 'Milhas e Pontos',
+        },
+        {
+          id: 'm4',
+          imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+          title: 'Resgate Inteligente de Passagens',
+          subtitle: '15 aulas • 4h',
+          category: 'Milhas e Pontos',
+        },
+      ],
+      salesElement: {
+        type: 'combo-bundle',
+        position: 2,
+        data: {
+          courseImages: [
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+          ],
+          title: 'Combo Milhas PRO: 2 Cursos',
+          coursesIncluded: ['Milhas do Zero ao Avançado', 'Erros de Tarifa Masterclass'],
+          originalPrice: 'R$ 997',
+          discountedPrice: 'R$ 497',
+          savings: 'Economize R$ 500',
+        },
+      },
     },
+    // CATEGORIA: TÉCNICAS AVANÇADAS
     {
-      id: '5',
-      imageUrl: 'https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400',
-      title: 'Sudeste Asiático: 90 Dias por R$ 4.500',
-      subtitle: '28 aulas • 9h 15min',
-      badge: 'Popular',
+      id: 'tecnicas',
+      title: 'Técnicas Avançadas',
+      category: 'Técnicas Avançadas',
+      courses: [
+        {
+          id: 't1',
+          imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+          title: 'Stopover Estratégico',
+          subtitle: '12 aulas • 3h 30min',
+          category: 'Técnicas Avançadas',
+        },
+        {
+          id: 't2',
+          imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+          title: 'Ferramentas de Busca Avançadas',
+          subtitle: '15 aulas • 4h',
+          category: 'Técnicas Avançadas',
+        },
+        {
+          id: 't3',
+          imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+          title: 'Erros de Tarifa: Como Encontrar',
+          subtitle: '18 aulas • 5h',
+          badge: 'Avançado',
+          category: 'Técnicas Avançadas',
+        },
+        {
+          id: 't4',
+          imageUrl: 'https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400',
+          title: 'Voos com Múltiplas Paradas',
+          subtitle: '10 aulas • 2h 30min',
+          category: 'Técnicas Avançadas',
+        },
+      ],
+      salesElement: {
+        type: 'discount-tag',
+        position: 2,
+        data: {
+          imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+          title: 'Erros de Tarifa Masterclass',
+          subtitle: '25 aulas • 7h',
+          discount: '-40% OFF',
+          originalPrice: 'R$ 497',
+          discountedPrice: 'R$ 297',
+        },
+      },
     },
   ];
 
   // ==========================================
-  // FILEIRA 2: Destinos Populares (Landscape + Flash Offer)
+  // FILTRAGEM POR CATEGORIA
   // ==========================================
-  const popularDestinations = [
-    {
-      id: '7',
-      imageUrl: 'https://images.unsplash.com/photo-1673505413397-0cd0dc4f5854?w=600',
-      title: 'Nova York Econômica',
-      subtitle: '22 aulas • 6h 15min',
-    },
-    {
-      id: '8',
-      imageUrl: 'https://images.unsplash.com/photo-1579077926357-365f07b70b01?w=600',
-      title: 'Paris com R$ 200/Dia',
-      subtitle: '20 aulas • 5h 50min',
-      badge: 'Atualizado',
-    },
-    // Card 3 será Flash Offer
-    {
-      id: '10',
-      imageUrl: 'https://images.unsplash.com/photo-1721592872734-3398900b195c?w=600',
-      title: 'Tailândia Completa',
-      subtitle: '24 aulas • 7h 20min',
-      badge: 'TOP 5',
-    },
-  ];
+  const filteredRows = useMemo(() => {
+    if (activeFilter === 'Todos') {
+      return categoryRows;
+    }
+    return categoryRows.filter(row => row.category === activeFilter);
+  }, [activeFilter]);
 
   // ==========================================
-  // FILEIRA 3: Técnicas Avançadas (Square + Combo + Discount Tag)
+  // TIMERS
   // ==========================================
-  const advancedTechniques = [
-    // Card 1 será Combo Bundle
-    {
-      id: '14',
-      imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
-      title: 'Stopover Estratégico',
-      subtitle: '12 aulas • 3h 30min',
-    },
-    // Card 3 será Discount Tag
-    {
-      id: '15',
-      imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
-      title: 'Ferramentas de Busca',
-      subtitle: '15 aulas • 4h',
-    },
-  ];
-
-  // ==========================================
-  // FILEIRA 4: Desbloqueie Mais (Premium Showcase)
-  // ==========================================
-  // Todos os cards são de conversão (Blur, Unlock, Social Proof)
-
-  // New trailers/content
-  const newTrailers = [
-    {
-      id: '1',
-      imageUrl: 'https://images.unsplash.com/photo-1673505413397-0cd0dc4f5854?w=400',
-      title: 'Ásia Econômica',
-      subtitle: 'Novo módulo',
-    },
-    {
-      id: '2',
-      imageUrl: 'https://images.unsplash.com/photo-1579077926357-365f07b70b01?w=400',
-      title: 'Caribe Low Cost',
-      subtitle: 'Em destaque',
-    },
-  ];
-
-  // Continue watching list for sidebar
-  const continueWatchingList = [
-    { id: '1', imageUrl: 'https://images.unsplash.com/photo-1721592872734-3398900b195c?w=400', title: 'Como usar alertas de preço', progress: 67 },
-    { id: '2', imageUrl: 'https://images.unsplash.com/photo-1655722724447-2d2a3071e7f8?w=400', title: 'Melhor dia para comprar', progress: 34 },
-    { id: '3', imageUrl: 'https://images.unsplash.com/photo-1590077066281-edbd16178b7e?w=400', title: 'Voos múltiplas paradas', progress: 10 },
-  ];
-
-  // Countdown end time (2 days, 4 hours, 57 minutes from now)
   const countdownEndTime = new Date(Date.now() + (2 * 24 * 60 * 60 * 1000) + (4 * 60 * 60 * 1000) + (57 * 60 * 1000));
-
-  // Flash offer end time (2 hours, 14 minutes, 55 seconds from now)
   const flashOfferEndTime = new Date(Date.now() + (2 * 60 * 60 * 1000) + (14 * 60 * 1000) + (55 * 1000));
 
-  // Sidebar content for desktop
+  // ==========================================
+  // SIDEBAR DATA
+  // ==========================================
+  const newTrailers = [
+    { id: '1', imageUrl: 'https://images.unsplash.com/photo-1673505413397-0cd0dc4f5854?w=400', title: 'Ásia Econômica', subtitle: 'Novo módulo' },
+    { id: '2', imageUrl: 'https://images.unsplash.com/photo-1579077926357-365f07b70b01?w=400', title: 'Caribe Low Cost', subtitle: 'Em destaque' },
+  ];
+
+  // ==========================================
+  // RENDER: Elemento de vendas por tipo
+  // ==========================================
+  const renderSalesElement = (salesElement: CategoryRow['salesElement']) => {
+    if (!salesElement) return null;
+
+    switch (salesElement.type) {
+      case 'vip-lock':
+        return (
+          <div className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
+            <VIPLockCard
+              imageUrl={salesElement.data.imageUrl}
+              title={salesElement.data.title}
+              subtitle={salesElement.data.subtitle}
+              onClick={() => navigate('locked-preview')}
+            />
+          </div>
+        );
+      case 'flash-offer':
+        return (
+          <div className="flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px]">
+            <FlashOfferCard
+              title={salesElement.data.title}
+              subtitle={salesElement.data.subtitle}
+              originalPrice={salesElement.data.originalPrice}
+              discountedPrice={salesElement.data.discountedPrice}
+              endTime={flashOfferEndTime}
+              onClick={() => navigate('store')}
+            />
+          </div>
+        );
+      case 'combo-bundle':
+        return (
+          <div className="flex-shrink-0 w-[260px] sm:w-[280px] lg:w-[320px]">
+            <ComboBundleCard
+              courseImages={salesElement.data.courseImages}
+              title={salesElement.data.title}
+              coursesIncluded={salesElement.data.coursesIncluded}
+              originalPrice={salesElement.data.originalPrice}
+              discountedPrice={salesElement.data.discountedPrice}
+              savings={salesElement.data.savings}
+              onClick={() => navigate('store')}
+            />
+          </div>
+        );
+      case 'discount-tag':
+        return (
+          <div className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
+            <DiscountTagCard
+              imageUrl={salesElement.data.imageUrl}
+              title={salesElement.data.title}
+              subtitle={salesElement.data.subtitle}
+              discount={salesElement.data.discount}
+              originalPrice={salesElement.data.originalPrice}
+              discountedPrice={salesElement.data.discountedPrice}
+              onClick={() => navigate('store')}
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  // ==========================================
+  // RENDER: Fileira de cursos com elemento de vendas intercalado
+  // ==========================================
+  const renderCategoryRow = (row: CategoryRow, index: number) => {
+    const coursesWithSales: JSX.Element[] = [];
+    
+    row.courses.forEach((course, courseIndex) => {
+      // Inserir elemento de vendas na posição correta
+      if (row.salesElement && courseIndex === row.salesElement.position) {
+        coursesWithSales.push(
+          <div key={`sales-${row.id}`}>
+            {renderSalesElement(row.salesElement)}
+          </div>
+        );
+      }
+      
+      // Adicionar curso
+      coursesWithSales.push(
+        <div key={course.id} className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
+          <ContentCard
+            imageUrl={course.imageUrl}
+            title={course.title}
+            subtitle={course.subtitle}
+            badge={course.badge}
+            locked={course.locked}
+            onClick={() => navigate('course-detail')}
+          />
+        </div>
+      );
+    });
+
+    // Se o elemento de vendas deve ir no final
+    if (row.salesElement && row.salesElement.position >= row.courses.length) {
+      coursesWithSales.push(
+        <div key={`sales-${row.id}`}>
+          {renderSalesElement(row.salesElement)}
+        </div>
+      );
+    }
+
+    return (
+      <motion.section
+        key={row.id}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ delay: 0.1 + index * 0.08 }}
+        className="mb-8"
+      >
+        <NetflixCarousel title={row.title}>
+          {coursesWithSales}
+        </NetflixCarousel>
+      </motion.section>
+    );
+  };
+
+  // ==========================================
+  // SIDEBAR
+  // ==========================================
   const renderRightSidebar = () => (
     <div className="space-y-6">
       {/* Novidades Widget */}
-      <SidebarWidget
-        title="Novidades"
-        sortable
-        sortLabel="Hoje"
-        onSortChange={() => {}}
-      >
+      <SidebarWidget title="Novidades" sortable sortLabel="Hoje" onSortChange={() => {}}>
         <div className="space-y-3">
           {newTrailers.map((trailer) => (
             <SidebarTrailerCard
@@ -212,14 +492,8 @@ export default function HomeV6() {
       </SidebarWidget>
 
       {/* Seu Progresso Widget */}
-      <GlassSurface
-        variant="surface-2"
-        blur="medium"
-        className="p-5 rounded-[var(--radius-xl)]"
-      >
-        <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-4">
-          Seu progresso
-        </h3>
+      <GlassSurface variant="surface-2" blur="medium" className="p-5 rounded-[var(--radius-xl)]">
+        <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-4">Seu progresso</h3>
         <div className="space-y-4">
           <div>
             <div className="flex justify-between mb-2">
@@ -264,11 +538,7 @@ export default function HomeV6() {
       />
 
       {/* Social Proof Widget */}
-      <GlassSurface
-        variant="surface-2"
-        blur="medium"
-        className="p-5 rounded-[var(--radius-xl)]"
-      >
+      <GlassSurface variant="surface-2" blur="medium" className="p-5 rounded-[var(--radius-xl)]">
         <div className="flex items-start gap-3 mb-4">
           <div className="flex -space-x-2">
             {['https://i.pravatar.cc/150?img=1', 'https://i.pravatar.cc/150?img=2', 'https://i.pravatar.cc/150?img=3'].map((img, i) => (
@@ -292,9 +562,12 @@ export default function HomeV6() {
     </div>
   );
 
+  // ==========================================
+  // RENDER PRINCIPAL
+  // ==========================================
   return (
     <VeloxLayout rightSidebar={renderRightSidebar()}>
-      {/* Hero Carousel - Banner Flexível */}
+      {/* Hero Carousel */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -310,12 +583,12 @@ export default function HomeV6() {
       </motion.section>
 
       <div className="px-4 lg:px-6 pb-24 lg:pb-6">
-        {/* ⭐ RESUME BAR - ESTRELA DO NORTE */}
+        {/* RESUME BAR - Sem destaque excessivo, discreto */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="mb-8"
+          className="mb-6"
         >
           <ResumeBar
             imageUrl={continueWatching.imageUrl}
@@ -324,235 +597,95 @@ export default function HomeV6() {
             progress={continueWatching.progress}
             timeRemaining={continueWatching.timeRemaining}
             onClick={() => navigate('video-lesson')}
-            highlighted={true}
+            highlighted={false}
           />
         </motion.section>
 
-        {/* Tab Navigation - Filtros com propósito */}
+        {/* FILTROS DE CATEGORIA - Controla as fileiras visíveis */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="mb-6"
+          className="mb-8"
         >
-          <ChipTabs tabs={filters} activeTab={activeFilter} onChange={setActiveFilter} />
+          <ChipTabs 
+            tabs={categories} 
+            activeTab={activeFilter} 
+            onChange={setActiveFilter} 
+          />
         </motion.div>
 
-        {/* ==========================================
-            FILEIRA 1: Recomendados para você (Portrait + VIP Lock)
-            ========================================== */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-          className="mb-8"
-        >
-          <NetflixCarousel title="Recomendados para você">
-            {/* Cards normais */}
-            {recommendedCourses.slice(0, 2).map((course) => (
-              <div key={course.id} className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
-                <ContentCard
-                  imageUrl={course.imageUrl}
-                  title={course.title}
-                  subtitle={course.subtitle}
-                  badge={course.badge}
-                  onClick={() => navigate('course-detail')}
-                />
-              </div>
-            ))}
-            
-            {/* VIP Lock Card - Estilo A */}
-            <div className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
-              <VIPLockCard
-                imageUrl="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400"
-                title="Europa Completa: 15 Países em 30 Dias"
-                subtitle="42 aulas • 12h 30min"
+        {/* FILEIRAS DE CURSOS POR CATEGORIA */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeFilter}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {filteredRows.map((row, index) => renderCategoryRow(row, index))}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* SEÇÃO: Desbloqueie Mais (sempre visível) */}
+        {activeFilter === 'Todos' && (
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mb-8"
+          >
+            <SectionHeader
+              title="Desbloqueie Mais"
+              action={{ label: 'Ver premium', onClick: () => navigate('store') }}
+            />
+            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
+              <BlurTeaserCard
+                imageUrl="https://images.unsplash.com/photo-1590077066281-edbd16178b7e?w=400"
+                title="Japão: Cerejeiras e Templos"
+                lessonCount="30 aulas"
+                duration="8h 30min"
                 onClick={() => navigate('locked-preview')}
               />
-            </div>
-            
-            {/* Mais cards normais */}
-            {recommendedCourses.slice(2).map((course) => (
-              <div key={course.id} className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
-                <ContentCard
-                  imageUrl={course.imageUrl}
-                  title={course.title}
-                  subtitle={course.subtitle}
-                  badge={course.badge}
-                  onClick={() => navigate('course-detail')}
-                />
-              </div>
-            ))}
-          </NetflixCarousel>
-        </motion.section>
-
-        {/* ==========================================
-            FILEIRA 2: Destinos Populares (Landscape + Flash Offer)
-            ========================================== */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mb-8"
-        >
-          <SectionHeader
-            title="Destinos Populares"
-            action={{ label: 'Ver todos', onClick: () => navigate('explore') }}
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Cards normais landscape */}
-            {popularDestinations.slice(0, 2).map((dest) => (
-              <ContentCard
-                key={dest.id}
-                imageUrl={dest.imageUrl}
-                title={dest.title}
-                subtitle={dest.subtitle}
-                badge={dest.badge}
-                variant="wide"
-                onClick={() => navigate('course-detail')}
-              />
-            ))}
-            
-            {/* Flash Offer Card - Estilo B */}
-            <div className="sm:col-span-2">
-              <FlashOfferCard
-                title="🔥 Oferta Relâmpago: Pacote Europa + Ásia"
-                subtitle="2 cursos completos pelo preço de 1"
-                originalPrice="R$ 997"
-                discountedPrice="R$ 497"
-                endTime={flashOfferEndTime}
+              <UnlockCTACard
+                imageUrl="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400"
+                title="Milhas: Do Zero ao Primeira Classe"
+                subtitle="O método mais completo"
+                priceFrom="R$ 29/mês"
                 onClick={() => navigate('store')}
               />
-            </div>
-          </div>
-        </motion.section>
-
-        {/* ==========================================
-            FILEIRA 3: Técnicas Avançadas (Combo + Discount Tag)
-            ========================================== */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35 }}
-          className="mb-8"
-        >
-          <NetflixCarousel title="Técnicas Avançadas">
-            {/* Combo Bundle Card - Estilo C */}
-            <div className="flex-shrink-0 w-[260px] sm:w-[280px] lg:w-[320px]">
-              <ComboBundleCard
-                courseImages={[
-                  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
-                  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+              <SocialProofCard
+                imageUrl="https://images.unsplash.com/photo-1655722724447-2d2a3071e7f8?w=400"
+                title="Dubai Luxuosa por R$ 180/Dia"
+                studentsCount="+6.789 alunos"
+                rating={4.7}
+                badge="Mais acessado"
+                avatars={[
+                  'https://i.pravatar.cc/150?img=1',
+                  'https://i.pravatar.cc/150?img=2',
+                  'https://i.pravatar.cc/150?img=3',
+                  'https://i.pravatar.cc/150?img=4',
                 ]}
-                title="Combo Milhas PRO: 2 Cursos"
-                coursesIncluded={['Milhas do Zero ao Avançado', 'Erros de Tarifa Masterclass']}
-                originalPrice="R$ 997"
-                discountedPrice="R$ 497"
-                savings="Economize R$ 500"
-                onClick={() => navigate('store')}
-              />
-            </div>
-            
-            {/* Card normal */}
-            <div className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
-              <ContentCard
-                imageUrl={advancedTechniques[0].imageUrl}
-                title={advancedTechniques[0].title}
-                subtitle={advancedTechniques[0].subtitle}
-                onClick={() => navigate('course-detail')}
-              />
-            </div>
-            
-            {/* Discount Tag Card - Estilo D */}
-            <div className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
-              <DiscountTagCard
-                imageUrl="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
-                title="Milhas e Pontos Avançado"
-                subtitle="25 aulas • 7h"
-                discount="-40% OFF"
-                originalPrice="R$ 497"
-                discountedPrice="R$ 297"
-                onClick={() => navigate('store')}
-              />
-            </div>
-            
-            {/* Card normal */}
-            <div className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px]">
-              <ContentCard
-                imageUrl={advancedTechniques[1].imageUrl}
-                title={advancedTechniques[1].title}
-                subtitle={advancedTechniques[1].subtitle}
-                onClick={() => navigate('course-detail')}
-              />
-            </div>
-          </NetflixCarousel>
-        </motion.section>
-
-        {/* ==========================================
-            FILEIRA 4: Desbloqueie Mais (Premium Showcase)
-            ========================================== */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mb-8"
-        >
-          <SectionHeader
-            title="Desbloqueie Mais"
-            action={{ label: 'Ver premium', onClick: () => navigate('store') }}
-          />
-          <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
-            {/* Blur Teaser - Estilo E */}
-            <BlurTeaserCard
-              imageUrl="https://images.unsplash.com/photo-1590077066281-edbd16178b7e?w=400"
-              title="Japão: Cerejeiras e Templos"
-              lessonCount="30 aulas"
-              duration="8h 30min"
-              onClick={() => navigate('locked-preview')}
-            />
-            
-            {/* Unlock CTA - Estilo F */}
-            <UnlockCTACard
-              imageUrl="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400"
-              title="Milhas: Do Zero ao Primeira Classe"
-              subtitle="O método mais completo"
-              priceFrom="R$ 29/mês"
-              onClick={() => navigate('store')}
-            />
-            
-            {/* Social Proof - Estilo G */}
-            <SocialProofCard
-              imageUrl="https://images.unsplash.com/photo-1655722724447-2d2a3071e7f8?w=400"
-              title="Dubai Luxuosa por R$ 180/Dia"
-              studentsCount="+6.789 alunos"
-              rating={4.7}
-              badge="Mais acessado"
-              avatars={[
-                'https://i.pravatar.cc/150?img=1',
-                'https://i.pravatar.cc/150?img=2',
-                'https://i.pravatar.cc/150?img=3',
-                'https://i.pravatar.cc/150?img=4',
-              ]}
-              onClick={() => navigate('locked-preview')}
-            />
-            
-            {/* VIP Lock adicional - hidden on mobile */}
-            <div className="hidden lg:block">
-              <VIPLockCard
-                imageUrl="https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400"
-                title="Maldivas: Paraíso Acessível"
-                subtitle="Exclusivo VIP"
                 onClick={() => navigate('locked-preview')}
               />
+              <div className="hidden lg:block">
+                <VIPLockCard
+                  imageUrl="https://images.unsplash.com/photo-1609765685592-703a97c877ba?w=400"
+                  title="Maldivas: Paraíso Acessível"
+                  subtitle="Exclusivo VIP"
+                  onClick={() => navigate('locked-preview')}
+                />
+              </div>
             </div>
-          </div>
-        </motion.section>
+          </motion.section>
+        )}
 
         {/* INLINE SALES BANNER - Mobile Only */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
+          transition={{ delay: 0.55 }}
           className="mb-8 lg:hidden"
         >
           <GlassSurface
@@ -564,7 +697,6 @@ export default function HomeV6() {
             className="p-6 rounded-[var(--radius-2xl)] text-center relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-purchase)]/10 via-transparent to-[var(--accent-premium)]/10" />
-
             <div className="relative z-10">
               <span className="inline-block px-3 py-1 bg-[var(--accent-purchase)] text-white text-[10px] font-black uppercase tracking-wider rounded-full mb-3">
                 Oferta Relâmpago
@@ -591,23 +723,20 @@ export default function HomeV6() {
           </GlassSurface>
         </motion.section>
 
-        {/* ==========================================
-            FOOTER CAPTURE BANNER - WhatsApp
-            ========================================== */}
+        {/* FOOTER CAPTURE BANNER - WhatsApp */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.6 }}
           className="mb-8 -mx-4 lg:-mx-6"
         >
           <div className="relative overflow-hidden bg-gradient-to-br from-[#0d3f2e] via-[#0a2f22] to-[#082a1e] py-12 lg:py-16">
-            {/* WhatsApp Icons Watermark Pattern */}
+            {/* WhatsApp Pattern */}
             <div className="absolute inset-0 opacity-[0.03]" style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2325D366'%3E%3Cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z'/%3E%3C/svg%3E")`,
               backgroundSize: '60px 60px'
             }} />
 
-            {/* Gradient Overlays */}
             <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#0d3f2e] to-transparent" />
             <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#082a1e] to-transparent" />
             <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#25D366]/10 rounded-full blur-[100px]" />
@@ -615,7 +744,6 @@ export default function HomeV6() {
 
             <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-                {/* Coluna Esquerda - Copy */}
                 <div className="text-center lg:text-left">
                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#25D366]/20 border border-[#25D366]/30 rounded-full mb-6">
                     <MessageCircle className="w-4 h-4 text-[#25D366]" />
@@ -631,7 +759,6 @@ export default function HomeV6() {
                     Receba alertas em tempo real de promoções exclusivas e erros de tarifa direto no seu celular.
                   </p>
 
-                  {/* Benefícios */}
                   <ul className="space-y-4 mb-8 text-left max-w-md mx-auto lg:mx-0">
                     {[
                       'Alertas de Erro de Tarifa em primeira mão',
@@ -647,7 +774,6 @@ export default function HomeV6() {
                     ))}
                   </ul>
 
-                  {/* CTA Button */}
                   <button
                     onClick={() => window.open('https://wa.me/5511999999999', '_blank')}
                     className="w-full lg:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] hover:bg-[#20c55e] text-white text-lg font-black rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(37,211,102,0.4)] active:scale-95"
@@ -661,23 +787,16 @@ export default function HomeV6() {
                   </p>
                 </div>
 
-                {/* Coluna Direita - Imagem */}
                 <div className="hidden lg:block relative">
                   <div className="relative aspect-[4/5] max-w-md mx-auto">
-                    {/* Glow behind image */}
                     <div className="absolute inset-0 bg-[#25D366]/20 blur-[60px] rounded-full" />
-
-                    {/* Image Container */}
                     <div className="relative rounded-3xl overflow-hidden border-2 border-[#25D366]/20 shadow-2xl">
                       <img
                         src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=750&fit=crop&crop=faces"
                         alt="Pessoa usando celular em lounge de aeroporto"
                         className="w-full h-full object-cover"
                       />
-                      {/* Overlay gradient */}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#082a1e]/80 via-transparent to-transparent" />
-
-                      {/* Floating notification mockup */}
                       <div className="absolute bottom-8 left-4 right-4 bg-white rounded-2xl p-4 shadow-xl">
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center flex-shrink-0">
@@ -702,7 +821,7 @@ export default function HomeV6() {
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55 }}
+          transition={{ delay: 0.65 }}
         >
           <SectionHeader
             title="Leituras rápidas"
@@ -710,22 +829,14 @@ export default function HomeV6() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              {
-                id: '1',
-                title: '10 Erros que Fazem Você Pagar Mais nas Passagens',
-                preview: 'Descubra os erros mais comuns que fazem você perder oportunidades de economizar.',
-              },
-              {
-                id: '2',
-                title: 'Como Usar o Modo Anônimo Para Preços Melhores',
-                preview: 'Técnica comprovada para evitar que sites aumentem os preços.',
-              },
+              { id: '1', title: '10 Erros que Fazem Você Pagar Mais nas Passagens', preview: 'Descubra os erros mais comuns que fazem você perder oportunidades de economizar.' },
+              { id: '2', title: 'Como Usar o Modo Anônimo Para Preços Melhores', preview: 'Técnica comprovada para evitar que sites aumentem os preços.' },
             ].map((article, index) => (
               <motion.div
                 key={article.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.55 + index * 0.05 }}
+                transition={{ delay: 0.65 + index * 0.05 }}
               >
                 <GlassSurface
                   variant="surface-1"
@@ -759,4 +870,3 @@ export default function HomeV6() {
     </VeloxLayout>
   );
 }
-
