@@ -31,7 +31,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { id: 'home', icon: Home, label: 'Dashboard' },
+  { id: 'home', icon: Home, label: 'Home' },
   { id: 'library', icon: Library, label: 'Biblioteca' },
   { id: 'forum', icon: MessageSquare, label: 'Fórum' },
   { id: 'store', icon: ShoppingBag, label: 'Extensões' },
@@ -53,18 +53,18 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true, her
 
       {/* Desktop Navigation Header */}
       {showNavigation && (
-        <header className="sticky top-0 z-50 hidden lg:block">
+        <header className="sticky top-0 z-[60] hidden lg:block">
           <div className="mx-auto max-w-[1600px] px-6 py-4">
             <div className="flex items-center justify-between">
               {/* Logo - Clicável para voltar à Home */}
               <button
                 onClick={() => navigateTab('home')}
-                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                className="flex items-center gap-3 active:scale-95 transition-transform"
               >
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-lg">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-lg shadow-[var(--v7-accent-primary)]/10">
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-[var(--text-primary)] text-xl font-bold tracking-tight">
+                <span className="text-white text-xl font-black tracking-tight uppercase">
                   Velox
                 </span>
               </button>
@@ -73,23 +73,19 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true, her
               <nav className="flex items-center">
                 <div className="flex items-center gap-1 p-1 bg-white/[0.03] border border-white/5 rounded-full backdrop-blur-2xl shadow-2xl">
                   {navItems.map((item) => {
-                    const Icon = item.icon;
                     const isActive = currentTab === item.id;
                     return (
                       <button
                         key={item.id}
                         onClick={() => navigateTab(item.id)}
                         className={cn(
-                          'relative px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.15em] transition-all duration-300',
+                          'px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.12em] transition-all duration-200',
                           isActive
-                            ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+                            ? 'bg-white text-black shadow-lg'
                             : 'text-white/40 hover:text-white hover:bg-white/5'
                         )}
                       >
-                        <span className="relative z-10 flex items-center gap-2">
-                          <Icon className={cn("w-3.5 h-3.5", isActive ? "fill-current" : "")} />
-                          {item.label}
-                        </span>
+                        {item.label}
                       </button>
                     );
                   })}
@@ -100,13 +96,13 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true, her
               <div className="flex items-center gap-4">
                 {/* Search Bar */}
                 <div className="relative group">
-                  <div className="flex items-center gap-3 px-4 py-2 bg-white/[0.03] border border-white/5 rounded-full backdrop-blur-xl min-w-[200px] group-focus-within:border-[var(--accent-primary-border)] transition-all">
+                  <div className="flex items-center gap-3 px-4 py-2 bg-white/[0.03] border border-white/5 rounded-full backdrop-blur-xl min-w-[240px] transition-all focus-within:ring-2 focus-within:ring-[var(--accent-primary)]/30 focus-within:bg-white/[0.06]">
                     <Search className="w-3.5 h-3.5 text-white/30 group-focus-within:text-[var(--accent-primary)] transition-colors" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="BUSCAR..."
+                      placeholder="BUSCAR CURSO..."
                       className="flex-1 bg-transparent text-white text-[10px] font-bold tracking-widest placeholder-white/20 outline-none"
                     />
                   </div>
@@ -114,41 +110,30 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true, her
 
                 {/* Action Icons */}
                 <div className="flex items-center gap-2">
-                  <button className="relative w-10 h-10 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 hover:bg-white/10 transition-all active:scale-90 group">
+                  <button className="w-10 h-10 flex items-center justify-center rounded-full border border-white/5 bg-white/[0.03] hover:bg-white/10 transition-all active:scale-90 group relative">
                     <Bell className="w-4 h-4 text-white/40 group-hover:text-white transition-colors" />
-                    <span className="absolute top-3 right-3 w-1.5 h-1.5 bg-[var(--accent-purchase)] rounded-full shadow-[0_0_8px_var(--accent-purchase)]" />
-                  </button>
-
-                  <button
-                    onClick={() => navigate('settings')}
-                    className="w-10 h-10 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 hover:bg-white/10 transition-all active:scale-90 group"
-                  >
-                    <Settings className="w-4 h-4 text-white/40 group-hover:text-white transition-colors" />
+                    <span className="absolute top-3 right-3 w-1.5 h-1.5 bg-[var(--accent-purchase)] rounded-full" />
                   </button>
                 </div>
 
                 {/* User Profile */}
                 <button
                   onClick={() => navigate('profile')}
-                  className="flex items-center gap-3 pl-1 pr-4 py-1 bg-white/[0.03] border border-white/5 rounded-full hover:bg-white/10 transition-all group active:scale-95"
+                  className="flex items-center gap-3 pl-1 pr-4 py-1.5 bg-white/[0.03] border border-white/5 rounded-full hover:bg-white/10 transition-all"
                 >
-                  <div className="relative">
-                    <img
-                      src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=100"
-                      alt="Avatar"
-                      className="w-8 h-8 rounded-full object-cover ring-2 ring-white/10 group-hover:ring-[var(--accent-primary-border)] transition-all"
-                    />
-                    <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[var(--accent-primary)] rounded-full border-2 border-[#040a0a]" />
-                  </div>
-                  <div className="hidden xl:block text-left">
-                    <p className="text-white text-[10px] font-black uppercase tracking-tighter leading-none">
+                  <img
+                    src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=100"
+                    alt="Avatar"
+                    className="w-8 h-8 rounded-full border border-white/10 shadow-lg"
+                  />
+                  <div className="text-left leading-none">
+                    <p className="text-white text-[10px] font-black uppercase tracking-tight">
                       Ana Silva
                     </p>
-                    <p className="text-[var(--accent-premium)] text-[8px] font-black uppercase tracking-widest mt-0.5">
+                    <span className="text-[var(--accent-premium)] text-[8px] font-black uppercase tracking-widest">
                       Premium
-                    </p>
+                    </span>
                   </div>
-                  <ChevronDown className="w-3.5 h-3.5 text-white/20 group-hover:text-white transition-colors" />
                 </button>
               </div>
             </div>
@@ -158,8 +143,8 @@ export function VeloxLayout({ children, rightSidebar, showNavigation = true, her
 
       {/* Mobile Header */}
       {showNavigation && (
-        <header className="sticky top-0 z-50 lg:hidden">
-          <div className="flex items-center justify-between px-4 py-3 bg-[var(--app-bg)]/60 backdrop-blur-2xl border-b border-white/5">
+        <header className="sticky top-0 z-[60] lg:hidden px-4 py-3 pb-[calc(12px+env(safe-area-inset-top))]">
+          <div className="flex items-center justify-between mt-[env(safe-area-inset-top)]">
             {/* Logo - Clicável para voltar à Home */}
             <button
               onClick={() => navigateTab('home')}

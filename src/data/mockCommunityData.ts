@@ -335,4 +335,4 @@ export const currentLessonOrigin: ContentOrigin = mockOrigins[0];
 
 // Re-export types for convenience
 export type { Comment, Question, QuestionGroup, ContentOrigin, User, Reaction };
-export type { ReactionType } from '../components/community/types';
+export type { ReactionType, CommentFormData, QuestionFormData } from '../components/community/types';

@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { Search, Filter, TrendingUp, Clock, Star, ChevronDown, MessageCircle, HelpCircle, CheckCircle, Users, ThumbsUp, ExternalLink, ChevronRight } from 'lucide-react';
+import { Search, Filter, TrendingUp, Clock, Star, ChevronDown, MessageCircle, HelpCircle, CheckCircle, Users, ThumbsUp, ExternalLink, ChevronRight, Plus, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { VeloxLayout } from '../../components/layout/VeloxLayout';
 import { ChipTabs } from '../../components/design-system/ChipTabs';
 import { StarRating } from '../../components/community/StarRating';
 import { ReactionBarCompact } from '../../components/community/ReactionBar';
+import { CommentForm } from '../../components/community/CommentForm';
+import { QuestionForm } from '../../components/community/QuestionForm';
 import { cn } from '../../lib/cn';
 import {
   mockComments,
@@ -13,6 +15,9 @@ import {
   type Comment,
   type QuestionGroup,
   type ReactionType,
+  type ContentOrigin,
+  type CommentFormData,
+  type QuestionFormData,
 } from '../../data/mockCommunityData';
 
 // ============================================
@@ -29,6 +34,22 @@ export default function ForumScreen() {
   const [sortBy, setSortBy] = useState<SortBy>('recent');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
+
+  // New states for add functionality
+  const [showAddMenu, setShowAddMenu] = useState(false);
+  const [modalType, setModalType] = useState<'comment' | 'question' | null>(null);
+  const [showSuccess, setShowSuccess] = useState<'comment' | 'question' | null>(null);
+
+  // Default origin for forum submissions
+  const forumOrigin: ContentOrigin = {
+    courseId: 'forum',
+    courseName: 'Fórum Geral',
+    moduleId: 'forum',
+    moduleName: 'Discussões',
+    lessonId: 'forum',
+    lessonName: 'Publicação Geral',
+    lessonType: 'article',
+  };
 
   // Stats for hero
   const stats = {
@@ -103,8 +124,123 @@ export default function ForumScreen() {
     return `${days}d`;
   };
 
+  const handleAddClick = (type: 'comment' | 'question') => {
+    setShowAddMenu(false);
+    setModalType(type);
+  };
+
+  const handleCommentSubmit = (data: CommentFormData) => {
+    console.log('Comment submitted:', data);
+    setModalType(null);
+    setShowSuccess('comment');
+    setTimeout(() => setShowSuccess(null), 3000);
+  };
+
+  const handleQuestionSubmit = (data: QuestionFormData) => {
+    console.log('Question submitted:', data);
+    setModalType(null);
+    setShowSuccess('question');
+    setTimeout(() => setShowSuccess(null), 3000);
+  };
+
   return (
     <VeloxLayout>
+      {/* Modal Overlay */}
+      <AnimatePresence>
+        {modalType && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setModalType(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className={cn(
+                'w-full max-w-lg rounded-3xl overflow-hidden',
+                'bg-[var(--community-card-bg)] border border-[var(--glass-border)]',
+                'shadow-2xl'
+              )}
+            >
+              {/* Modal Header */}
+              <div className={cn(
+                'flex items-center justify-between p-5 border-b border-[var(--glass-border)]',
+                modalType === 'question' ? 'bg-[var(--community-question-soft)]' : 'bg-[var(--community-comment-soft)]'
+              )}>
+                <div className="flex items-center gap-3">
+                  <div className={cn(
+                    'w-10 h-10 rounded-xl flex items-center justify-center',
+                    modalType === 'question' ? 'bg-[var(--community-question)]' : 'bg-[var(--community-comment)]'
+                  )}>
+                    {modalType === 'question' ? (
+                      <HelpCircle className="w-5 h-5 text-black" />
+                    ) : (
+                      <MessageCircle className="w-5 h-5 text-black" />
+                    )}
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-bold text-white">
+                      {modalType === 'question' ? 'Nova Pergunta' : 'Novo Comentário'}
+                    </h2>
+                    <p className="text-xs text-white/50">
+                      {modalType === 'question' ? 'Tire sua dúvida com a comunidade' : 'Compartilhe sua experiência'}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setModalType(null)}
+                  className="w-10 h-10 rounded-xl bg-black/20 hover:bg-black/40 flex items-center justify-center transition-colors"
+                >
+                  <X className="w-5 h-5 text-white/60" />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-5">
+                {modalType === 'question' ? (
+                  <QuestionForm
+                    origin={forumOrigin}
+                    onSubmit={handleQuestionSubmit}
+                    onCancel={() => setModalType(null)}
+                  />
+                ) : (
+                  <CommentForm
+                    origin={forumOrigin}
+                    onSubmit={handleCommentSubmit}
+                    onCancel={() => setModalType(null)}
+                  />
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Success Toast */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[101] px-6 py-4 rounded-2xl bg-[var(--accent-primary)] text-black font-bold shadow-2xl"
+          >
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5" />
+              <span>
+                {showSuccess === 'comment'
+                  ? 'Comentário publicado com sucesso!'
+                  : 'Pergunta enviada! Você será notificado.'}
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="min-h-screen pb-20">
         {/* Hero header with stats */}
         <div className="relative overflow-hidden">
@@ -149,29 +285,112 @@ export default function ForumScreen() {
               </div>
             </motion.div>
 
-            {/* Search bar */}
+            {/* Search bar with Add button */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
               className="max-w-2xl mx-auto mb-6"
             >
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Buscar discussões, perguntas..."
-                  className={cn(
-                    'w-full pl-12 pr-4 py-4 rounded-2xl',
-                    'bg-[var(--community-card-bg)] border border-[var(--glass-border)]',
-                    'text-white placeholder:text-white/40',
-                    'focus:outline-none focus:ring-2 focus:ring-[var(--community-comment)]/30 focus:border-[var(--community-comment-border)]',
-                    'transition-all backdrop-blur-md'
-                  )}
-                />
+              <div className="relative flex items-center gap-2">
+                {/* Add Button */}
+                <div className="relative">
+                  <motion.button
+                    onClick={() => setShowAddMenu(!showAddMenu)}
+                    className={cn(
+                      'w-12 h-12 rounded-2xl flex items-center justify-center transition-all',
+                      'bg-[var(--community-card-bg)] border border-[var(--glass-border)]',
+                      'hover:border-[var(--accent-primary-border)] hover:bg-[var(--accent-primary-soft)]',
+                      showAddMenu && 'border-[var(--accent-primary)] bg-[var(--accent-primary-soft)]'
+                    )}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Plus className={cn(
+                      'w-5 h-5 transition-all duration-200',
+                      showAddMenu ? 'text-[var(--accent-primary)] rotate-45' : 'text-white/60'
+                    )} />
+                  </motion.button>
+
+                  {/* Dropdown Menu */}
+                  <AnimatePresence>
+                    {showAddMenu && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                        transition={{ duration: 0.15 }}
+                        className={cn(
+                          'absolute top-full left-0 mt-2 z-50',
+                          'w-56 p-2 rounded-2xl',
+                          'bg-[var(--community-card-bg)] border border-[var(--glass-border)]',
+                          'backdrop-blur-xl shadow-2xl'
+                        )}
+                      >
+                        <button
+                          onClick={() => handleAddClick('question')}
+                          className={cn(
+                            'w-full flex items-center gap-3 p-3 rounded-xl transition-all',
+                            'hover:bg-[var(--community-question-soft)]',
+                            'text-left group'
+                          )}
+                        >
+                          <div className="w-10 h-10 rounded-xl bg-[var(--community-question-soft)] flex items-center justify-center group-hover:bg-[var(--community-question)] transition-colors">
+                            <HelpCircle className="w-5 h-5 text-[var(--community-question)] group-hover:text-black transition-colors" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-white">Pergunta</p>
+                            <p className="text-xs text-white/50">Tire sua dúvida</p>
+                          </div>
+                        </button>
+
+                        <button
+                          onClick={() => handleAddClick('comment')}
+                          className={cn(
+                            'w-full flex items-center gap-3 p-3 rounded-xl transition-all',
+                            'hover:bg-[var(--community-comment-soft)]',
+                            'text-left group'
+                          )}
+                        >
+                          <div className="w-10 h-10 rounded-xl bg-[var(--community-comment-soft)] flex items-center justify-center group-hover:bg-[var(--community-comment)] transition-colors">
+                            <MessageCircle className="w-5 h-5 text-[var(--community-comment)] group-hover:text-black transition-colors" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-white">Comentário</p>
+                            <p className="text-xs text-white/50">Avalie e compartilhe</p>
+                          </div>
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Search Input */}
+                <div className="relative flex-1">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Buscar discussões, perguntas..."
+                    className={cn(
+                      'w-full pl-12 pr-4 py-4 rounded-2xl',
+                      'bg-[var(--community-card-bg)] border border-[var(--glass-border)]',
+                      'text-white placeholder:text-white/40',
+                      'focus:outline-none focus:ring-2 focus:ring-[var(--community-comment)]/30 focus:border-[var(--community-comment-border)]',
+                      'transition-all backdrop-blur-md'
+                    )}
+                  />
+                </div>
               </div>
+
+              {/* Click outside to close menu */}
+              {showAddMenu && (
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setShowAddMenu(false)}
+                />
+              )}
             </motion.div>
 
             {/* Tabs */}

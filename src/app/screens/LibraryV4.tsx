@@ -812,8 +812,8 @@ export default function LibraryV4() {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFilter, setActiveFilter] = useState('Todos');
     const [viewMode, setViewMode] = useState<ViewMode>('list');
-    const [expandedCourses, setExpandedCourses] = useState<string[]>(['course-1', 'course-2']);
-    const [expandedModules, setExpandedModules] = useState<string[]>(['m1']);
+    const [expandedCourses, setExpandedCourses] = useState<string[]>([]);
+    const [expandedModules, setExpandedModules] = useState<string[]>([]);
 
     // Toggle course expansion
     const toggleCourse = (courseId: string) => {
@@ -923,7 +923,7 @@ export default function LibraryV4() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.1 }}
-                        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8"
+                        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6"
                     >
                         <ChipTabs
                             tabs={FILTER_TABS}
@@ -934,7 +934,7 @@ export default function LibraryV4() {
                     </motion.div>
 
                     {/* Courses List */}
-                    <div className="space-y-8">
+                    <div className="space-y-4">
                         {filteredCourses.map((course, courseIndex) => (
                             <motion.div
                                 key={course.id}
@@ -945,7 +945,7 @@ export default function LibraryV4() {
                                 {/* Course Header */}
                                 <button
                                     onClick={() => toggleCourse(course.id)}
-                                    className="w-full mb-4"
+                                    className="w-full mb-3"
                                 >
                                     <div className={cn(
                                         "relative overflow-hidden rounded-2xl p-5",
@@ -1105,13 +1105,6 @@ export default function LibraryV4() {
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
-
-                                {/* Extension promo after first course */}
-                                {courseIndex === 0 && EXTENSION_PROMOS[0] && (
-                                    <div className="mt-6">
-                                        <ExtensionPromoCard promo={EXTENSION_PROMOS[0]} index={0} />
-                                    </div>
-                                )}
                             </motion.div>
                         ))}
                     </div>
