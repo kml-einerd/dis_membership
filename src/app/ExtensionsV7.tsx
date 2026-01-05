@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
     Download, Zap, Bell, Crown, Star, Shield, ChevronRight, Check,
-    Sparkles, Gift, Timer, Users, ArrowRight, Lock, Flame, Package
+    Sparkles, Gift, Timer, Users, ArrowRight, Lock, Flame, Package, Percent as Percentage
 } from 'lucide-react';
 import { useNavigation } from './navigation/NavigationContext';
 import { VeloxLayout } from '../components/layout/VeloxLayout';
@@ -44,37 +44,197 @@ const MAIN_UPSELL = {
 };
 
 // ==========================================
-// ORDER BUMPS - Quick Add-ons
+// COMBO ITEMS - "Monte seu Combo"
 // ==========================================
-const ORDER_BUMPS = [
+// Re-imagined as a high-end "Tome" style sales block
+const COMBO_ITEMS = [
     {
         id: 'bump-1',
         title: 'Extensão Chrome Premium',
-        description: 'Compare preços em tempo real enquanto navega',
+        subtitle: 'O "Cérebro" do Viajante no seu Browser',
+        description: 'Não perca tempo abrindo 10 abas. Nossa extensão analisa a página da cia aérea em tempo real e diz se o preço está bom ou não.',
         price: 27,
         originalPrice: 47,
+        image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80',
+        features: [
+            'Análise de preço em tempo real',
+            'Histórico de alterações (30 dias)',
+            'Aplicação automática de cupons'
+        ],
         icon: Download,
         popular: true,
     },
     {
         id: 'bump-2',
         title: 'Alertas Push Ilimitados',
-        description: 'Notificações instantâneas no celular 24/7',
+        subtitle: 'Velocidade é quem manda no jogo',
+        description: 'As melhores tarifas duram minutos. Receba notificações instantâneas no seu celular antes que o bug seja corrigido.',
         price: 17,
         originalPrice: 29,
+        image: 'https://images.unsplash.com/photo-1512428559087-560fa5ce7d87?w=800&q=80',
+        features: [
+            'Notificações Instantâneas (WhatsApp)',
+            'Filtros personalizados de origem',
+            'Prioridade na fila de envio'
+        ],
         icon: Bell,
         popular: false,
     },
     {
         id: 'bump-3',
-        title: 'E-book: 101 Destinos Baratos',
-        description: 'Guia completo + orçamentos reais detalhados',
+        title: 'Kit Nômade Digital',
+        subtitle: 'Trabalhe de qualquer lugar',
+        description: 'Guia completo com os melhores destinos baratos, coworkings, internet e vistos para quem quer viver viajando.',
         price: 19,
         originalPrice: 37,
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
+        features: [
+            'E-book: 101 Destinos Baratos',
+            'Planilha de Custos de Vida',
+            'Comunidade de Nômades'
+        ],
         icon: Gift,
         popular: false,
     },
 ];
+
+// ... (EXTENSIONS and TESTIMONIALS arrays remain unchanged, I will include them to keep context if needed, but since I am replacing the section I can leave them be or just assume they exist if not modifying. Wait, I am using replace_file_content with a large range? No, I should target specific blocks or replace the whole file content carefully. The user instruction implies modifying the "Adicione ao seu pedido" part. I will confirm the structure.)
+
+// I will redefine the component parts to match the new "Monte seu Combo" structure.
+
+// ==========================================
+// V7 COMBO CARD - "Tome" Style
+// ==========================================
+interface ComboItemCardProps {
+    item: typeof COMBO_ITEMS[0];
+    isSelected: boolean;
+    onToggle: () => void;
+    index: number;
+}
+
+function ComboItemCard({ item, isSelected, onToggle, index }: ComboItemCardProps) {
+    const Icon = item.icon;
+
+    return (
+        <motion.button
+            onClick={onToggle}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 + index * 0.1 }}
+            className="w-full text-left group"
+        >
+            <div className={cn(
+                "relative overflow-hidden rounded-3xl transition-all duration-500",
+                "bg-[#0f172a] border",
+                isSelected
+                    ? "border-[var(--accent-primary)] shadow-[0_0_30px_-5px_rgba(86,232,138,0.3)]"
+                    : "border-white/5 hover:border-white/20 hover:bg-[#15203b]"
+            )}>
+                {/* Selection Indicator - Premium Style */}
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[var(--accent-primary)] to-transparent opacity-0 transition-opacity duration-300"
+                    style={{ opacity: isSelected ? 1 : 0 }} />
+
+                <div className="flex flex-col md:flex-row">
+                    {/* Visual Section */}
+                    <div className="relative md:w-48 h-48 md:h-auto overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent md:bg-gradient-to-r" />
+                        <img
+                            src={item.image}
+                            alt={item.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        {/* Popular Badge */}
+                        {item.popular && (
+                            <div className="absolute top-3 left-3 bg-[var(--accent-purchase)] text-white text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg">
+                                Mais Escolhido
+                            </div>
+                        )}
+
+                        {/* Mobile Checkbox Overlay */}
+                        <div className="absolute top-3 right-3 md:hidden">
+                            <div className={cn(
+                                "w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-lg backdrop-blur-sm",
+                                isSelected
+                                    ? "bg-[var(--accent-primary)] text-black"
+                                    : "bg-black/50 text-white/50 border border-white/20"
+                            )}>
+                                {isSelected ? <Check className="w-5 h-5" /> : <div className="w-5 h-5" />}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="p-5 md:p-6 flex-1 flex flex-col justify-center">
+                        <div className="flex items-start justify-between gap-4 mb-3">
+                            <div>
+                                <h3 className="text-white text-lg font-bold mb-1 group-hover:text-[var(--accent-primary)] transition-colors">
+                                    {item.title}
+                                </h3>
+                                <p className="text-[var(--accent-primary)] text-xs font-bold uppercase tracking-wider mb-2">
+                                    {item.subtitle}
+                                </p>
+                            </div>
+
+                            {/* Desktop Price */}
+                            <div className="hidden md:block text-right">
+                                <p className="text-white/40 text-sm line-through">R$ {item.originalPrice}</p>
+                                <p className="text-white text-2xl font-black">R$ {item.price}</p>
+                            </div>
+                        </div>
+
+                        <p className="text-white/60 text-sm leading-relaxed mb-4">
+                            {item.description}
+                        </p>
+
+                        {/* Features Bullet Points */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 mb-4">
+                            {item.features.map((feature, idx) => (
+                                <div key={idx} className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-secondary)]" />
+                                    <span className="text-white/70 text-xs font-medium">{feature}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Mobile Price & Desktop Action */}
+                        <div className="flex items-center justify-between mt-auto md:hidden pt-4 border-t border-white/5">
+                            <div>
+                                <p className="text-white/40 text-xs line-through">R$ {item.originalPrice}</p>
+                                <p className="text-white text-xl font-black">R$ {item.price}</p>
+                            </div>
+                            <div className={cn(
+                                "px-4 py-2 rounded-xl text-sm font-bold transition-all",
+                                isSelected
+                                    ? "bg-[var(--accent-primary)] text-black"
+                                    : "bg-white/10 text-white"
+                            )}>
+                                {isSelected ? 'Adicionado' : 'Adicionar'}
+                            </div>
+                        </div>
+
+                        {/* Desktop Checkbox/Action Area */}
+                        <div className="hidden md:flex items-center justify-end gap-3 mt-2">
+                            <span className={cn(
+                                "text-sm font-medium transition-colors",
+                                isSelected ? "text-[var(--accent-primary)]" : "text-white/40"
+                            )}>
+                                {isSelected ? 'Item selecionado no combo' : 'Clique para adicionar ao combo'}
+                            </span>
+                            <div className={cn(
+                                "w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all",
+                                isSelected
+                                    ? "bg-[var(--accent-primary)] border-[var(--accent-primary)]"
+                                    : "border-white/20"
+                            )}>
+                                {isSelected && <Check className="w-4 h-4 text-black" />}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </motion.button>
+    );
+}
 
 // ==========================================
 // INDIVIDUAL EXTENSIONS
@@ -251,83 +411,6 @@ function HeroUpsellBanner() {
 }
 
 // ==========================================
-// V7 ORDER BUMP CARD
-// ==========================================
-interface OrderBumpCardProps {
-    bump: typeof ORDER_BUMPS[0];
-    isSelected: boolean;
-    onToggle: () => void;
-    index: number;
-}
-
-function OrderBumpCard({ bump, isSelected, onToggle, index }: OrderBumpCardProps) {
-    const Icon = bump.icon;
-
-    return (
-        <motion.button
-            onClick={onToggle}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full text-left"
-        >
-            <div className={cn(
-                "relative overflow-hidden rounded-2xl p-4 transition-all duration-300",
-                "border-2",
-                isSelected
-                    ? "bg-[var(--accent-primary)]/10 border-[var(--accent-primary)]"
-                    : "bg-[var(--v7-glass-2)] border-white/5 hover:border-white/20"
-            )}>
-                {/* Popular badge */}
-                {bump.popular && (
-                    <div className="absolute top-0 right-0 bg-[var(--accent-purchase)] text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-bl-xl">
-                        Mais Popular
-                    </div>
-                )}
-
-                <div className="flex items-center gap-4">
-                    {/* Checkbox */}
-                    <div className={cn(
-                        "w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all",
-                        isSelected
-                            ? "bg-[var(--accent-primary)] border-[var(--accent-primary)]"
-                            : "border-white/20"
-                    )}>
-                        {isSelected && <Check className="w-4 h-4 text-black" />}
-                    </div>
-
-                    {/* Icon */}
-                    <div className={cn(
-                        "w-12 h-12 rounded-xl flex items-center justify-center",
-                        "bg-[var(--accent-primary-soft)] border border-[var(--accent-primary-border)]"
-                    )}>
-                        <Icon className="w-6 h-6 text-[var(--accent-primary)]" />
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                            <h4 className="text-white text-sm font-bold truncate">{bump.title}</h4>
-                            <span className="text-[var(--accent-purchase)] text-xs font-black">
-                                -{Math.round((1 - bump.price / bump.originalPrice) * 100)}%
-                            </span>
-                        </div>
-                        <p className="text-white/50 text-xs truncate">{bump.description}</p>
-                    </div>
-
-                    {/* Price */}
-                    <div className="text-right flex-shrink-0">
-                        <p className="text-white/40 text-xs line-through">R$ {bump.originalPrice}</p>
-                        <p className="text-white text-lg font-black">R$ {bump.price}</p>
-                    </div>
-                </div>
-            </div>
-        </motion.button>
-    );
-}
-
-// ==========================================
 // V7 EXTENSION CARD
 // ==========================================
 interface ExtensionCardProps {
@@ -464,19 +547,25 @@ function TestimonialsSection() {
 // ==========================================
 export default function ExtensionsV7() {
     const { navigate } = useNavigation();
-    const [selectedBumps, setSelectedBumps] = useState<string[]>([]);
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-    const toggleBump = (bumpId: string) => {
-        setSelectedBumps(prev =>
-            prev.includes(bumpId)
-                ? prev.filter(id => id !== bumpId)
-                : [...prev, bumpId]
+    const toggleItem = (itemId: string) => {
+        setSelectedItems(prev =>
+            prev.includes(itemId)
+                ? prev.filter(id => id !== itemId)
+                : [...prev, itemId]
         );
     };
 
-    const totalBumpPrice = ORDER_BUMPS
-        .filter(bump => selectedBumps.includes(bump.id))
-        .reduce((acc, bump) => acc + bump.price, 0);
+    const totalComboPrice = COMBO_ITEMS
+        .filter(item => selectedItems.includes(item.id))
+        .reduce((acc, item) => acc + item.price, 0);
+
+    const totalOriginalPrice = COMBO_ITEMS
+        .filter(item => selectedItems.includes(item.id))
+        .reduce((acc, item) => acc + item.originalPrice, 0);
+
+    const totalSavings = totalOriginalPrice - totalComboPrice;
 
     return (
         <VeloxLayout>
@@ -505,57 +594,137 @@ export default function ExtensionsV7() {
                     {/* Hero Upsell Banner */}
                     <HeroUpsellBanner />
 
-                    {/* Order Bumps Section */}
+                    {/* "Monte seu Combo" Section - Redesigned as Boxed Full Width */}
                     <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="mb-8"
+                        className="mb-8" // Removed max-w-3xl mx-auto to be full width
                     >
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center gap-2">
-                                <Gift className="w-5 h-5 text-[var(--accent-primary)]" />
-                                <span className="text-white/60 text-xs font-black uppercase tracking-[0.2em]">
-                                    Adicione ao seu pedido
-                                </span>
+                        <GlassSurface
+                            variant="surface-2"
+                            blur="medium"
+                            borderGradient="primary"
+                            className="relative overflow-hidden rounded-3xl p-1"
+                        >
+                            {/* Header Section of the Box */}
+                            <div className="bg-white/5 rounded-t-[20px] p-4 md:p-6 pb-4 border-b border-white/5">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                                    <h2 className="text-white text-lg md:text-xl font-black flex items-center gap-2">
+                                        <Sparkles className="w-5 h-5 text-[var(--accent-primary)] mb-1" />
+                                        Monte seu Combo
+                                    </h2>
+                                    <Badge variant="discount" className="text-[10px] font-bold self-start sm:self-auto">
+                                        OFERTA LIMITADA
+                                    </Badge>
+                                </div>
+                                <p className="text-white/60 text-xs md:text-sm leading-relaxed max-w-2xl">
+                                    Adicione itens essenciais ao seu pedido e economize até 40% agora.
+                                    Seleção curada para acelerar seus resultados.
+                                </p>
                             </div>
-                            {selectedBumps.length > 0 && (
-                                <span className="text-[var(--accent-primary)] text-sm font-bold">
-                                    +R$ {totalBumpPrice}
-                                </span>
-                            )}
-                        </div>
 
-                        <div className="space-y-3">
-                            {ORDER_BUMPS.map((bump, index) => (
-                                <OrderBumpCard
-                                    key={bump.id}
-                                    bump={bump}
-                                    isSelected={selectedBumps.includes(bump.id)}
-                                    onToggle={() => toggleBump(bump.id)}
-                                    index={index}
-                                />
-                            ))}
-                        </div>
+                            {/* List of Compact Items */}
+                            <div className="p-4 space-y-3 bg-[#0a1018]/50">
+                                {COMBO_ITEMS.map((item, index) => (
+                                    <motion.button
+                                        key={item.id}
+                                        onClick={() => toggleItem(item.id)}
+                                        whileHover={{ scale: 1.005 }}
+                                        whileTap={{ scale: 0.99 }}
+                                        className={cn(
+                                            "w-full flex items-center gap-4 p-3 rounded-xl border transition-all duration-300 text-left relative overflow-hidden",
+                                            selectedItems.includes(item.id)
+                                                ? "bg-[var(--accent-primary)]/10 border-[var(--accent-primary)]"
+                                                : "bg-white/5 border-white/5 hover:border-white/20 hover:bg-white/10"
+                                        )}
+                                    >
+                                        {item.popular && (
+                                            <div className="absolute top-0 right-0 bg-[var(--accent-purchase)] text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-bl-lg">
+                                                Popular
+                                            </div>
+                                        )}
 
-                        {/* Checkout Summary */}
-                        {selectedBumps.length > 0 && (
-                            <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
-                                className="mt-4"
-                            >
-                                <Button
-                                    variant="primary"
-                                    size="lg"
-                                    fullWidth
-                                    onClick={() => navigate('sales-video')}
-                                    className="font-black"
-                                >
-                                    Adicionar {selectedBumps.length} {selectedBumps.length === 1 ? 'item' : 'itens'} • R$ {totalBumpPrice}
-                                </Button>
-                            </motion.div>
-                        )}
+                                        {/* Checkbox */}
+                                        <div className={cn(
+                                            "flex-shrink-0 w-6 h-6 rounded-md border-2 flex items-center justify-center transition-colors",
+                                            selectedItems.includes(item.id)
+                                                ? "bg-[var(--accent-primary)] border-[var(--accent-primary)]"
+                                                : "border-white/20 group-hover:border-white/40"
+                                        )}>
+                                            {selectedItems.includes(item.id) && <Check className="w-3.5 h-3.5 text-black stroke-[3]" />}
+                                        </div>
+
+                                        {/* Thumbnail/Icon */}
+                                        <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-cover bg-center border border-white/10"
+                                            style={{ backgroundImage: `url(${item.image})` }}>
+                                            {/* Fallback Icon overlay if needed, or just clean image */}
+                                        </div>
+
+                                        {/* info */}
+                                        <div className="flex-1 min-w-0">
+                                            <h4 className={cn(
+                                                "text-sm font-bold truncate transition-colors",
+                                                selectedItems.includes(item.id) ? "text-white" : "text-white/90"
+                                            )}>
+                                                {item.title}
+                                            </h4>
+                                            <p className="text-white/50 text-xs truncate pr-4">
+                                                {item.subtitle}
+                                            </p>
+                                        </div>
+
+                                        {/* Price */}
+                                        <div className="flex-shrink-0 text-right">
+                                            <div className="text-white/40 text-[10px] line-through">
+                                                R$ {item.originalPrice}
+                                            </div>
+                                            <div className="text-[var(--accent-primary)] text-base font-black">
+                                                R$ {item.price}
+                                            </div>
+                                        </div>
+                                    </motion.button>
+                                ))}
+                            </div>
+
+                            {/* Footer / Summary Action - Integrated into the Box */}
+                            <AnimatePresence>
+                                {selectedItems.length > 0 && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: 'auto', opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        className="border-t border-white/10 bg-white/5"
+                                    >
+                                        <div className="p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-full bg-[var(--accent-primary)]/20 flex items-center justify-center">
+                                                    <Percentage className="w-5 h-5 text-[var(--accent-primary)]" />
+                                                </div>
+                                                <div>
+                                                    <div className="text-white text-sm font-bold">
+                                                        Economia Total: <span className="text-[var(--accent-primary)]">R$ {totalSavings}</span>
+                                                    </div>
+                                                    <div className="text-white/50 text-xs">
+                                                        {selectedItems.length} itens selecionados
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <Button
+                                                variant="purchase"
+                                                size="lg"
+                                                onClick={() => navigate('sales-video')}
+                                                className="w-full sm:w-auto font-black shadow-lg shadow-green-500/20"
+                                            >
+                                                Adicionar ao Combo (+R$ {totalComboPrice})
+                                                <ArrowRight className="w-4 h-4 ml-2" />
+                                            </Button>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </GlassSurface>
                     </motion.section>
 
                     {/* Testimonials */}
