@@ -1,6 +1,5 @@
 import React from 'react';
 import { Settings, User, CreditCard, Bookmark, Download, Clock, TrendingUp, Award, LogOut, ChevronRight, Crown, Mail, Calendar, Edit3 } from 'lucide-react';
-import { useNavigation, type Route } from './navigation/NavigationContext';
 import { VeloxLayout } from '../components/layout/VeloxLayout';
 import {
     GlassSurface,
@@ -9,7 +8,7 @@ import {
     Badge,
 } from '../components/design-system';
 import { motion } from 'motion/react';
-import { cn } from '../lib/cn';
+import { cn } from '../utils/cn';
 
 // ==========================================
 // V7 PROFILE - ACHIEVEMENT SHOWCASE
@@ -34,9 +33,9 @@ const ACHIEVEMENTS = [
 
 // Menu items
 const MENU_ITEMS = [
-    { icon: User, label: 'Editar perfil', route: 'edit-profile' as const },
-    { icon: CreditCard, label: 'Assinatura', route: 'store' as const, badge: 'Básico' },
-    { icon: Settings, label: 'Configurações', route: 'settings' as const },
+    { icon: User, label: 'Editar perfil', route: 'edit-profile' },
+    { icon: CreditCard, label: 'Assinatura', route: 'store', badge: 'Básico' },
+    { icon: Settings, label: 'Configurações', route: 'settings' },
 ];
 
 // ==========================================
@@ -245,7 +244,7 @@ function ProgressSection() {
 // ==========================================
 // V7 MENU SECTION
 // ==========================================
-function MenuSection({ navigate }: { navigate: (route: Route) => void }) {
+function MenuSection({ onNavigate }: { onNavigate: (route: string) => void }) {
     return (
         <motion.section
             initial={{ opacity: 0, y: 20 }}
@@ -267,7 +266,7 @@ function MenuSection({ navigate }: { navigate: (route: Route) => void }) {
                     return (
                         <button
                             key={index}
-                            onClick={() => navigate(item.route)}
+                            onClick={() => onNavigate(item.route)}
                             className="w-full flex items-center gap-4 p-4 hover:bg-white/[0.03] transition-colors"
                         >
                             <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
@@ -294,7 +293,14 @@ function MenuSection({ navigate }: { navigate: (route: Route) => void }) {
 // MAIN COMPONENT: ProfileV3
 // ==========================================
 export default function ProfileV3() {
-    const { navigate } = useNavigation();
+    // Handler para navegação (standalone - apenas console.log)
+    const handleNavigate = (route: string) => {
+        console.log('[ProfileV3] Navigation requested:', route);
+    };
+
+    const handleLogout = () => {
+        console.log('[ProfileV3] Logout requested');
+    };
 
     return (
         <VeloxLayout>
@@ -302,7 +308,7 @@ export default function ProfileV3() {
                 <div className="max-w-[var(--v7-max-content)] mx-auto">
 
                     {/* Profile Hero */}
-                    <ProfileHero onEdit={() => navigate('edit-profile')} />
+                    <ProfileHero onEdit={() => handleNavigate('edit-profile')} />
 
                     {/* Stats Row */}
                     <StatsRow />
@@ -314,7 +320,7 @@ export default function ProfileV3() {
                     <AchievementsGrid />
 
                     {/* Menu Section */}
-                    <MenuSection navigate={navigate} />
+                    <MenuSection onNavigate={handleNavigate} />
 
                     {/* Logout Button */}
                     <motion.div
@@ -322,7 +328,13 @@ export default function ProfileV3() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <Button variant="ghost" size="md" fullWidth className="text-[var(--state-error)]">
+                        <Button
+                            variant="ghost"
+                            size="md"
+                            fullWidth
+                            className="text-[var(--state-error)]"
+                            onClick={handleLogout}
+                        >
                             <LogOut className="w-4 h-4" />
                             Sair da conta
                         </Button>

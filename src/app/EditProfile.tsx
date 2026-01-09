@@ -2,12 +2,10 @@ import { ArrowLeft, Upload, Check } from 'lucide-react';
 import { useState } from 'react';
 import { ImageWithFallback } from './components/figma/ImageWithFallback';
 import { PreferenceChip } from './components/PreferenceChip';
-import { useNavigation } from './navigation/NavigationContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassSurface, Button } from '../components/design-system';
 
 export default function EditProfile() {
-  const { goBack } = useNavigation();
   const [name, setName] = useState('Ana Carolina Silva');
   const [username, setUsername] = useState('anasilva');
   const [phone, setPhone] = useState('+55 11 98765-4321');
@@ -40,7 +38,7 @@ export default function EditProfile() {
     if (hasChanges) {
       setShowUnsavedDialog(true);
     } else {
-      goBack();
+      console.log('Go back');
     }
   };
 
@@ -240,7 +238,7 @@ export default function EditProfile() {
                 onClick={() => {
                   setShowUnsavedDialog(false);
                   setHasChanges(false);
-                  goBack();
+                  console.log('Go back');
                 }}
                 variant="ghost"
                 className="py-4 text-red-400 font-bold hover:bg-red-500/10"
