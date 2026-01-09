@@ -3,7 +3,6 @@ import {
     Download, Zap, Bell, Crown, Star, Shield, ChevronRight, Check,
     Sparkles, Gift, Timer, Users, ArrowRight, Lock, Flame, Package, Percent as Percentage
 } from 'lucide-react';
-import { useNavigation } from './navigation/NavigationContext';
 import { VeloxLayout } from '../components/layout/VeloxLayout';
 import {
     GlassSurface,
@@ -12,7 +11,7 @@ import {
     Progress,
 } from '../components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
-import { cn } from '../lib/cn';
+import { cn } from '../utils/cn';
 
 // ==========================================
 // V7 EXTENSIONS - UPSELL & ORDER BUMP OPTIMIZED
@@ -46,7 +45,6 @@ const MAIN_UPSELL = {
 // ==========================================
 // COMBO ITEMS - "Monte seu Combo"
 // ==========================================
-// Re-imagined as a high-end "Tome" style sales block
 const COMBO_ITEMS = [
     {
         id: 'bump-1',
@@ -97,10 +95,6 @@ const COMBO_ITEMS = [
         popular: false,
     },
 ];
-
-// ... (EXTENSIONS and TESTIMONIALS arrays remain unchanged, I will include them to keep context if needed, but since I am replacing the section I can leave them be or just assume they exist if not modifying. Wait, I am using replace_file_content with a large range? No, I should target specific blocks or replace the whole file content carefully. The user instruction implies modifying the "Adicione ao seu pedido" part. I will confirm the structure.)
-
-// I will redefine the component parts to match the new "Monte seu Combo" structure.
 
 // ==========================================
 // V7 COMBO CARD - "Tome" Style
@@ -294,8 +288,7 @@ const TESTIMONIALS = [
 // ==========================================
 // V7 HERO UPSELL BANNER
 // ==========================================
-function HeroUpsellBanner() {
-    const { navigate } = useNavigation();
+function HeroUpsellBanner({ onNavigate }: { onNavigate: (route: string) => void }) {
     const [timeLeft] = useState({ hours: 23, minutes: 59, seconds: 47 });
 
     return (
@@ -396,7 +389,7 @@ function HeroUpsellBanner() {
                                 variant="purchase"
                                 size="lg"
                                 fullWidth
-                                onClick={() => navigate('sales-video')}
+                                onClick={() => onNavigate('sales-video')}
                                 className="lg:w-auto lg:px-10 font-black tracking-wide shadow-2xl shadow-orange-500/30"
                             >
                                 QUERO ECONOMIZAR AGORA
@@ -416,10 +409,10 @@ function HeroUpsellBanner() {
 interface ExtensionCardProps {
     extension: typeof EXTENSIONS[0];
     index: number;
+    onNavigate: (route: string) => void;
 }
 
-function ExtensionCard({ extension, index }: ExtensionCardProps) {
-    const { navigate } = useNavigation();
+function ExtensionCard({ extension, index, onNavigate }: ExtensionCardProps) {
     const Icon = extension.icon;
 
     const colors = {
@@ -432,7 +425,7 @@ function ExtensionCard({ extension, index }: ExtensionCardProps) {
 
     return (
         <motion.button
-            onClick={() => navigate(extension.status === 'locked' ? 'locked-preview' : 'sales-video')}
+            onClick={() => onNavigate(extension.status === 'locked' ? 'locked-preview' : 'sales-video')}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 + index * 0.05 }}
@@ -546,8 +539,12 @@ function TestimonialsSection() {
 // MAIN COMPONENT: ExtensionsV7
 // ==========================================
 export default function ExtensionsV7() {
-    const { navigate } = useNavigation();
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+    // Handler para navegação (standalone - apenas console.log)
+    const handleNavigate = (route: string) => {
+        console.log('[ExtensionsV7] Navigation requested:', route);
+    };
 
     const toggleItem = (itemId: string) => {
         setSelectedItems(prev =>
@@ -592,14 +589,14 @@ export default function ExtensionsV7() {
                     </motion.div>
 
                     {/* Hero Upsell Banner */}
-                    <HeroUpsellBanner />
+                    <HeroUpsellBanner onNavigate={handleNavigate} />
 
                     {/* "Monte seu Combo" Section - Redesigned as Boxed Full Width */}
                     <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="mb-8" // Removed max-w-3xl mx-auto to be full width
+                        className="mb-8"
                     >
                         <GlassSurface
                             variant="surface-2"
@@ -658,7 +655,6 @@ export default function ExtensionsV7() {
                                         {/* Thumbnail/Icon */}
                                         <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-cover bg-center border border-white/10"
                                             style={{ backgroundImage: `url(${item.image})` }}>
-                                            {/* Fallback Icon overlay if needed, or just clean image */}
                                         </div>
 
                                         {/* info */}
@@ -714,7 +710,7 @@ export default function ExtensionsV7() {
                                             <Button
                                                 variant="purchase"
                                                 size="lg"
-                                                onClick={() => navigate('sales-video')}
+                                                onClick={() => handleNavigate('sales-video')}
                                                 className="w-full sm:w-auto font-black shadow-lg shadow-green-500/20"
                                             >
                                                 Adicionar ao Combo (+R$ {totalComboPrice})
@@ -746,7 +742,12 @@ export default function ExtensionsV7() {
 
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                             {EXTENSIONS.map((extension, index) => (
-                                <ExtensionCard key={extension.id} extension={extension} index={index} />
+                                <ExtensionCard
+                                    key={extension.id}
+                                    extension={extension}
+                                    index={index}
+                                    onNavigate={handleNavigate}
+                                />
                             ))}
                         </div>
                     </motion.section>

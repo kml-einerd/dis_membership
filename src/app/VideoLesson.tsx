@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { useNavigation } from './navigation/NavigationContext';
 import { VideoPlayer } from './components/VideoPlayer';
 import { ExpandableDescription } from './components/ExpandableDescription';
 import { MaterialsCard } from './components/MaterialsCard';
@@ -11,7 +10,6 @@ import { mockComments, mockQuestions, currentLessonOrigin } from '../data/mockCo
 import type { CommentFormData, QuestionFormData } from '../components/community/types';
 
 export default function VideoLesson() {
-  const { goBack } = useNavigation();
   const [selectedModule, setSelectedModule] = useState('Módulo 2');
 
   const materials = [
@@ -215,7 +213,7 @@ export default function VideoLesson() {
       {/* Header / Back Button */}
       <div className="sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-[var(--app-bg)]/60 backdrop-blur-xl border-b border-[var(--glass-border)]">
         <button
-          onClick={goBack}
+          onClick={() => console.log('Navigate back clicked')}
           className="w-10 h-10 rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-all flex items-center justify-center group active:scale-95"
         >
           <ArrowLeft className="w-5 h-5 text-[var(--text-primary)] group-hover:-translate-x-0.5 transition-transform" />

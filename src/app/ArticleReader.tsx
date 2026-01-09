@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigation } from './navigation/NavigationContext';
 import { ReadingProgressBar } from './components/ReadingProgressBar';
 import { ArticleTopBar } from './components/ArticleTopBar';
 import { ArticleHero } from './components/ArticleHero';
@@ -14,7 +13,6 @@ import { mockComments, mockQuestions, mockOrigins } from '../data/mockCommunityD
 import type { CommentFormData, QuestionFormData } from '../components/community/types';
 
 export default function ArticleReader() {
-  const { goBack } = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
 
   // Simulate loading
@@ -79,7 +77,7 @@ export default function ArticleReader() {
   return (
     <div className="min-h-screen bg-[#0a0a0f] pb-12">
       <ReadingProgressBar />
-      <ArticleTopBar onBack={goBack} />
+      <ArticleTopBar onBack={() => console.log('Navigate back clicked')} />
       
       <ArticleHero
         title="10 Estratégias de Marketing que Funcionam em 2024"
