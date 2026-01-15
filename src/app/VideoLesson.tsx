@@ -5,9 +5,9 @@ import { ExpandableDescription } from './components/ExpandableDescription';
 import { MaterialsCard } from './components/MaterialsCard';
 import { ModuleChipsTabs } from './components/ModuleChipsTabs';
 import { LessonListItem } from './components/LessonListItem';
-import { LessonInteractionBlock } from '../components/community';
-import { mockComments, mockQuestions, currentLessonOrigin } from '../data/mockCommunityData';
-import type { CommentFormData, QuestionFormData } from '../components/community/types';
+import { LessonInteractionBlock } from './components/community';
+import { mockComments, mockQuestions, currentLessonOrigin } from './utils/mockCommunityData';
+import type { CommentFormData, QuestionFormData } from './components/community/types';
 
 export default function VideoLesson() {
   const [selectedModule, setSelectedModule] = useState('Módulo 2');

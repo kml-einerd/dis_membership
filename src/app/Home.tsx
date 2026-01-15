@@ -10,14 +10,15 @@ import React, { useState, useRef, useMemo, useEffect } from 'react';
 import {
     Play, ChevronRight, ChevronLeft, Flame, Sparkles, MessageCircle, Lock, Crown,
     CheckCircle2, Users, Calendar, Zap, Download, TrendingUp, Gift, Star,
-    Percent, Bell, Shield, ArrowRight, Home, Library, MessageSquare, ShoppingBag,
-    User, Search, Settings, X, MoreHorizontal, Menu
+    Percent, Bell, Shield, ArrowRight, Home as HomeIcon, Library as LibraryIcon, MessageSquare, ShoppingBag,
+    User as UserIcon, Search, Settings as SettingsIcon, X, MoreHorizontal, Menu
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 import { Badge, ChipTabs } from './components/design-system';
 import { WhatsAppBanner } from './components/banners/WhatsAppBanner';
 import { cn } from './utils/cn';
+import { useNavigation } from './App';
 
 // ==========================================
 // 0. TOKENS & SYSTEMS
@@ -130,23 +131,22 @@ const FIXED_EXTENSIONS: CardItem[] = [
 // ==========================================
 
 function TopNavDesktop() {
-    const [currentTab, setCurrentTab] = useState('home');
+    const { navigate, currentScreen } = useNavigation();
     const [searchQuery, setSearchQuery] = useState('');
 
     const navItems = [
-        { id: 'home', icon: Home, label: 'Home' },
-        { id: 'library', icon: Library, label: 'Biblioteca' },
+        { id: 'home', icon: HomeIcon, label: 'Home' },
+        { id: 'library', icon: LibraryIcon, label: 'Biblioteca' },
         { id: 'forum', icon: MessageSquare, label: 'Fórum' },
         { id: 'store', icon: ShoppingBag, label: 'Extensões' },
     ];
 
     const handleTabClick = (tabId: string) => {
-        console.log(`[Navigation] Tab clicked: ${tabId}`);
-        setCurrentTab(tabId);
+        navigate(tabId);
     };
 
     const handleProfileClick = () => {
-        console.log('[Navigation] Profile clicked');
+        navigate('profile');
     };
 
     return (
@@ -167,7 +167,7 @@ function TopNavDesktop() {
                                 onClick={() => handleTabClick(item.id)}
                                 className={cn(
                                     "px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.12em] transition-all duration-200",
-                                    currentTab === item.id ? "bg-white text-black shadow-lg" : "text-white/40 hover:text-white hover:bg-white/5"
+                                    currentScreen === item.id ? "bg-white text-black shadow-lg" : "text-white/40 hover:text-white hover:bg-white/5"
                                 )}
                             >
                                 {item.label}
@@ -211,12 +211,14 @@ function TopNavDesktop() {
 }
 
 function MobileHeader() {
+    const { navigate } = useNavigation();
+
     const handleLogoClick = () => {
-        console.log('[Navigation] Logo clicked');
+        navigate('home');
     };
 
     const handleProfileClick = () => {
-        console.log('[Navigation] Profile clicked');
+        navigate('profile');
     };
 
     return (
@@ -246,19 +248,18 @@ function MobileHeader() {
 }
 
 function BottomNavMobile() {
-    const [currentTab, setCurrentTab] = useState('home');
+    const { navigate, currentScreen } = useNavigation();
 
     const navItems = [
-        { id: 'home', icon: Home, label: 'Home' },
-        { id: 'library', icon: Library, label: 'Cursos' },
+        { id: 'home', icon: HomeIcon, label: 'Home' },
+        { id: 'library', icon: LibraryIcon, label: 'Cursos' },
         { id: 'forum', icon: MessageSquare, label: 'Comunidade' },
         { id: 'store', icon: ShoppingBag, label: 'Upgrade' },
-        { id: 'profile', icon: User, label: 'Perfil' },
+        { id: 'profile', icon: UserIcon, label: 'Perfil' },
     ];
 
     const handleNavClick = (itemId: string) => {
-        console.log(`[Navigation] Bottom nav clicked: ${itemId}`);
-        setCurrentTab(itemId);
+        navigate(itemId);
     };
 
     return (
@@ -266,7 +267,7 @@ function BottomNavMobile() {
             <div className="flex items-center justify-around h-16 px-1">
                 {navItems.map((item) => {
                     const Icon = item.icon;
-                    const isActive = currentTab === item.id;
+                    const isActive = currentScreen === item.id;
                     return (
                         <button
                             key={item.id}
@@ -295,8 +296,10 @@ function BottomNavMobile() {
 // ==========================================
 
 function HeroSection() {
+    const { navigate } = useNavigation();
+
     const handleContinueClick = () => {
-        console.log('[Navigation] Continue watching clicked: video-lesson');
+        navigate('video');
     };
 
     return (
@@ -724,22 +727,23 @@ function ExtensionCardCombo({ item, onClick }: { item: any; onClick: () => void 
 // 5. MAIN PAGE
 // ==========================================
 
-export default function HomeV7() {
+export default function Home() {
+    const { navigate } = useNavigation();
     const [activeCategory, setActiveCategory] = useState('Todas');
     const categories = ['Todas', 'Destinos', 'Técnicas', 'Premium'];
 
     const handleItemClick = (item: CardItem) => {
         if (item.type === 'extension') {
-            console.log('[Navigation] Extension clicked, navigating to store');
+            navigate('store');
         } else if (item.locked) {
-            console.log('[Navigation] Locked content clicked, navigating to locked-preview');
+            navigate('extensions'); // Locked content preview
         } else {
-            console.log('[Navigation] Course clicked, navigating to course-detail');
+            navigate('course');
         }
     };
 
     const handleStoreClick = () => {
-        console.log('[Navigation] Store section clicked');
+        navigate('store');
     };
 
     return (

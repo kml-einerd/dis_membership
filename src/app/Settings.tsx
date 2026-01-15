@@ -2,7 +2,7 @@ import { ArrowLeft, CreditCard, User, LogOut, Monitor, Zap, Download, Bell, Type
 import { useState } from 'react';
 import { SettingsSection } from './components/SettingsSection';
 import { SettingsRow } from './components/SettingsRow';
-import { GlassSurface, Button } from '../components/design-system';
+import { GlassSurface, Button } from './components/design-system';
 
 export default function Settings() {
   const [quality, setQuality] = useState('Alta');

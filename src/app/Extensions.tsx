@@ -3,13 +3,13 @@ import {
     Download, Zap, Bell, Crown, Star, Shield, ChevronRight, Check,
     Sparkles, Gift, Timer, Users, ArrowRight, Lock, Flame, Package, Percent as Percentage
 } from 'lucide-react';
-import { VeloxLayout } from '../components/layout/VeloxLayout';
+import { VeloxLayout } from './components/layout/VeloxLayout';
 import {
     GlassSurface,
     Button,
     Badge,
     Progress,
-} from '../components/design-system';
+} from './components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './utils/cn';
 

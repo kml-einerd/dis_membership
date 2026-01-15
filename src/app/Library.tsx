@@ -4,14 +4,14 @@ import {
     Clock, BookOpen, Crown, Grid3X3, List, LayoutList, X, Sparkles,
     Filter, Zap, Gift, Bell, TrendingUp, BookMarked, GraduationCap
 } from 'lucide-react';
-import { VeloxLayout } from '../components/layout/VeloxLayout';
+import { VeloxLayout } from './components/layout/VeloxLayout';
 import {
     ChipTabs,
     GlassSurface,
     Progress,
     Badge,
     Button,
-} from '../components/design-system';
+} from './components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './utils/cn';
 

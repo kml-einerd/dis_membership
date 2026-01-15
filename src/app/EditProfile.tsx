@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ImageWithFallback } from './components/figma/ImageWithFallback';
 import { PreferenceChip } from './components/PreferenceChip';
 import { motion, AnimatePresence } from 'motion/react';
-import { GlassSurface, Button } from '../components/design-system';
+import { GlassSurface, Button } from './components/design-system';
 
 export default function EditProfile() {
   const [name, setName] = useState('Ana Carolina Silva');

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Settings, User, CreditCard, Bookmark, Download, Clock, TrendingUp, Award, LogOut, ChevronRight, Crown, Mail, Calendar, Edit3 } from 'lucide-react';
-import { VeloxLayout } from '../components/layout/VeloxLayout';
+import { VeloxLayout } from './components/layout/VeloxLayout';
 import {
     GlassSurface,
     Button,
     Progress,
     Badge,
-} from '../components/design-system';
+} from './components/design-system';
 import { motion } from 'motion/react';
 import { cn } from './utils/cn';
 

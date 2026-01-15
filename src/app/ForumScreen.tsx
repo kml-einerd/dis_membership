@@ -2,12 +2,12 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Search, Filter, TrendingUp, Clock, Star, ChevronDown, MessageCircle, HelpCircle, CheckCircle, Users, ThumbsUp, ExternalLink, ChevronRight, Plus, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { VeloxLayout } from '../components/layout/VeloxLayout';
-import { ChipTabs } from '../components/design-system/ChipTabs';
-import { StarRating } from '../components/community/StarRating';
-import { ReactionBarCompact } from '../components/community/ReactionBar';
-import { CommentForm } from '../components/community/CommentForm';
-import { QuestionForm } from '../components/community/QuestionForm';
+import { VeloxLayout } from './components/layout/VeloxLayout';
+import { ChipTabs } from './components/design-system/ChipTabs';
+import { StarRating } from './components/community/StarRating';
+import { ReactionBarCompact } from './components/community/ReactionBar';
+import { CommentForm } from './components/community/CommentForm';
+import { QuestionForm } from './components/community/QuestionForm';
 import { cn } from './utils/cn';
 import {
   mockComments,
@@ -19,7 +19,7 @@ import {
   type ContentOrigin,
   type CommentFormData,
   type QuestionFormData,
-} from '../utils/mockCommunityData';
+} from './utils/mockCommunityData';
 
 // ============================================
 // FORUM SCREEN V2 - REVOLUTIONARY DESIGN

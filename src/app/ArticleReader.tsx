@@ -8,9 +8,9 @@ import { Callout } from './components/Callout';
 import { ArticleMaterialsCard } from './components/ArticleMaterialsCard';
 import { RelatedContentRow } from './components/RelatedContentRow';
 import { ArticleSkeleton } from './components/ArticleSkeleton';
-import { LessonInteractionBlock } from '../components/community';
-import { mockComments, mockQuestions, mockOrigins } from '../utils/mockCommunityData';
-import type { CommentFormData, QuestionFormData } from '../components/community/types';
+import { LessonInteractionBlock } from './components/community';
+import { mockComments, mockQuestions, mockOrigins } from './utils/mockCommunityData';
+import type { CommentFormData, QuestionFormData } from './components/community/types';
 
 export default function ArticleReader() {
   const [isLoading, setIsLoading] = useState(true);

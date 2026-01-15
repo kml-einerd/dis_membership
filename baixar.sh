@@ -1,4 +1,5 @@
 #!/bin/bash
-echo "📥 Baixando alterações do GitHub..."
-git pull origin main
-echo "✅ Concluído!"
+echo "📥 Sincronizando com a versão do GitHub (Hard Reset)..."
+git fetch origin main
+git reset --hard origin/main
+echo "✅ Seus arquivos locais agora são uma cópia exata do GitHub!"

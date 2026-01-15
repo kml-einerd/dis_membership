@@ -1,13 +1,13 @@
 import { ArrowLeft, Play, FileText, Lock, Clock, BookOpen, Search, CheckCircle2, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
-import { VeloxLayout } from '../components/layout/VeloxLayout';
+import { VeloxLayout } from './components/layout/VeloxLayout';
 import {
   GlassSurface,
   ChipTabs,
   Button,
   Progress,
   SidebarWidget,
-} from '../components/design-system';
+} from './components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './utils/cn';
 
