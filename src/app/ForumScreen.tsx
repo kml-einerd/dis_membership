@@ -8,7 +8,7 @@ import { StarRating } from '../components/community/StarRating';
 import { ReactionBarCompact } from '../components/community/ReactionBar';
 import { CommentForm } from '../components/community/CommentForm';
 import { QuestionForm } from '../components/community/QuestionForm';
-import { cn } from '../utils/cn';
+import { cn } from './utils/cn';
 import {
   mockComments,
   mockQuestionGroups,

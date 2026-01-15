@@ -11,7 +11,7 @@ import {
     Progress,
 } from '../components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
-import { cn } from '../utils/cn';
+import { cn } from './utils/cn';
 
 // ==========================================
 // V7 EXTENSIONS - UPSELL & ORDER BUMP OPTIMIZED

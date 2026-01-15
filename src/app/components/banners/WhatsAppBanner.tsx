@@ -13,7 +13,7 @@ import { cn } from '../../utils/cn';
 // 3. Premium - Elegant gradients, breathing space
 // 4. Desktop: Perfect 3-column layout (Image | Content | CTA)
 
-interface WhatsAppBannerV2Props {
+interface WhatsAppBannerProps {
     /** Banner image URL */
     imageUrl: string;
     /** Main headline */
@@ -34,7 +34,7 @@ interface WhatsAppBannerV2Props {
     className?: string;
 }
 
-export function WhatsAppBannerV2({
+export function WhatsAppBanner({
     imageUrl = 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200',
     headline = 'Participe da Live do',
     highlightText = 'Clube de Viagens',
@@ -44,7 +44,7 @@ export function WhatsAppBannerV2({
     ctaText = 'Entrar no Grupo VIP',
     whatsappUrl = 'https://wa.me/5511999999999',
     className,
-}: WhatsAppBannerV2Props) {
+}: WhatsAppBannerProps) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -174,4 +174,4 @@ export function WhatsAppBannerV2({
     );
 }
 
-export default WhatsAppBannerV2;
+export default WhatsAppBanner;

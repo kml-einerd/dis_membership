@@ -9,7 +9,7 @@ import {
   SidebarWidget,
 } from '../components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
-import { cn } from '../utils/cn';
+import { cn } from './utils/cn';
 
 interface Lesson {
   id: string;

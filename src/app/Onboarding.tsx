@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Check, Sparkles } from 'lucide-react';
 import { Button, GlassSurface, Progress } from '../components/design-system';
-import { cn } from '../utils/cn';
+import { cn } from './utils/cn';
 
 interface Question {
   id: string;

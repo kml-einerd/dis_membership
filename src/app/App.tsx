@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 // Imports de componentes locais
-import HomeV7 from './HomeV7';
+import Home from './Home';
 
 // Interface para demonstração
 interface AppProps {
@@ -15,8 +15,8 @@ export default function App({ initialScreen = 'home' }: AppProps) {
 
   return (
     <div className="min-h-screen bg-black">
-      {/* Renderiza a tela principal - HomeV7 como showcase */}
-      <HomeV7 />
+      {/* Renderiza a tela principal - Home como showcase */}
+      <Home />
     </div>
   );
 }

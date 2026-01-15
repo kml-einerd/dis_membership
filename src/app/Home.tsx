@@ -16,8 +16,8 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 
 import { Badge, ChipTabs } from './components/design-system';
-import { WhatsAppBannerV2 } from './components/banners/WhatsAppBannerV2';
-import { cn } from '../utils/cn';
+import { WhatsAppBanner } from './components/banners/WhatsAppBanner';
+import { cn } from './utils/cn';
 
 // ==========================================
 // 0. TOKENS & SYSTEMS
@@ -794,7 +794,7 @@ export default function HomeV7() {
                     {/* LIVE BANNER */}
                     <section className="px-4 lg:px-12 py-8 lg:py-12">
                         <div className="max-w-[1440px] mx-auto">
-                            <WhatsAppBannerV2
+                            <WhatsAppBanner
                                 imageUrl={IMAGES.clubBanner}
                                 headline="Participe da Live do"
                                 highlightText="Clube de Viagens"

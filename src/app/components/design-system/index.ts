@@ -23,7 +23,7 @@ export {
   CountdownWidget,
 } from './ConversionCards';
 
-// Extension Cards V2 - Jobs + Musk Philosophy
+// Extension Cards - Jobs + Musk Philosophy
 export {
   BannerCard,
   TextOnlyCard,
@@ -31,7 +31,7 @@ export {
   LockedSaleCard,
   LockedProgressCard,
   ExtensionCardShowcase,
-} from './ExtensionCardV2';
+} from './ExtensionCard';
 
 // Dashboard Components
 export { HeroCarousel } from './HeroCarousel';
