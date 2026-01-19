@@ -14,13 +14,13 @@ const variantClasses: Record<ButtonVariant, string> = {
   primary: 'bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-white shadow-[0_0_16px_var(--accent-primary-soft)]',
   secondary: 'bg-[var(--glass-surface-3)] hover:bg-[var(--glass-surface-hover)] text-[var(--text-primary)] border border-[var(--glass-border)]',
   ghost: 'hover:bg-[var(--glass-surface-2)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]',
-  purchase: 'bg-[var(--accent-purchase)] hover:bg-[var(--accent-purchase-hover)] text-white shadow-[0_0_16px_var(--accent-purchase-soft)]',
+  purchase: 'bg-[var(--accent-purchase)] hover:bg-[var(--accent-purchase-hover)] text-white shadow-[0_0_16px_var(--accent-purchase-soft)] font-semibold',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'h-9 px-4 text-sm rounded-[var(--radius-sm)]',
-  md: 'h-11 px-6 text-base rounded-[var(--radius-md)]',
-  lg: 'h-12 px-8 text-lg rounded-[var(--radius-lg)]',
+  sm: 'h-10 min-h-[44px] px-4 text-sm rounded-xl',
+  md: 'h-11 min-h-[44px] px-6 text-base rounded-xl',
+  lg: 'h-14 min-h-[44px] px-10 text-lg rounded-xl font-semibold',
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(

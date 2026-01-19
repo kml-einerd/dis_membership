@@ -11,7 +11,7 @@ interface ChipTabsProps {
 
 export function ChipTabs({ tabs, activeTab, onChange, className }: ChipTabsProps) {
   return (
-    <div className={cn('flex gap-2 px-6 overflow-x-auto scrollbar-hide', className)}>
+    <div className={cn('flex gap-2 overflow-x-auto scrollbar-hide scroll-pl-4', className)}>
       {tabs.map((tab) => {
         const isActive = activeTab === tab;
 
@@ -25,7 +25,7 @@ export function ChipTabs({ tabs, activeTab, onChange, className }: ChipTabsProps
               layout: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }
             }}
             className={cn(
-              'relative px-4 py-2.5 md:py-2 rounded-full text-sm font-medium whitespace-nowrap min-h-[44px] md:min-h-0',
+              'relative px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap min-h-[44px]',
               'bg-[var(--accent-primary)] text-white',
               'shadow-[0_0_16px_var(--accent-primary-soft)]'
             )}
@@ -40,7 +40,7 @@ export function ChipTabs({ tabs, activeTab, onChange, className }: ChipTabsProps
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             className={cn(
-              'px-4 py-2.5 md:py-2 rounded-full text-sm font-medium whitespace-nowrap cursor-pointer min-h-[44px] md:min-h-0',
+              'px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap cursor-pointer min-h-[44px]',
               'text-[var(--text-tertiary)] hover:text-[var(--text-primary)]',
               'bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] hover:border-white/[0.1]'
             )}

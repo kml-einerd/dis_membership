@@ -34,7 +34,7 @@ export function SettingsRow({
   return (
     <button
       onClick={handleClick}
-      className="w-full flex items-center justify-between gap-3 px-4 py-3.5 hover:bg-[var(--app-surface)] rounded-xl transition-colors group"
+      className="w-full flex items-center justify-between gap-3 px-6 py-4 hover:bg-[var(--app-surface)] rounded-xl transition-colors group"
     >
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <Icon
@@ -58,13 +58,13 @@ export function SettingsRow({
 
         {toggle && (
           <div
-            className={`relative w-11 h-6 rounded-full transition-colors ${
+            className={`relative w-[44px] h-6 rounded-full transition-colors ${
               toggleValue ? 'bg-[var(--app-accent)]' : 'bg-[var(--app-surface)]'
             }`}
           >
             <div
               className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
-                toggleValue ? 'translate-x-6' : 'translate-x-1'
+                toggleValue ? 'translate-x-[26px]' : 'translate-x-1'
               }`}
             />
           </div>

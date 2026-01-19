@@ -46,7 +46,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
             <button
               key={index}
               onClick={() => scrollToSection(item.id)}
-              className="w-full text-left py-2 px-3 hover:bg-white/[0.03] rounded-lg transition-colors"
+              className="w-full text-left py-3 px-3 hover:bg-white/[0.03] rounded-lg transition-colors border-l-[3px] border-transparent hover:border-[#7c5dfa]"
               style={{ paddingLeft: `${item.level * 12 + 12}px` }}
             >
               <span className="text-white/70 text-sm hover:text-white transition-colors">

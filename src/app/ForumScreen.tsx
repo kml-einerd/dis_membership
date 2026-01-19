@@ -382,7 +382,7 @@ export default function ForumScreen() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="flex items-center justify-center gap-6 mb-8"
+              className="flex items-center justify-center gap-8 mb-8"
             >
               <div className="flex items-center gap-2 text-sm">
                 <div className="w-2 h-2 rounded-full bg-[var(--community-comment)] animate-pulse" />
@@ -411,7 +411,7 @@ export default function ForumScreen() {
                   ref={addButtonRef}
                   onClick={() => setShowAddMenu(!showAddMenu)}
                   className={cn(
-                    'w-14 h-14 rounded-2xl flex items-center justify-center transition-all',
+                    'w-12 h-12 rounded-2xl flex items-center justify-center transition-all',
                     'bg-[#0a1214] border-2',
                     showAddMenu
                       ? 'border-[#56e88a] bg-[#56e88a]/10 shadow-[0_0_20px_rgba(86,232,138,0.3)]'
@@ -438,7 +438,7 @@ export default function ForumScreen() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Buscar discussões, perguntas..."
                     className={cn(
-                      'w-full pl-12 pr-4 py-4 rounded-2xl',
+                      'w-full h-14 pl-12 pr-4 rounded-2xl',
                       'bg-[#0a1214] border-2 border-white/10',
                       'text-white placeholder:text-white/40',
                       'focus:outline-none focus:ring-2 focus:ring-[#22f2ef]/30 focus:border-[#22f2ef]/50',
@@ -547,7 +547,7 @@ export default function ForumScreen() {
                 <button
                   onClick={() => setActiveTab('questions')}
                   className={cn(
-                    'flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all',
+                    'flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold transition-all',
                     activeTab === 'questions'
                       ? 'bg-[var(--community-question)] text-black'
                       : 'text-white/60 hover:text-white'
@@ -559,7 +559,7 @@ export default function ForumScreen() {
                 <button
                   onClick={() => setActiveTab('comments')}
                   className={cn(
-                    'flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all',
+                    'flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold transition-all',
                     activeTab === 'comments'
                       ? 'bg-[var(--community-comment)] text-black'
                       : 'text-white/60 hover:text-white'
@@ -699,12 +699,12 @@ function QuestionGroupCardV2({ group, isExpanded, onToggle, index }: QuestionGro
       {/* Question header */}
       <button
         onClick={onToggle}
-        className="w-full p-5 text-left hover:bg-white/[0.02] transition-colors"
+        className="w-full p-6 text-left hover:bg-white/[0.02] transition-colors"
       >
         <div className="flex items-start gap-4">
           {/* Status indicator */}
           <div className={cn(
-            'flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center',
+            'flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center',
             hasAnswer
               ? 'bg-[var(--community-verified-soft)] text-[var(--community-verified)]'
               : 'bg-[var(--community-question-soft)] text-[var(--community-question)]'
@@ -855,7 +855,7 @@ function CommentCardV2({ comment, onReact, index, formatTimeAgo }: CommentCardV2
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
       className={cn(
-        'p-5 rounded-2xl transition-all',
+        'p-6 rounded-2xl transition-all',
         'bg-[var(--community-card-bg)] border border-[var(--glass-border)]',
         'hover:border-[var(--community-comment-border)]',
         comment.isHighlighted && 'ring-1 ring-[var(--accent-premium-border)]'

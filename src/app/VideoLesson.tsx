@@ -214,7 +214,7 @@ export default function VideoLesson() {
       <div className="sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-[var(--app-bg)]/60 backdrop-blur-xl border-b border-[var(--glass-border)]">
         <button
           onClick={() => console.log('Navigate back clicked')}
-          className="w-10 h-10 rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-all flex items-center justify-center group active:scale-95"
+          className="w-11 h-11 rounded-xl bg-[var(--glass-surface-2)] border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-all flex items-center justify-center group active:scale-95"
         >
           <ArrowLeft className="w-5 h-5 text-[var(--text-primary)] group-hover:-translate-x-0.5 transition-transform" />
         </button>
@@ -224,13 +224,13 @@ export default function VideoLesson() {
           <h2 className="text-[var(--text-primary)] text-sm font-semibold truncate">Análise de Métricas Avançadas</h2>
         </div>
 
-        <div className="w-10 h-10" /> {/* Spacer */}
+        <div className="w-11 h-11" /> {/* Spacer */}
       </div>
 
       <div className="relative z-10">
         {/* Video Player */}
         <div className="pt-6 px-4 lg:px-8 max-w-5xl mx-auto">
-          <div className="rounded-[var(--radius-2xl)] overflow-hidden shadow-2xl border border-[var(--glass-border-strong)]">
+          <div className="rounded-2xl overflow-hidden shadow-2xl border border-[var(--glass-border-strong)]">
             <VideoPlayer
               thumbnailUrl="https://images.unsplash.com/photo-1542626991-cbc4e32524cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGNvdXJzZSUyMGxlYXJuaW5nfGVufDF8fHx8MTc2NzA5OTU3MXww&ixlib=rb-4.1.0&q=80&w=1080"
               title="Análise de Métricas Avançadas"
@@ -242,9 +242,9 @@ export default function VideoLesson() {
         <div className="px-4 lg:px-8 max-w-5xl mx-auto mt-8 grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             {/* Info Panel */}
-            <div className="bg-[var(--glass-surface-1)] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] p-6 backdrop-blur-md">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="px-2 py-0.5 bg-[var(--accent-primary-soft)] text-[var(--accent-primary)] text-[10px] font-bold rounded uppercase">Módulo 2</span>
+            <div className="bg-[var(--glass-surface-1)] border border-[var(--glass-border)] rounded-2xl p-6 backdrop-blur-md">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="px-3 py-1 bg-[var(--accent-primary-soft)] text-[var(--accent-primary)] text-[10px] font-bold rounded uppercase">Módulo 2</span>
                 <span className="text-[var(--text-tertiary)] text-[10px] font-bold uppercase tracking-wider">Aula 5 • 12 min</span>
               </div>
               <h1 className="text-white text-2xl lg:text-3xl font-bold mb-4">Análise de Métricas Avançadas</h1>

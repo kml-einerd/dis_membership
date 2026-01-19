@@ -316,10 +316,10 @@ function HeroUpsellBanner({ onNavigate }: { onNavigate: (route: string) => void 
                     </span>
                 </div>
 
-                <div className="relative z-10 p-6 lg:p-10">
+                <div className="relative z-10 p-5 lg:p-12">
                     <div className="lg:flex lg:items-center lg:gap-10">
                         {/* Image */}
-                        <div className="hidden lg:block flex-shrink-0 w-48 h-48 rounded-2xl overflow-hidden ring-4 ring-white/10">
+                        <div className="hidden lg:block flex-shrink-0 w-56 h-56 rounded-2xl overflow-hidden ring-4 ring-white/10">
                             <img
                                 src={MAIN_UPSELL.image}
                                 alt={MAIN_UPSELL.title}
@@ -362,7 +362,7 @@ function HeroUpsellBanner({ onNavigate }: { onNavigate: (route: string) => void 
                                     <span className="text-white/40 text-lg line-through">
                                         R$ {MAIN_UPSELL.originalPrice}
                                     </span>
-                                    <span className="text-white text-4xl lg:text-5xl font-black">
+                                    <span className="text-white text-3xl lg:text-6xl font-black">
                                         R$ {MAIN_UPSELL.price}
                                     </span>
                                 </div>
@@ -644,12 +644,12 @@ export default function ExtensionsV7() {
 
                                         {/* Checkbox */}
                                         <div className={cn(
-                                            "flex-shrink-0 w-6 h-6 rounded-md border-2 flex items-center justify-center transition-colors",
+                                            "flex-shrink-0 w-7 h-7 rounded-md border-2 flex items-center justify-center transition-colors",
                                             selectedItems.includes(item.id)
                                                 ? "bg-[var(--accent-primary)] border-[var(--accent-primary)]"
                                                 : "border-white/20 group-hover:border-white/40"
                                         )}>
-                                            {selectedItems.includes(item.id) && <Check className="w-3.5 h-3.5 text-black stroke-[3]" />}
+                                            {selectedItems.includes(item.id) && <Check className="w-4 h-4 text-black stroke-[3]" />}
                                         </div>
 
                                         {/* Thumbnail/Icon */}

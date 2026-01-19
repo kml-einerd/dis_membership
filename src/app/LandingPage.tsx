@@ -30,7 +30,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[0.95] mb-6 tracking-tighter"
+            className="text-3xl lg:text-6xl font-black text-white leading-[0.95] mb-6 tracking-tighter"
           >
             Transforme Seus Resultados<br />
             <span className="bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
@@ -158,10 +158,10 @@ const LandingPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[var(--accent-primary)]/30 transition-colors"
+                className="p-7 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[var(--accent-primary)]/30 transition-colors"
               >
                 <div className="w-14 h-14 bg-gradient-to-br from-[var(--accent-primary)]/20 to-[var(--accent-secondary)]/20 rounded-2xl flex items-center justify-center mb-4">
-                  <feature.icon className="w-7 h-7 text-[var(--accent-primary)]" />
+                  <feature.icon className="w-8 h-8 text-[var(--accent-primary)]" />
                 </div>
                 <h3 className="text-white text-xl font-black mb-2">{feature.title}</h3>
                 <p className="text-white/70 text-sm mb-3">{feature.description}</p>
@@ -344,7 +344,7 @@ const LandingPage = () => {
 
                 <h3 className="text-white text-xl font-black mb-2">{plan.name}</h3>
                 <div className="mb-4">
-                  <span className="text-white text-5xl font-black">R$ {plan.price}</span>
+                  <span className="text-white text-4xl font-black">R$ {plan.price}</span>
                   <span className="text-white/50 text-lg">{plan.period}</span>
                 </div>
                 {plan.savings && (

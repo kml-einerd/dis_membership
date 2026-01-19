@@ -152,8 +152,8 @@ function TopNavDesktop() {
     return (
         <header className="sticky top-0 z-[60] hidden lg:block">
             <div className="mx-auto max-w-[1600px] px-6 py-4 flex items-center justify-between">
-                <button onClick={() => handleTabClick('home')} className="flex items-center gap-3 active:scale-95 transition-transform">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-lg shadow-[var(--v7-accent-primary)]/10">
+                <button onClick={() => handleTabClick('home')} className="flex items-center gap-3 active:scale-95 transition-transform min-h-[44px]">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-lg shadow-[var(--v7-accent-primary)]/10">
                         <Sparkles className="w-5 h-5 text-white" />
                     </div>
                     <span className="text-white text-xl font-black tracking-tight uppercase">Velox</span>
@@ -166,7 +166,7 @@ function TopNavDesktop() {
                                 key={item.id}
                                 onClick={() => handleTabClick(item.id)}
                                 className={cn(
-                                    "px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.12em] transition-all duration-200",
+                                    "px-6 py-2.5 rounded-full text-[11px] font-black uppercase tracking-[0.12em] transition-all duration-200 min-h-[44px]",
                                     currentScreen === item.id ? "bg-white text-black shadow-lg" : "text-white/40 hover:text-white hover:bg-white/5"
                                 )}
                             >
@@ -178,7 +178,7 @@ function TopNavDesktop() {
 
                 <div className="flex items-center gap-4">
                     <div className="relative group">
-                        <div className="flex items-center gap-3 px-4 py-2 bg-white/[0.03] border border-white/5 rounded-full backdrop-blur-xl min-w-[240px] transition-all focus-within:ring-2 focus-within:ring-[var(--accent-primary)]/30 focus-within:bg-white/[0.06]">
+                        <div className="flex items-center gap-3 px-4 py-2.5 bg-white/[0.03] border border-white/5 rounded-full backdrop-blur-xl min-w-[240px] min-h-[44px] transition-all focus-within:ring-2 focus-within:ring-[var(--accent-primary)]/30 focus-within:bg-white/[0.06]">
                             <Search className="w-4 h-4 text-white/30" />
                             <input
                                 type="text"
@@ -191,14 +191,14 @@ function TopNavDesktop() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <button className="w-10 h-10 flex items-center justify-center rounded-full border border-white/5 bg-white/[0.03] hover:bg-white/10 transition-all active:scale-90 group relative">
-                            <Bell className="w-4 h-4 text-white/40 group-hover:text-white transition-colors" />
+                        <button className="w-11 h-11 flex items-center justify-center rounded-full border border-white/5 bg-white/[0.03] hover:bg-white/10 transition-all active:scale-90 group relative">
+                            <Bell className="w-5 h-5 text-white/40 group-hover:text-white transition-colors" />
                             <span className="absolute top-3 right-3 w-1.5 h-1.5 bg-[var(--accent-purchase)] rounded-full" />
                         </button>
                     </div>
 
-                    <button onClick={handleProfileClick} className="flex items-center gap-3 pl-1 pr-4 py-1.5 bg-white/[0.03] border border-white/5 rounded-full hover:bg-white/10 transition-all">
-                        <img src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=100" className="w-8 h-8 rounded-full border border-white/10 shadow-lg" alt="Profile" />
+                    <button onClick={handleProfileClick} className="flex items-center gap-3 pl-1 pr-4 py-1.5 bg-white/[0.03] border border-white/5 rounded-full hover:bg-white/10 transition-all min-h-[44px]">
+                        <img src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=100" className="w-9 h-9 rounded-full border border-white/10 shadow-lg" alt="Profile" />
                         <div className="text-left leading-none">
                             <p className="text-white text-[10px] font-black uppercase tracking-tight">Ana Silva</p>
                             <span className="text-[var(--accent-premium)] text-[8px] font-black uppercase tracking-widest">Premium</span>
@@ -224,21 +224,21 @@ function MobileHeader() {
     return (
         <header className="sticky top-0 z-[60] lg:hidden px-4 py-3 pb-[calc(12px+env(safe-area-inset-top))]">
             <div className="flex items-center justify-between mt-[env(safe-area-inset-top)]">
-                <button onClick={handleLogoClick} className="flex items-center gap-2">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-lg">
-                        <Sparkles className="w-4 h-4 text-white" />
+                <button onClick={handleLogoClick} className="flex items-center gap-2 min-h-[44px] min-w-[44px]">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-lg">
+                        <Sparkles className="w-5 h-5 text-white" />
                     </div>
                 </button>
 
-                <div className="flex items-center gap-2.5">
-                    <button className="w-9 h-9 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 active:scale-90">
-                        <Search className="w-4 h-4 text-white/40" />
+                <div className="flex items-center gap-3">
+                    <button className="w-11 h-11 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 active:scale-90 transition-transform">
+                        <Search className="w-5 h-5 text-white/40" />
                     </button>
-                    <button className="w-9 h-9 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 active:scale-90 relative">
-                        <Bell className="w-4 h-4 text-white/40" />
-                        <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-[var(--accent-purchase)] rounded-full shadow-[0_0_5px_var(--accent-purchase)]" />
+                    <button className="w-11 h-11 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 active:scale-90 transition-transform relative">
+                        <Bell className="w-5 h-5 text-white/40" />
+                        <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-[var(--accent-purchase)] rounded-full shadow-[0_0_5px_var(--accent-purchase)]" />
                     </button>
-                    <button onClick={handleProfileClick} className="w-9 h-9 rounded-full overflow-hidden border border-white/10 active:scale-90">
+                    <button onClick={handleProfileClick} className="w-11 h-11 rounded-full overflow-hidden border border-white/10 active:scale-90 transition-transform">
                         <img src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=100" className="w-full h-full object-cover" alt="Profile" />
                     </button>
                 </div>
@@ -264,7 +264,7 @@ function BottomNavMobile() {
 
     return (
         <nav className="fixed bottom-0 left-0 right-0 z-[60] lg:hidden pb-[env(safe-area-inset-bottom)] bg-black/60 backdrop-blur-2xl border-t border-white/10">
-            <div className="flex items-center justify-around h-16 px-1">
+            <div className="flex items-center justify-around min-h-[64px] px-1">
                 {navItems.map((item) => {
                     const Icon = item.icon;
                     const isActive = currentScreen === item.id;
@@ -272,12 +272,12 @@ function BottomNavMobile() {
                         <button
                             key={item.id}
                             onClick={() => handleNavClick(item.id)}
-                            className="flex-1 flex flex-col items-center justify-center gap-1 active:scale-90 transition-all"
+                            className="flex-1 flex flex-col items-center justify-center gap-1 active:scale-90 transition-all min-h-[48px] py-2"
                         >
                             <div className="relative">
-                                <Icon className={cn("w-5 h-5", isActive ? "text-[var(--accent-primary)]" : "text-white/30")} />
+                                <Icon className={cn("w-6 h-6", isActive ? "text-[var(--accent-primary)]" : "text-white/30")} />
                                 {isActive && (
-                                    <motion.div layoutId="navDot" className="absolute -top-1.5 left-1/2 -translateX-1/2 w-1 h-1 bg-[var(--accent-primary)] rounded-full shadow-[0_0_8px_var(--accent-primary)]" />
+                                    <motion.div layoutId="navDot" className="absolute -top-2 left-1/2 -translateX-1/2 w-1 h-1 bg-[var(--accent-primary)] rounded-full shadow-[0_0_8px_var(--accent-primary)]" />
                                 )}
                             </div>
                             <span className={cn("text-[9px] font-black uppercase tracking-widest", isActive ? "text-[var(--accent-primary)]" : "text-white/20")}>
@@ -370,29 +370,29 @@ function ContinueCard({ imageUrl, title, subtitle, progress, streakDays, onClick
             <div className="relative overflow-hidden bg-white/[0.02] border border-white/[0.06] rounded-2xl backdrop-blur-2xl transition-all duration-500 group-hover:bg-white/[0.04] group-hover:border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
 
                 {/* Conteúdo principal */}
-                <div className="p-3 lg:p-4 flex items-center gap-3 lg:gap-4">
+                <div className="p-4 lg:p-5 flex items-center gap-4 lg:gap-5">
 
                     {/* Thumbnail com overlay clean */}
-                    <div className="relative w-14 lg:w-20 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-black/40">
+                    <div className="relative w-16 lg:w-20 aspect-video rounded-xl overflow-hidden flex-shrink-0 bg-black/40">
                         <img
                             src={imageUrl}
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             alt={title}
                         />
                         <div className="absolute inset-0 bg-black/30 flex items-center justify-center transition-all duration-300 group-hover:bg-black/20">
-                            <div className="w-5 h-5 lg:w-7 lg:h-7 rounded-full bg-white flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-lg">
-                                <Play className="w-2 h-2 lg:w-3 lg:h-3 text-black fill-current translate-x-[0.5px]" />
+                            <div className="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-white flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-lg">
+                                <Play className="w-2.5 h-2.5 lg:w-3 lg:h-3 text-black fill-current translate-x-[0.5px]" />
                             </div>
                         </div>
                         {/* Badge de progresso discreto */}
-                        <div className="absolute bottom-1 right-1 px-1.5 py-0.5 bg-black/80 backdrop-blur-sm rounded text-[9px] lg:text-[10px] font-medium text-white/90">
+                        <div className="absolute bottom-1 right-1 px-2 py-0.5 bg-black/80 backdrop-blur-sm rounded text-[9px] lg:text-[10px] font-medium text-white/90">
                             {progress}%
                         </div>
                     </div>
 
                     {/* Informações do vídeo */}
                     <div className="flex-1 min-w-0 text-left">
-                        <h4 className="text-white text-xs lg:text-sm font-medium tracking-tight truncate mb-0.5 lg:mb-1">
+                        <h4 className="text-white text-sm lg:text-base font-medium tracking-tight truncate mb-1 lg:mb-1">
                             {title}
                         </h4>
                         <div className="flex items-center gap-2 text-white/40 text-[10px] lg:text-xs font-normal">
@@ -402,15 +402,15 @@ function ContinueCard({ imageUrl, title, subtitle, progress, streakDays, onClick
 
                     {/* CTA Button */}
                     <div className="flex-shrink-0">
-                        <div className="px-3 lg:px-4 py-1.5 lg:py-2 bg-white/[0.08] hover:bg-white/[0.12] border border-white/[0.12] rounded-full text-white text-[10px] lg:text-xs font-medium tracking-wide transition-all duration-300 group-hover:border-white/[0.18] flex items-center gap-1.5 lg:gap-2">
+                        <div className="px-4 lg:px-5 py-2 lg:py-2.5 bg-white/[0.08] hover:bg-white/[0.12] border border-white/[0.12] rounded-xl text-white text-[10px] lg:text-xs font-medium tracking-wide transition-all duration-300 group-hover:border-white/[0.18] flex items-center gap-2 min-h-[40px]">
                             <span>Continuar</span>
-                            <ChevronRight className="w-3 h-3 lg:w-3.5 lg:h-3.5 transition-transform group-hover:translate-x-0.5" />
+                            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                         </div>
                     </div>
                 </div>
 
                 {/* Barra de progresso na base */}
-                <div className="h-[1px] bg-white/[0.05] relative overflow-hidden">
+                <div className="h-1 bg-white/[0.05] relative overflow-hidden">
                     <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
@@ -450,20 +450,20 @@ function SectionRow({ title, items, onItemClick }: { title: string; items: CardI
     return (
         <section>
             <div className="max-w-[1440px] mx-auto px-4 lg:px-12">
-                <div className="flex items-center justify-between mb-5 lg:mb-6">
+                <div className="flex items-center justify-between mb-6 lg:mb-8">
                     <h2 className="text-white/70 text-xs lg:text-[13px] font-black uppercase tracking-[0.2em]">{title}</h2>
                     <div className="hidden lg:flex items-center gap-2">
                         <button
                             onClick={() => scroll('left')}
                             disabled={!canScrollLeft}
-                            className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/5 flex items-center justify-center text-white/40 enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-90"
+                            className="w-11 h-11 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white/40 enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-90"
                         >
                             <ChevronLeft className="w-5 h-5" />
                         </button>
                         <button
                             onClick={() => scroll('right')}
                             disabled={!canScrollRight}
-                            className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/5 flex items-center justify-center text-white/40 enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-90"
+                            className="w-11 h-11 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white/40 enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-90"
                         >
                             <ChevronRight className="w-5 h-5" />
                         </button>
@@ -473,7 +473,7 @@ function SectionRow({ title, items, onItemClick }: { title: string; items: CardI
                 <div
                     ref={scrollRef}
                     onScroll={checkScroll}
-                    className="flex gap-3 lg:gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4 mask-fade-edges"
+                    className="flex gap-4 lg:gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4 mask-fade-edges"
                 >
                     {items.map((item) => (
                         <CardRouter key={item.id} item={item} onClick={() => onItemClick(item)} />
@@ -499,7 +499,7 @@ function CardRouter({ item, onClick }: { item: CardItem; onClick: () => void }) 
 }
 
 // 9:16 Base Styles
-const card916Classes = "relative aspect-[9/16] w-[150px] lg:w-[200px] rounded-2xl lg:rounded-[24px] overflow-hidden snap-start flex-shrink-0 group cursor-pointer border border-white/5 transition-all duration-500 hover:shadow-2xl hover:border-white/10 ring-offset-black focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/50";
+const card916Classes = "relative aspect-[9/16] w-[156px] lg:w-[208px] rounded-2xl overflow-hidden snap-start flex-shrink-0 group cursor-pointer border border-white/5 transition-all duration-500 hover:shadow-2xl hover:border-white/10 ring-offset-black focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/50";
 
 function ContentCard({ item, onClick }: { item: CardItem; onClick: () => void }) {
     return (
@@ -509,7 +509,7 @@ function ContentCard({ item, onClick }: { item: CardItem; onClick: () => void })
 
             {item.badge && (
                 <div className="absolute top-4 left-4">
-                    <div className="px-2.5 py-1 bg-[var(--accent-primary)] text-black text-[10px] font-black uppercase tracking-wider rounded-lg shadow-lg">
+                    <div className="px-3 py-1 bg-[var(--accent-primary)] text-black text-[10px] font-black uppercase tracking-wider rounded-lg shadow-lg">
                         {item.badge}
                     </div>
                 </div>
@@ -533,8 +533,8 @@ function LockedCard({ item, onClick }: { item: CardItem; onClick: () => void }) 
             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
 
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-white/10 border border-white/20 backdrop-blur-xl flex items-center justify-center group-hover:bg-[var(--accent-purchase)] group-hover:border-transparent transition-all shadow-2xl">
-                    <Lock className="w-6 h-6 text-white group-hover:text-black transition-colors" />
+                <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 backdrop-blur-xl flex items-center justify-center group-hover:bg-[var(--accent-purchase)] group-hover:border-transparent transition-all shadow-2xl">
+                    <Lock className="w-7 h-7 text-white group-hover:text-black transition-colors" />
                 </div>
                 <span className="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] group-hover:opacity-0 transition-opacity">Premium</span>
             </div>
@@ -542,7 +542,7 @@ function LockedCard({ item, onClick }: { item: CardItem; onClick: () => void }) 
             <div className="absolute bottom-0 inset-x-0 p-5 lg:p-6 opacity-60 group-hover:opacity-100 transition-opacity">
                 <h4 className="text-white text-base lg:text-lg font-black leading-[1.15] mb-2 line-clamp-2">{item.title}</h4>
                 <div className="flex items-center gap-2 text-[var(--accent-purchase)] text-xs font-bold uppercase tracking-widest">
-                    <Crown className="w-3.5 h-3.5" />
+                    <Crown className="w-4 h-4" />
                     <span>Membro VIP</span>
                 </div>
             </div>
@@ -565,13 +565,13 @@ function ExtensionCardSimple({ item, onClick }: { item: any; onClick: () => void
             <img src={item.imageUrl} className="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-500 ease-out group-hover:scale-[1.03]" alt={item.title} />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
 
-            <div className="absolute top-4 right-4 bg-white text-black px-2 py-1 rounded-lg text-[10px] font-black" style={{ background: item.color }}>
+            <div className="absolute top-4 right-4 bg-white text-black px-3 py-1 rounded-lg text-[10px] font-black" style={{ background: item.color }}>
                 -{item.discount}%
             </div>
 
             <div className="absolute bottom-0 inset-x-0 p-5 flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4 shadow-xl" style={{ backgroundColor: `${item.color}20`, border: `1px solid ${item.color}40` }}>
-                    <Sparkles className="w-6 h-6" style={{ color: item.color }} />
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 shadow-xl" style={{ backgroundColor: `${item.color}20`, border: `1px solid ${item.color}40` }}>
+                    <Sparkles className="w-7 h-7" style={{ color: item.color }} />
                 </div>
                 <h4 className="text-white text-base font-black leading-tight mb-2">{item.title}</h4>
                 <p className="text-white/50 text-xs font-medium">{item.subtitle}</p>
@@ -632,13 +632,13 @@ function ExtensionCardCTA({ item, onClick }: { item: any; onClick: () => void })
 
             <div className="absolute inset-0 pt-[45%] p-5 flex flex-col justify-between bg-black/40 backdrop-blur-[2px]">
                 <div>
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 shadow-xl" style={{ backgroundColor: `${item.color}20`, border: `1px solid ${item.color}40` }}>
-                        <TrendingUp className="w-5 h-5" style={{ color: item.color }} />
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 shadow-xl" style={{ backgroundColor: `${item.color}20`, border: `1px solid ${item.color}40` }}>
+                        <TrendingUp className="w-6 h-6" style={{ color: item.color }} />
                     </div>
-                    <h4 className="text-white text-lg font-black leading-tight mb-1">{item.title}</h4>
+                    <h4 className="text-white text-lg font-black leading-tight mb-2">{item.title}</h4>
                     <p className="text-white/50 text-xs">{item.subtitle}</p>
                 </div>
-                <button className="w-full py-3.5 rounded-xl text-[11px] font-black uppercase tracking-widest shadow-xl transition-all hover:brightness-110 active:scale-95" style={{ background: item.color, color: '#000' }}>
+                <button className="w-full py-3 rounded-xl text-[11px] font-black uppercase tracking-widest shadow-xl transition-all hover:brightness-110 active:scale-95 min-h-[44px]" style={{ background: item.color, color: '#000' }}>
                     {item.ctaText}
                 </button>
             </div>
@@ -660,18 +660,18 @@ function ExtensionCardText({ item, onClick }: { item: any; onClick: () => void }
             onClick={onClick}
         >
             <div className="p-6 h-full flex flex-col">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-2xl" style={{ backgroundColor: `${item.color}15`, border: `1px solid ${item.color}30` }}>
-                    <Shield className="w-7 h-7" style={{ color: item.color }} />
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-2xl" style={{ backgroundColor: `${item.color}15`, border: `1px solid ${item.color}30` }}>
+                    <Shield className="w-8 h-8" style={{ color: item.color }} />
                 </div>
 
-                <h4 className="text-white text-xl font-black leading-tight mb-3">{item.headline}</h4>
+                <h4 className="text-white text-xl font-black leading-tight mb-4">{item.headline}</h4>
                 <p className="text-white/50 text-xs font-medium leading-relaxed mb-6">{item.description}</p>
 
                 {item.benefits && (
                     <ul className="space-y-3 mb-auto">
                         {item.benefits.map((b: string, i: number) => (
                             <li key={i} className="flex items-center gap-3">
-                                <CheckCircle2 className="w-3.5 h-3.5" style={{ color: item.color }} />
+                                <CheckCircle2 className="w-4 h-4" style={{ color: item.color }} />
                                 <span className="text-white/70 text-[10px] font-black uppercase tracking-wide">{b}</span>
                             </li>
                         ))}
@@ -679,7 +679,7 @@ function ExtensionCardText({ item, onClick }: { item: any; onClick: () => void }
                 )}
 
                 <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mt-4" style={{ color: item.color }}>
-                    Saiba mais <ArrowRight className="w-3.5 h-3.5" />
+                    Saiba mais <ArrowRight className="w-4 h-4" />
                 </div>
             </div>
         </motion.div>
@@ -691,7 +691,7 @@ function ExtensionCardCombo({ item, onClick }: { item: any; onClick: () => void 
         <motion.div
             whileHover={MOTION.hoverLift}
             whileTap={MOTION.tap}
-            className="relative aspect-[16/9] w-[240px] lg:w-[320px] rounded-[24px] overflow-hidden snap-start flex-shrink-0 group cursor-pointer transition-all duration-500 ring-offset-black focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]"
+            className="relative aspect-[16/9] w-[252px] lg:w-[336px] rounded-2xl overflow-hidden snap-start flex-shrink-0 group cursor-pointer transition-all duration-500 ring-offset-black focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]"
             style={{
                 border: `1px solid ${item.color}40`,
                 boxShadow: `0 0 24px ${item.color}20, 0 8px 32px rgba(0,0,0,0.5)`
@@ -701,20 +701,20 @@ function ExtensionCardCombo({ item, onClick }: { item: any; onClick: () => void 
             <img src={item.images?.[0]} className="absolute inset-0 w-full h-full object-cover transition-transform duration-600 ease-out group-hover:scale-[1.04]" alt="" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
-            <div className="absolute inset-0 p-4 lg:p-5 flex flex-col justify-end">
-                <div className="mb-3 lg:mb-4">
-                    <h4 className="text-white text-sm lg:text-base font-semibold leading-tight mb-1">{item.title}</h4>
+            <div className="absolute inset-0 p-5 lg:p-6 flex flex-col justify-end">
+                <div className="mb-4 lg:mb-5">
+                    <h4 className="text-white text-sm lg:text-base font-semibold leading-tight mb-2">{item.title}</h4>
                     <p className="text-white/50 text-xs lg:text-sm font-normal leading-relaxed">
                         Acesso completo aos cursos premium com técnicas avançadas de milhas
                     </p>
                 </div>
 
-                <div className="flex items-end justify-between gap-3">
+                <div className="flex items-end justify-between gap-4">
                     <div className="flex items-baseline gap-2">
                         <span className="text-white/40 text-xs line-through">{item.originalPrice}</span>
                         <span className="text-white text-lg lg:text-xl font-bold" style={{ color: item.color }}>{item.price}</span>
                     </div>
-                    <button className="px-4 lg:px-5 py-2 lg:py-2.5 rounded-full text-[10px] lg:text-xs font-semibold tracking-wide shadow-xl transition-all hover:brightness-110 active:scale-95" style={{ background: item.color, color: '#000' }}>
+                    <button className="px-5 lg:px-6 py-2.5 rounded-xl text-[10px] lg:text-xs font-semibold tracking-wide shadow-xl transition-all hover:brightness-110 active:scale-95 min-h-[44px]" style={{ background: item.color, color: '#000' }}>
                         Aproveitar
                     </button>
                 </div>
@@ -814,14 +814,14 @@ export default function Home() {
             </main>
 
             {/* FLOATING & NAV */}
-            <div className="fixed bottom-24 lg:bottom-10 right-4 lg:right-10 z-[70]">
+            <div className="fixed bottom-24 lg:bottom-12 right-4 lg:right-12 z-[70]">
                 <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={MOTION.tap}
                     onClick={() => window.open('https://wa.me/5511999999999', '_blank')}
-                    className="w-14 h-14 lg:w-16 lg:h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(37,211,102,0.4)] relative group"
+                    className="w-16 h-16 lg:w-16 lg:h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(37,211,102,0.4)] relative group"
                 >
-                    <MessageCircle className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
+                    <MessageCircle className="w-8 h-8 lg:w-8 lg:h-8 text-white" />
                     <span className="absolute inset-0 rounded-full bg-[#25D366]/40 animate-ping" />
 
                     <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-xl border border-white/10 px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">

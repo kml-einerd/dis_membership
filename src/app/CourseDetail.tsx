@@ -169,31 +169,31 @@ export default function CourseDetailV2() {
       <GlassSurface
         variant="surface-2"
         blur="medium"
-        className="p-5 rounded-[var(--radius-xl)]"
+        className="p-6 rounded-2xl"
       >
-        <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-4">
+        <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-5">
           Seu progresso
         </h3>
 
-        <div className="relative w-28 h-28 mx-auto mb-4">
+        <div className="relative w-32 h-32 mx-auto mb-5">
           <svg className="w-full h-full transform -rotate-90">
             <circle
-              cx="56"
-              cy="56"
-              r="48"
+              cx="64"
+              cy="64"
+              r="56"
               stroke="var(--glass-surface-3)"
               strokeWidth="8"
               fill="none"
             />
             <circle
-              cx="56"
-              cy="56"
-              r="48"
+              cx="64"
+              cy="64"
+              r="56"
               stroke="url(#courseProgressGradient)"
               strokeWidth="8"
               fill="none"
               strokeLinecap="round"
-              strokeDasharray={`${2 * Math.PI * 48 * progressPercentage / 100} ${2 * Math.PI * 48}`}
+              strokeDasharray={`${2 * Math.PI * 56 * progressPercentage / 100} ${2 * Math.PI * 56}`}
             />
             <defs>
               <linearGradient id="courseProgressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -218,12 +218,12 @@ export default function CourseDetailV2() {
         <SidebarWidget title="Continuar de onde parou">
           <button
             onClick={() => handleLessonClick(nextLesson)}
-            className="w-full flex items-center gap-3 p-2 rounded-[var(--radius-md)] hover:bg-[var(--glass-surface-hover)] transition-colors"
+            className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-[var(--glass-surface-hover)] transition-colors min-h-[60px]"
           >
-            <div className="relative w-16 h-12 rounded-[var(--radius-sm)] overflow-hidden flex-shrink-0">
+            <div className="relative w-20 h-14 rounded-lg overflow-hidden flex-shrink-0">
               <img src={nextLesson.thumbnail} alt={nextLesson.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <Play className="w-4 h-4 text-white ml-0.5" />
+                <Play className="w-5 h-5 text-white ml-0.5" />
               </div>
             </div>
             <div className="flex-1 min-w-0 text-left">
@@ -240,16 +240,16 @@ export default function CourseDetailV2() {
       <GlassSurface
         variant="surface-1"
         blur="light"
-        className="p-5 rounded-[var(--radius-xl)]"
+        className="p-6 rounded-2xl"
       >
-        <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-4">
+        <h3 className="text-[var(--text-primary)] text-sm font-semibold mb-5">
           Sobre o instrutor
         </h3>
-        <div className="flex items-center gap-4 mb-3">
+        <div className="flex items-center gap-4 mb-4">
           <img
             src={courseData.instructorImage}
             alt={courseData.instructor}
-            className="w-14 h-14 rounded-full object-cover ring-2 ring-[var(--glass-border)]"
+            className="w-16 h-16 rounded-full object-cover ring-2 ring-[var(--glass-border)]"
           />
           <div>
             <h4 className="text-[var(--text-primary)] text-sm font-semibold">
@@ -289,9 +289,9 @@ export default function CourseDetailV2() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               onClick={handleGoBack}
-              className="absolute top-4 left-4 lg:top-6 lg:left-6 w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[var(--glass-surface-3)] backdrop-blur-xl border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-colors flex items-center justify-center z-10"
+              className="absolute top-4 left-4 lg:top-6 lg:left-6 w-11 h-11 lg:w-12 lg:h-12 rounded-xl bg-[var(--glass-surface-3)] backdrop-blur-xl border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-colors flex items-center justify-center z-10"
             >
-              <ArrowLeft className="w-5 h-5 text-[var(--text-primary)]" />
+              <ArrowLeft className="w-5 h-5 lg:w-6 lg:h-6 text-[var(--text-primary)]" />
             </motion.button>
           </div>
 
@@ -345,14 +345,14 @@ export default function CourseDetailV2() {
             <GlassSurface
               variant="surface-2"
               blur="medium"
-              className="p-4 rounded-[var(--radius-xl)]"
+              className="p-5 rounded-2xl"
             >
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-3">
                 <span className="text-[var(--text-secondary)] text-sm">Seu progresso</span>
                 <span className="text-[var(--text-primary)] text-sm font-bold">{progressPercentage}%</span>
               </div>
               <Progress value={progressPercentage} variant="gradient" size="md" />
-              <p className="text-[var(--text-muted)] text-xs mt-2">
+              <p className="text-[var(--text-muted)] text-xs mt-3">
                 {completedLessons} de {allLessons.length} aulas concluídas
               </p>
             </GlassSurface>
@@ -376,13 +376,13 @@ export default function CourseDetailV2() {
             className="mb-6"
           >
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-muted)]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search Programs"
-                className="w-full pl-11 pr-4 py-3 bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-[var(--radius-lg)] text-[var(--text-primary)] text-sm placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary-border)] transition-colors"
+                className="w-full pl-12 pr-4 py-3 bg-[var(--glass-surface-2)] border border-[var(--glass-border)] rounded-xl text-[var(--text-primary)] text-sm placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary-border)] transition-colors min-h-[48px]"
               />
             </div>
           </motion.div>
@@ -401,24 +401,24 @@ export default function CourseDetailV2() {
                 glow
                 glowColor="var(--accent-purchase)"
                 borderGradient="purchase"
-                className="p-6 rounded-[var(--radius-2xl)] text-center relative overflow-hidden"
+                className="p-8 rounded-2xl text-center relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-purchase)]/10 via-transparent to-[var(--accent-premium)]/10" />
 
                 <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-full bg-[var(--accent-purchase-soft)] border border-[var(--accent-purchase-border)] flex items-center justify-center mx-auto mb-4">
-                    <Lock className="w-7 h-7 text-[var(--accent-purchase)]" />
+                  <div className="w-16 h-16 rounded-full bg-[var(--accent-purchase-soft)] border border-[var(--accent-purchase-border)] flex items-center justify-center mx-auto mb-5">
+                    <Lock className="w-8 h-8 text-[var(--accent-purchase)]" />
                   </div>
 
-                  <h3 className="text-[var(--text-primary)] text-xl font-black mb-2">
+                  <h3 className="text-[var(--text-primary)] text-xl font-black mb-3">
                     Desbloqueie Todas as Aulas
                   </h3>
 
-                  <p className="text-[var(--text-tertiary)] text-sm mb-4 max-w-md mx-auto">
+                  <p className="text-[var(--text-tertiary)] text-sm mb-5 max-w-md mx-auto">
                     Você completou as aulas gratuitas! Acesse <span className="text-[var(--accent-purchase)] font-bold">18 aulas premium</span> e ferramentas exclusivas
                   </p>
 
-                  <div className="flex items-center justify-center gap-3 mb-5">
+                  <div className="flex items-center justify-center gap-3 mb-6">
                     <span className="text-[var(--text-muted)] text-lg line-through">R$ 997</span>
                     <span className="text-[var(--text-primary)] text-4xl font-black">R$ 397</span>
                   </div>
@@ -428,7 +428,7 @@ export default function CourseDetailV2() {
                     size="lg"
                     fullWidth
                     onClick={() => console.log('Navigate to: sales-video')}
-                    className="font-black shadow-2xl mb-4"
+                    className="font-black shadow-2xl mb-5"
                   >
                     GARANTIR ACESSO PREMIUM
                   </Button>
@@ -459,7 +459,7 @@ export default function CourseDetailV2() {
                 transition={{ delay: 0.45 + index * 0.03 }}
                 onClick={() => handleLessonClick(lesson)}
                 className={cn(
-                  'w-full flex items-center gap-4 p-3 rounded-[var(--radius-lg)] transition-all duration-300 active:scale-[0.99] group relative overflow-hidden',
+                  'w-full flex items-center gap-4 p-4 rounded-xl transition-all duration-300 active:scale-[0.99] group relative overflow-hidden min-h-[88px]',
                   'bg-[var(--glass-surface-1)] border border-[var(--glass-border-subtle)]',
                   'hover:bg-[var(--glass-surface-hover)] hover:border-[var(--glass-border)]',
                   lesson.locked && 'border-l-2 border-l-[var(--accent-purchase)] bg-[var(--accent-purchase-soft)]/5'
@@ -470,7 +470,7 @@ export default function CourseDetailV2() {
                 )}
 
                 {/* Thumbnail */}
-                <div className="relative flex-shrink-0 w-24 h-16 lg:w-28 lg:h-18 rounded-[var(--radius-md)] overflow-hidden shadow-xl">
+                <div className="relative flex-shrink-0 w-28 h-18 lg:w-32 lg:h-20 rounded-xl overflow-hidden shadow-xl">
                   <img
                     src={lesson.thumbnail}
                     alt={lesson.title}
@@ -480,23 +480,23 @@ export default function CourseDetailV2() {
                   {/* Play/Lock overlay */}
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[1px]">
                     {lesson.locked ? (
-                      <div className="w-8 h-8 rounded-full bg-[var(--accent-purchase)] flex items-center justify-center shadow-[0_0_15px_var(--accent-purchase)]">
-                        <Lock className="w-4 h-4 text-white" />
+                      <div className="w-10 h-10 rounded-full bg-[var(--accent-purchase)] flex items-center justify-center shadow-[0_0_15px_var(--accent-purchase)]">
+                        <Lock className="w-5 h-5 text-white" />
                       </div>
                     ) : lesson.completed ? (
-                      <div className="w-8 h-8 rounded-full bg-[var(--accent-primary)]/20 flex items-center justify-center border border-[var(--accent-primary-border)]">
-                        <CheckCircle2 className="w-4 h-4 text-[var(--accent-primary)]" />
+                      <div className="w-10 h-10 rounded-full bg-[var(--accent-primary)]/20 flex items-center justify-center border border-[var(--accent-primary-border)]">
+                        <CheckCircle2 className="w-5 h-5 text-[var(--accent-primary)]" />
                       </div>
                     ) : (
-                      <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:bg-[var(--accent-primary)] group-hover:border-transparent group-hover:text-black transition-all">
-                        <Play className="w-4 h-4 ml-0.5 fill-current" />
+                      <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:bg-[var(--accent-primary)] group-hover:border-transparent group-hover:text-black transition-all">
+                        <Play className="w-5 h-5 ml-0.5 fill-current" />
                       </div>
                     )}
                   </div>
 
                   {/* Type badge */}
                   {lesson.type === 'article' && (
-                    <div className="absolute bottom-1 right-1 px-1.5 py-0.5 bg-[var(--accent-secondary)] rounded text-[8px] text-white font-bold uppercase">
+                    <div className="absolute bottom-1 right-1 px-2 py-0.5 bg-[var(--accent-secondary)] rounded text-[8px] text-white font-bold uppercase">
                       Artigo
                     </div>
                   )}

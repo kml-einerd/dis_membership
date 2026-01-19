@@ -249,8 +249,8 @@ function CommandBar({ value, onChange, onClear, placeholder = "Buscar aulas, mó
                 "focus-within:border-[var(--accent-primary)]/40",
                 "focus-within:shadow-[0_0_30px_rgba(86,232,138,0.15)]"
             )}>
-                <div className="flex items-center gap-3 px-5 py-4">
-                    <Search className="w-5 h-5 text-white/40" />
+                <div className="flex items-center gap-3 px-5 h-14">
+                    <Search className="w-6 h-6 text-white/40" />
                     <input
                         ref={inputRef}
                         type="text"
@@ -299,7 +299,7 @@ function ViewModeToggle({ mode, onChange }: ViewModeToggleProps) {
                     key={id}
                     onClick={() => onChange(id)}
                     className={cn(
-                        "flex items-center gap-2 px-3 py-2 rounded-lg transition-all",
+                        "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all",
                         mode === id
                             ? "bg-[var(--accent-primary)] text-black"
                             : "text-white/50 hover:text-white hover:bg-white/5"
@@ -466,7 +466,7 @@ function ModuleAccordion({ module, isExpanded, onToggle, onLessonClick, index }:
                 {/* Module Header */}
                 <button
                     onClick={onToggle}
-                    className="w-full flex items-center gap-4 p-5 hover:bg-white/[0.02] transition-colors"
+                    className="w-full flex items-center gap-4 p-6 hover:bg-white/[0.02] transition-colors"
                 >
                     {/* Progress or Lock */}
                     {module.locked ? (
@@ -565,7 +565,7 @@ function ModuleCard({ module, onClick, index }: { module: Module; onClick: () =>
                 module.locked
                     ? "bg-black/50 border-[var(--accent-purchase)]/30"
                     : "bg-black/60 border-white/10 group-hover:border-[var(--accent-primary)]/30"
-            )} style={{ aspectRatio: '4/3' }}>
+            )} style={{ aspectRatio: '3/2' }}>
                 {/* Background Image */}
                 {module.imageUrl && (
                     <>

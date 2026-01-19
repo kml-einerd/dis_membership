@@ -62,7 +62,7 @@ function ProfileHero({ onEdit }: { onEdit: () => void }) {
                         <img
                             src="https://images.unsplash.com/photo-1683815251677-8df20f826622?w=300"
                             alt="Avatar"
-                            className="w-28 h-28 lg:w-36 lg:h-36 rounded-3xl object-cover ring-4 ring-white/10"
+                            className="w-32 h-32 lg:w-40 lg:h-40 rounded-3xl object-cover ring-4 ring-white/10"
                         />
                         <button
                             onClick={onEdit}
@@ -77,7 +77,7 @@ function ProfileHero({ onEdit }: { onEdit: () => void }) {
 
                     {/* Info */}
                     <div className="flex-1 text-center lg:text-left">
-                        <h1 className="text-white text-2xl lg:text-3xl font-black mb-1">
+                        <h1 className="text-white text-3xl lg:text-4xl font-black mb-1">
                             Ana Carolina Silva
                         </h1>
 
@@ -137,13 +137,13 @@ function StatsRow() {
                             <GlassSurface
                                 variant="surface-1"
                                 blur="light"
-                                className="flex items-center gap-3 px-4 py-3 rounded-2xl min-w-[140px]"
+                                className="flex items-center gap-3 px-4 py-3 rounded-2xl min-w-[150px]"
                             >
                                 <div
-                                    className="w-10 h-10 rounded-xl flex items-center justify-center"
+                                    className="w-11 h-11 rounded-xl flex items-center justify-center"
                                     style={{ background: color.bg, border: `1px solid ${color.border}` }}
                                 >
-                                    <Icon className="w-5 h-5" style={{ color: color.text }} />
+                                    <Icon className="w-6 h-6" style={{ color: color.text }} />
                                 </div>
                                 <div>
                                     <p className="text-white text-lg font-black">{stat.value}</p>
@@ -269,8 +269,8 @@ function MenuSection({ onNavigate }: { onNavigate: (route: string) => void }) {
                             onClick={() => onNavigate(item.route)}
                             className="w-full flex items-center gap-4 p-4 hover:bg-white/[0.03] transition-colors"
                         >
-                            <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
-                                <Icon className="w-5 h-5 text-white/60" />
+                            <div className="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center">
+                                <Icon className="w-6 h-6 text-white/60" />
                             </div>
                             <span className="flex-1 text-left text-white text-sm font-medium">
                                 {item.label}

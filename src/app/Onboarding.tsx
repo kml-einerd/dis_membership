@@ -96,10 +96,10 @@ export default function OnboardingV2() {
 
       {/* Question */}
       <div className="flex-1 flex flex-col px-6 pt-8">
-        <h1 className="text-[var(--text-primary)] text-2xl font-bold mb-2 leading-tight">
+        <h1 className="text-[var(--text-primary)] text-2xl lg:text-3xl font-bold mb-2 leading-tight">
           {currentQuestion.question}
         </h1>
-        <p className="text-[var(--text-tertiary)] text-sm mb-8">
+        <p className="text-[var(--text-tertiary)] text-sm mb-10">
           Escolha a opção que melhor se adequa a você
         </p>
 
@@ -115,16 +115,16 @@ export default function OnboardingV2() {
                 blur="light"
                 onClick={() => handleSelect(option.id)}
                 className={cn(
-                  'p-5 rounded-[var(--radius-lg)] cursor-pointer transition-all duration-200',
+                  'p-6 rounded-[var(--radius-lg)] cursor-pointer transition-all duration-200',
                   'hover:bg-[var(--glass-surface-2)]',
-                  isSelected && 'ring-2 ring-[var(--accent-primary)] ring-offset-2 ring-offset-[var(--app-bg)]'
+                  isSelected && 'ring-[3px] ring-[var(--accent-primary)] ring-offset-2 ring-offset-[var(--app-bg)]'
                 )}
                 role="button"
                 tabIndex={0}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="text-3xl">{option.icon}</div>
+                    <div className="text-4xl">{option.icon}</div>
                     <span className="text-[var(--text-primary)] font-medium">
                       {option.label}
                     </span>

@@ -18,7 +18,7 @@ export function ArticleHero({
 }: ArticleHeroProps) {
   return (
     <div className="px-6 mb-6">
-      <h1 className="text-white font-medium text-2xl leading-tight mb-3">
+      <h1 className="text-white font-medium text-4xl leading-tight mb-3">
         {title}
       </h1>
       
@@ -28,7 +28,7 @@ export function ArticleHero({
         </p>
       )}
 
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-6 mb-6">
         <div className="flex items-center gap-1.5 text-white/40 text-xs">
           <Clock className="w-3.5 h-3.5" />
           <span>{readTime}</span>
