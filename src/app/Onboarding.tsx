@@ -39,7 +39,10 @@ const questions: Question[] = [
   },
 ];
 
+import { useNavigation } from './App';
+
 export default function OnboardingV2() {
+  const { navigate } = useNavigation();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -56,7 +59,7 @@ export default function OnboardingV2() {
       // Save onboarding completion
       localStorage.setItem('onboarding_complete', 'true');
       localStorage.setItem('onboarding_answers', JSON.stringify(answers));
-      console.log('Navigate to: home');
+      navigate('home');
     } else {
       setCurrentStep(currentStep + 1);
     }
@@ -84,7 +87,7 @@ export default function OnboardingV2() {
           <button
             onClick={() => {
               localStorage.setItem('onboarding_complete', 'true');
-              console.log('Navigate to: home');
+              navigate('home');
             }}
             className="text-[var(--text-tertiary)] text-sm hover:text-[var(--text-primary)] transition-colors"
           >

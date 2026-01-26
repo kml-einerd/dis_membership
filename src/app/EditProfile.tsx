@@ -4,8 +4,10 @@ import { ImageWithFallback } from './components/figma/ImageWithFallback';
 import { PreferenceChip } from './components/PreferenceChip';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassSurface, Button } from './components/design-system';
+import { useNavigation } from './App';
 
 export default function EditProfile() {
+  const { navigate } = useNavigation();
   const [name, setName] = useState('Ana Carolina Silva');
   const [username, setUsername] = useState('anasilva');
   const [phone, setPhone] = useState('+55 11 98765-4321');
@@ -38,7 +40,7 @@ export default function EditProfile() {
     if (hasChanges) {
       setShowUnsavedDialog(true);
     } else {
-      console.log('Go back');
+      navigate('profile');
     }
   };
 
@@ -238,7 +240,7 @@ export default function EditProfile() {
                 onClick={() => {
                   setShowUnsavedDialog(false);
                   setHasChanges(false);
-                  console.log('Go back');
+                  navigate('profile');
                 }}
                 variant="ghost"
                 className="py-4 text-red-400 font-bold hover:bg-red-500/10"

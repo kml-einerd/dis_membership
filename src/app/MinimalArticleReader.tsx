@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigation } from './App';
 import { MinimalArticleTopBar } from './components/MinimalArticleTopBar';
 import { ImageWithFallback } from './components/figma/ImageWithFallback';
 import { Bookmark, CheckCircle } from 'lucide-react';
 
 export default function MinimalArticleReader() {
+  const { navigate } = useNavigation();
   const [isSaved, setIsSaved] = useState(false);
   const [isRead, setIsRead] = useState(false);
 
@@ -13,7 +15,7 @@ export default function MinimalArticleReader() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] pb-12">
-      <MinimalArticleTopBar />
+      <MinimalArticleTopBar onBack={() => navigate('library')} />
 
       <div className="px-6">
         {/* Title */}

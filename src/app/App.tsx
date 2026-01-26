@@ -13,6 +13,11 @@ import ArticleReader from './ArticleReader';
 import Settings from './Settings';
 import EditProfile from './EditProfile';
 import Onboarding from './Onboarding';
+import SalesVideoScreen from './SalesVideoScreen';
+import SalesArticleScreen from './SalesArticleScreen';
+import LockedContentPreview from './LockedContentPreview';
+import LandingPage from './LandingPage';
+import MinimalArticleReader from './MinimalArticleReader';
 
 // Interface para contexto de navegação
 interface NavigationContextType {
@@ -78,6 +83,16 @@ export default function App({ initialScreen = 'home' }: AppProps) {
         return <EditProfile />;
       case 'onboarding':
         return <Onboarding />;
+      case 'sales-video':
+        return <SalesVideoScreen />;
+      case 'sales-article':
+        return <SalesArticleScreen />;
+      case 'locked-preview':
+        return <LockedContentPreview />;
+      case 'landing':
+        return <LandingPage />;
+      case 'minimal-article':
+        return <MinimalArticleReader />;
       default:
         console.warn('[Navigation] Unknown screen:', currentScreen);
         return <Home />;

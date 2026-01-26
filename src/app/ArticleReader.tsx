@@ -11,8 +11,10 @@ import { ArticleSkeleton } from './components/ArticleSkeleton';
 import { LessonInteractionBlock } from './components/community';
 import { mockComments, mockQuestions, mockOrigins } from './utils/mockCommunityData';
 import type { CommentFormData, QuestionFormData } from './components/community/types';
+import { useNavigation } from './App';
 
 export default function ArticleReader() {
+  const { navigate } = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
 
   // Simulate loading
@@ -77,7 +79,7 @@ export default function ArticleReader() {
   return (
     <div className="min-h-screen bg-[#0a0a0f] pb-12">
       <ReadingProgressBar />
-      <ArticleTopBar onBack={() => console.log('Navigate back clicked')} />
+      <ArticleTopBar onBack={() => navigate('library')} />
       
       <ArticleHero
         title="10 Estratégias de Marketing que Funcionam em 2024"
@@ -251,8 +253,7 @@ export default function ArticleReader() {
             console.log('Question submitted:', data);
           }}
           onNavigateToForum={() => {
-            // TODO: Navigate to forum
-            console.log('Navigate to forum');
+            navigate('forum');
           }}
         />
       </div>

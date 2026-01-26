@@ -1,12 +1,17 @@
 import { ArrowLeft } from 'lucide-react';
+import { useNavigation } from './App';
 import { StickyPurchaseCTA } from './components/StickyPurchaseCTA';
 
 export default function SalesArticleScreen() {
+  const { navigate } = useNavigation();
   return (
     <div className="min-h-screen bg-[#0a0a0f] pb-32">
       {/* Header */}
       <div className="px-6 py-4 mb-2">
-        <button className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center">
+        <button
+          onClick={() => navigate('library')}
+          className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center"
+        >
           <ArrowLeft className="w-4 h-4 text-white/80" />
         </button>
       </div>
@@ -145,7 +150,10 @@ export default function SalesArticleScreen() {
                 </p>
               </div>
             </div>
-            <button className="w-full py-3 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-lg transition-colors">
+            <button
+              onClick={() => window.open('https://google.com', '_blank')}
+              className="w-full py-3 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-lg transition-colors"
+            >
               GARANTIR ACESSO COM 60% OFF
             </button>
             <p className="text-white/40 text-xs text-center mt-2">✓ Garantia de 30 dias • ✓ Acesso vitalício</p>
@@ -297,6 +305,7 @@ export default function SalesArticleScreen() {
       <StickyPurchaseCTA
         price="R$ 497"
         originalPrice="R$ 1.247"
+        onClick={() => window.open('https://google.com', '_blank')}
       />
     </div>
   );

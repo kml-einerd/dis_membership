@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { useNavigation } from './App';
 import { SalesVideoPlayer } from './components/SalesVideoPlayer';
 import { BenefitsList } from './components/BenefitsList';
 import { WhatsIncluded } from './components/WhatsIncluded';
@@ -6,6 +7,7 @@ import { FAQAccordion } from './components/FAQAccordion';
 import { StickyPurchaseCTA } from './components/StickyPurchaseCTA';
 
 export default function SalesVideoScreen() {
+  const { navigate } = useNavigation();
   const benefits = [
     { text: 'Sistema validado por +12.847 alunos que já economizaram R$ 5,2 milhões em viagens' },
     { text: 'Acesso vitalício a 120+ cursos + atualizações mensais gratuitas para sempre' },
@@ -82,7 +84,10 @@ export default function SalesVideoScreen() {
     <div className="min-h-screen bg-[#0a0a0f] pb-32">
       {/* Header */}
       <div className="px-6 py-4 mb-2">
-        <button className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center">
+        <button
+          onClick={() => navigate('library')}
+          className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center"
+        >
           <ArrowLeft className="w-4 h-4 text-white/80" />
         </button>
       </div>
@@ -287,7 +292,10 @@ export default function SalesVideoScreen() {
             <p className="text-white/70 text-sm mb-3">
               Você pode ser o próximo a compartilhar sua história de sucesso
             </p>
-            <button className="w-full py-3 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-lg transition-colors">
+            <button
+              onClick={() => window.open('https://google.com', '_blank')}
+              className="w-full py-3 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-lg transition-colors"
+            >
               COMEÇAR AGORA
             </button>
           </div>
@@ -386,7 +394,10 @@ export default function SalesVideoScreen() {
               </div>
             </div>
 
-            <button className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-black rounded-lg transition-colors">
+            <button
+              onClick={() => window.open('https://google.com', '_blank')}
+              className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-black rounded-lg transition-colors"
+            >
               COMEÇAR A ECONOMIZAR AGORA
             </button>
           </div>
@@ -400,6 +411,7 @@ export default function SalesVideoScreen() {
       <StickyPurchaseCTA
         price="R$ 497"
         originalPrice="R$ 1.247"
+        onClick={() => window.open('https://google.com', '_blank')}
       />
     </div>
   );

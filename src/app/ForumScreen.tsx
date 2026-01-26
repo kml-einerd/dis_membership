@@ -20,6 +20,7 @@ import {
   type CommentFormData,
   type QuestionFormData,
 } from './utils/mockCommunityData';
+import { useNavigation } from './App';
 
 // ============================================
 // FORUM SCREEN V2 - REVOLUTIONARY DESIGN
@@ -31,6 +32,7 @@ type ForumTab = 'comments' | 'questions';
 type SortBy = 'recent' | 'popular' | 'helpful';
 
 export default function ForumScreen() {
+  const { navigate, currentScreen } = useNavigation();
   const [activeTab, setActiveTab] = useState<ForumTab>('questions');
   const [sortBy, setSortBy] = useState<SortBy>('recent');
   const [searchQuery, setSearchQuery] = useState('');
@@ -207,7 +209,11 @@ export default function ForumScreen() {
   }, [modalType]);
 
   return (
-    <VeloxLayout>
+    <VeloxLayout
+      currentTab={currentScreen as any}
+      onNavigateTab={(tab) => navigate(tab)}
+      onNavigate={(route) => navigate(route)}
+    >
       {/* Modal Portal - Rendered at document.body level to avoid clipping */}
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
@@ -680,6 +686,7 @@ interface QuestionGroupCardV2Props {
 }
 
 function QuestionGroupCardV2({ group, isExpanded, onToggle, index }: QuestionGroupCardV2Props) {
+  const { navigate } = useNavigation();
   const q = group.canonicalQuestion;
   const hasAnswer = q.answer && q.status === 'answered';
 
@@ -802,7 +809,10 @@ function QuestionGroupCardV2({ group, isExpanded, onToggle, index }: QuestionGro
                       <ThumbsUp className="w-4 h-4" />
                       Isso me ajudou
                     </button>
-                    <button className="flex items-center gap-1 text-xs text-white/40 hover:text-white transition-colors">
+                    <button
+                      onClick={() => navigate('video', { lesson: q.origin.lessonId })}
+                      className="flex items-center gap-1 text-xs text-white/40 hover:text-white transition-colors"
+                    >
                       Ir para a aula
                       <ExternalLink className="w-3.5 h-3.5" />
                     </button>

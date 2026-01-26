@@ -137,8 +137,8 @@ function TopNavDesktop() {
     const navItems = [
         { id: 'home', icon: HomeIcon, label: 'Home' },
         { id: 'library', icon: LibraryIcon, label: 'Biblioteca' },
-        { id: 'forum', icon: MessageSquare, label: 'Fórum' },
-        { id: 'store', icon: ShoppingBag, label: 'Extensões' },
+        { id: 'forum', icon: MessageSquare, label: 'Comunidade' },
+        { id: 'store', icon: ShoppingBag, label: 'Conteúdo Extra' },
     ];
 
     const handleTabClick = (tabId: string) => {
@@ -252,9 +252,9 @@ function BottomNavMobile() {
 
     const navItems = [
         { id: 'home', icon: HomeIcon, label: 'Home' },
-        { id: 'library', icon: LibraryIcon, label: 'Cursos' },
+        { id: 'library', icon: LibraryIcon, label: 'Biblioteca' },
         { id: 'forum', icon: MessageSquare, label: 'Comunidade' },
-        { id: 'store', icon: ShoppingBag, label: 'Upgrade' },
+        { id: 'store', icon: ShoppingBag, label: 'Conteúdo Extra' },
         { id: 'profile', icon: UserIcon, label: 'Perfil' },
     ];
 

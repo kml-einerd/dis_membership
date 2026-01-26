@@ -4,7 +4,10 @@ import { SettingsSection } from './components/SettingsSection';
 import { SettingsRow } from './components/SettingsRow';
 import { GlassSurface, Button } from './components/design-system';
 
+import { useNavigation } from './App';
+
 export default function Settings() {
+  const { navigate } = useNavigation();
   const [quality, setQuality] = useState('Alta');
   const [autoplay, setAutoplay] = useState(true);
   const [speed, setSpeed] = useState('1.0x');
@@ -28,7 +31,7 @@ export default function Settings() {
       {/* Header */}
       <div className="sticky top-0 z-50 flex items-center gap-4 px-6 py-4 bg-[var(--app-bg)]/60 backdrop-blur-xl border-b border-[var(--glass-border)]">
         <button
-          onClick={() => console.log('Go back')}
+          onClick={() => navigate('profile')}
           className="w-10 h-10 rounded-full bg-[var(--glass-surface-2)] border border-[var(--glass-border)] hover:bg-[var(--glass-surface-hover)] transition-all flex items-center justify-center group active:scale-95"
         >
           <ArrowLeft className="w-5 h-5 text-[var(--text-primary)] group-hover:-translate-x-0.5 transition-transform" />
@@ -44,13 +47,13 @@ export default function Settings() {
               icon={CreditCard}
               label="Assinatura e compras"
               showChevron
-              onClick={() => console.log('Navigate to: store')}
+              onClick={() => navigate('store')}
             />
             <SettingsRow
               icon={User}
               label="Dados da conta"
               showChevron
-              onClick={() => console.log('Navigate to: edit-profile')}
+              onClick={() => navigate('edit-profile')}
             />
             <SettingsRow
               icon={LogOut}
@@ -69,7 +72,7 @@ export default function Settings() {
               label="Qualidade padrão"
               value={quality}
               showChevron
-              onClick={() => console.log('Open quality selector')}
+              onClick={() => window.alert('Seletor de qualidade em breve')}
             />
             <SettingsRow
               icon={Zap}
@@ -83,7 +86,7 @@ export default function Settings() {
               label="Velocidade padrão"
               value={speed}
               showChevron
-              onClick={() => console.log('Open speed selector')}
+              onClick={() => window.alert('Seletor de velocidade em breve')}
             />
             <SettingsRow
               icon={Download}
@@ -130,14 +133,14 @@ export default function Settings() {
               label="Tema do sistema"
               value={theme}
               showChevron
-              onClick={() => console.log('Open theme selector')}
+              onClick={() => window.alert('Seletor de tema em breve')}
             />
             <SettingsRow
               icon={Type}
               label="Tamanho da fonte"
               value={font}
               showChevron
-              onClick={() => console.log('Open font selector')}
+              onClick={() => window.alert('Seletor de fonte em breve')}
             />
             <SettingsRow
               icon={Zap}
@@ -156,13 +159,13 @@ export default function Settings() {
               icon={HelpCircle}
               label="Central de ajuda"
               showChevron
-              onClick={() => console.log('Navigate to help')}
+              onClick={() => window.open('https://google.com', '_blank')}
             />
             <SettingsRow
               icon={FileText}
               label="Termos de uso e privacidade"
               showChevron
-              onClick={() => console.log('Navigate to terms')}
+              onClick={() => window.open('https://google.com', '_blank')}
             />
             <div className="px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -193,7 +196,7 @@ export default function Settings() {
               <Button
                 onClick={() => {
                   setShowLogoutDialog(false);
-                  console.log('Logout confirmed');
+                  navigate('onboarding');
                 }}
                 variant="ghost"
                 className="py-4 text-red-400 font-bold hover:bg-red-500/10"

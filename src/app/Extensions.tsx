@@ -12,6 +12,7 @@ import {
 } from './components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './utils/cn';
+import { useNavigation } from './App';
 
 // ==========================================
 // V7 EXTENSIONS - UPSELL & ORDER BUMP OPTIMIZED
@@ -541,9 +542,11 @@ function TestimonialsSection() {
 export default function ExtensionsV7() {
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-    // Handler para navegação (standalone - apenas console.log)
+    // Handler para navegação
+    const { navigate, currentScreen } = useNavigation();
+
     const handleNavigate = (route: string) => {
-        console.log('[ExtensionsV7] Navigation requested:', route);
+        navigate(route);
     };
 
     const toggleItem = (itemId: string) => {
@@ -565,7 +568,11 @@ export default function ExtensionsV7() {
     const totalSavings = totalOriginalPrice - totalComboPrice;
 
     return (
-        <VeloxLayout>
+        <VeloxLayout
+            currentTab={currentScreen as any}
+            onNavigateTab={(tab) => navigate(tab)}
+            onNavigate={(route) => navigate(route)}
+        >
             <div className="px-4 lg:px-8 py-6 lg:py-10 pb-24 lg:pb-10">
                 <div className="max-w-[var(--v7-max-content)] mx-auto">
 
@@ -580,7 +587,7 @@ export default function ExtensionsV7() {
                                 <Package className="w-5 h-5 text-[var(--accent-purchase)]" />
                             </div>
                             <h1 className="text-white text-3xl lg:text-5xl font-black tracking-tight">
-                                Extensões
+                                Conteúdo Extra
                             </h1>
                         </div>
                         <p className="text-white/50 text-sm lg:text-lg">

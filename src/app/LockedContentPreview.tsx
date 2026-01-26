@@ -1,8 +1,10 @@
 import { ArrowLeft, Play } from 'lucide-react';
+import { useNavigation } from './App';
 import { ImageWithFallback } from './components/figma/ImageWithFallback';
 import { PaywallCard } from './components/PaywallCard';
 
 export default function LockedContentPreview() {
+  const { navigate } = useNavigation();
   const benefits = [
     { text: 'Acesso completo a todas as 120 aulas' },
     { text: 'Materiais e templates para download' },
@@ -15,7 +17,10 @@ export default function LockedContentPreview() {
     <div className="min-h-screen bg-[#0a0a0f]">
       {/* Header */}
       <div className="px-6 py-4 mb-2">
-        <button className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center">
+        <button
+          onClick={() => navigate('library')}
+          className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center"
+        >
           <ArrowLeft className="w-4 h-4 text-white/80" />
         </button>
       </div>
@@ -95,6 +100,7 @@ export default function LockedContentPreview() {
           benefits={benefits}
           price="R$ 497"
           originalPrice="R$ 1.247"
+          onClick={() => window.open('https://google.com', '_blank')}
         />
       </div>
     </div>

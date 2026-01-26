@@ -10,6 +10,7 @@ import {
 } from './components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './utils/cn';
+import { useNavigation } from './App';
 
 interface Lesson {
   id: string;
@@ -36,6 +37,7 @@ interface CourseData {
 }
 
 export default function CourseDetailV2() {
+  const { navigate, currentScreen } = useNavigation();
   const [activeModule, setActiveModule] = useState('Todos');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -145,18 +147,18 @@ export default function CourseDetailV2() {
 
   const handleLessonClick = (lesson: Lesson) => {
     if (lesson.locked) {
-      console.log('Navigate to: locked-preview', { lesson });
+      navigate('locked-preview', { lesson });
       return;
     }
     if (lesson.type === 'video') {
-      console.log('Navigate to: video-lesson', { lesson });
+      navigate('video', { lesson });
     } else {
-      console.log('Navigate to: article-reader', { article: lesson });
+      navigate('article', { article: lesson });
     }
   };
 
   const handleGoBack = () => {
-    console.log('Navigate back');
+    navigate('library');
   };
 
   // Get next lesson to continue
@@ -268,7 +270,13 @@ export default function CourseDetailV2() {
   );
 
   return (
-    <VeloxLayout rightSidebar={renderRightSidebar()} showNavigation={false}>
+    <VeloxLayout
+      rightSidebar={renderRightSidebar()}
+      showNavigation={false}
+      currentTab={currentScreen as any}
+      onNavigateTab={(tab) => navigate(tab)}
+      onNavigate={(route) => navigate(route)}
+    >
       <div className="min-h-screen">
         {/* Hero Section - MasterClass Style */}
         <div className="relative">
@@ -427,7 +435,7 @@ export default function CourseDetailV2() {
                     variant="purchase"
                     size="lg"
                     fullWidth
-                    onClick={() => console.log('Navigate to: sales-video')}
+                    onClick={() => navigate('sales-video')}
                     className="font-black shadow-2xl mb-5"
                   >
                     GARANTIR ACESSO PREMIUM

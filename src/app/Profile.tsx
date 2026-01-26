@@ -9,6 +9,7 @@ import {
 } from './components/design-system';
 import { motion } from 'motion/react';
 import { cn } from './utils/cn';
+import { useNavigation } from './App';
 
 // ==========================================
 // V7 PROFILE - ACHIEVEMENT SHOWCASE
@@ -293,17 +294,24 @@ function MenuSection({ onNavigate }: { onNavigate: (route: string) => void }) {
 // MAIN COMPONENT: ProfileV3
 // ==========================================
 export default function ProfileV3() {
-    // Handler para navegação (standalone - apenas console.log)
+    // Handler para navegação
+    const { navigate, currentScreen } = useNavigation();
+
     const handleNavigate = (route: string) => {
-        console.log('[ProfileV3] Navigation requested:', route);
+        navigate(route);
     };
 
     const handleLogout = () => {
-        console.log('[ProfileV3] Logout requested');
+        // Simulando logout indo para landing ou onboarding
+        navigate('onboarding');
     };
 
     return (
-        <VeloxLayout>
+        <VeloxLayout
+            currentTab={currentScreen as any}
+            onNavigateTab={(tab) => navigate(tab)}
+            onNavigate={(route) => navigate(route)}
+        >
             <div className="px-4 lg:px-8 py-6 lg:py-10 pb-24 lg:pb-10">
                 <div className="max-w-[var(--v7-max-content)] mx-auto">
 

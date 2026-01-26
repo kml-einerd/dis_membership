@@ -37,8 +37,8 @@ interface NavItem {
 const navItems: NavItem[] = [
   { id: 'home', icon: Home, label: 'Home' },
   { id: 'library', icon: Library, label: 'Biblioteca' },
-  { id: 'forum', icon: MessageSquare, label: 'Fórum' },
-  { id: 'store', icon: ShoppingBag, label: 'Extensões' },
+  { id: 'forum', icon: MessageSquare, label: 'Comunidade' },
+  { id: 'store', icon: ShoppingBag, label: 'Conteúdo Extra' },
 ];
 
 export function VeloxLayout({

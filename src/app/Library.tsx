@@ -14,6 +14,7 @@ import {
 } from './components/design-system';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './utils/cn';
+import { useNavigation } from './App';
 
 // ==========================================
 // LIBRARY V4 — REVOLUTIONARY COMMAND CENTER
@@ -690,6 +691,7 @@ function ModuleCompactRow({ module, onClick, index }: { module: Module; onClick:
 // EXTENSION PROMO CARD (Contextual Upsell)
 // ==========================================
 function ExtensionPromoCard({ promo, index }: { promo: ExtensionPromo; index: number }) {
+    const { navigate } = useNavigation();
     const Icon = promo.icon;
 
     return (
@@ -699,7 +701,7 @@ function ExtensionPromoCard({ promo, index }: { promo: ExtensionPromo; index: nu
             transition={{ delay: index * 0.05 }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => console.log(`Extension clicked: ${promo.id}`)}
+            onClick={() => navigate('store')}
             className="w-full text-left"
         >
             <div
@@ -808,6 +810,7 @@ function GlobalProgressHeader({ course }: { course: Course }) {
 // MAIN COMPONENT: LibraryV4
 // ==========================================
 export default function LibraryV4() {
+    const { navigate, currentScreen } = useNavigation();
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFilter, setActiveFilter] = useState('Todos');
     const [viewMode, setViewMode] = useState<ViewMode>('list');
@@ -835,18 +838,18 @@ export default function LibraryV4() {
     // Handle lesson click
     const handleLessonClick = (lesson: Lesson) => {
         if (lesson.locked) {
-            console.log('Navigate to: locked-preview', { lesson });
+            navigate('locked-preview', { lesson });
         } else if (lesson.type === 'video') {
-            console.log('Navigate to: video-lesson', { lesson });
+            navigate('video', { lesson });
         } else {
-            console.log('Navigate to: article-reader', { lesson });
+            navigate('article', { lesson });
         }
     };
 
     // Handle module click (for grid/compact)
     const handleModuleClick = (module: Module) => {
         if (module.locked) {
-            console.log('Navigate to: locked-preview', { module });
+            navigate('locked-preview', { module });
         } else {
             toggleModule(module.id);
             setViewMode('list');
@@ -885,7 +888,11 @@ export default function LibraryV4() {
     }, [searchQuery, activeFilter]);
 
     return (
-        <VeloxLayout>
+        <VeloxLayout
+            currentTab={currentScreen as any}
+            onNavigateTab={(tab) => navigate(tab)}
+            onNavigate={(route) => navigate(route)}
+        >
             <div className="px-4 lg:px-8 py-6 lg:py-10 pb-24 lg:pb-10">
                 <div className="max-w-[var(--v7-max-content)] mx-auto">
 
@@ -1168,7 +1175,7 @@ export default function LibraryV4() {
                                     <Button
                                         variant="purchase"
                                         size="lg"
-                                        onClick={() => console.log('Navigate to: store')}
+                                        onClick={() => navigate('store')}
                                         className="font-black"
                                     >
                                         Ver planos

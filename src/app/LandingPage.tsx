@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
+import { useNavigation } from './App';
 import { ChevronDown, CheckCircle2, Lock, Play, Star, TrendingUp, Users, Award, Shield, Zap, Target, ArrowRight, X } from 'lucide-react';
 
 const LandingPage = () => {
+  const { navigate } = useNavigation();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [showVideoModal, setShowVideoModal] = useState(false);
@@ -56,7 +58,10 @@ const LandingPage = () => {
             transition={{ delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
-            <button className="px-8 py-4 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-white font-black rounded-xl text-base uppercase tracking-wider hover:scale-105 transition-transform shadow-2xl shadow-[var(--accent-primary)]/30 w-full sm:w-auto">
+            <button
+              onClick={() => navigate('onboarding')}
+              className="px-8 py-4 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-white font-black rounded-xl text-base uppercase tracking-wider hover:scale-105 transition-transform shadow-2xl shadow-[var(--accent-primary)]/30 w-full sm:w-auto"
+            >
               Começar Agora
             </button>
             <button
@@ -361,6 +366,7 @@ const LandingPage = () => {
                 </ul>
 
                 <button
+                  onClick={() => navigate('onboarding')}
                   className={`w-full py-4 rounded-xl font-black text-sm uppercase tracking-wider transition-all ${
                     plan.popular
                       ? 'bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-white hover:scale-105 shadow-xl'
@@ -483,7 +489,10 @@ const LandingPage = () => {
               Junte-se a mais de 15.000 membros que já estão alcançando resultados extraordinários
             </p>
 
-            <button className="px-12 py-5 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-white font-black rounded-xl text-lg uppercase tracking-wider hover:scale-105 transition-transform shadow-2xl shadow-[var(--accent-primary)]/30 mb-6">
+            <button
+              onClick={() => navigate('onboarding')}
+              className="px-12 py-5 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-white font-black rounded-xl text-lg uppercase tracking-wider hover:scale-105 transition-transform shadow-2xl shadow-[var(--accent-primary)]/30 mb-6"
+            >
               Garantir Minha Vaga Agora
               <ArrowRight className="inline ml-2 w-5 h-5" />
             </button>
